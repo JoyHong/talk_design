@@ -5,13 +5,20 @@ import '../components/talk_input_styles.dart';
 class TalkTheme {
   const TalkTheme._();
 
-  static ThemeData light() => ThemeData(
-        useMaterial3: true,
-        fontFamily: 'Roboto',
-        colorScheme: ColorScheme.fromSeed(seedColor: TalkColors.light.main),
-        extensions: const [
-          TalkColors.light,
-          TalkInputStyles.light,
-        ],
-      );
+  static ThemeData light() {
+    final base = ThemeData(
+      useMaterial3: true,
+      fontFamily: 'Roboto',
+      colorScheme: ColorScheme.fromSeed(seedColor: TalkColors.light.main),
+      extensions: const [
+        TalkColors.light,
+        TalkInputStyles.light,
+      ],
+    );
+    return base.copyWith(
+      textTheme: base.textTheme.copyWith(
+        labelLarge: base.textTheme.labelLarge!.copyWith(letterSpacing: 0),
+      ),
+    );
+  }
 }

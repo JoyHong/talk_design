@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../tokens/talk_colors.dart';
+import '../tokens/talk_typography.dart';
 
 enum _V {
   textTheme,
@@ -100,21 +101,8 @@ class TalkButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   // ── 共用文字样式 ────────────────────────────────────────────────────────────
-  static const _style14Medium = TextStyle(
-    fontFamily: 'Roboto',
-    fontSize: 14,
-    height: 20 / 14,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0,
-  );
-
-  static const _style14Bold = TextStyle(
-    fontFamily: 'Roboto',
-    fontSize: 14,
-    height: 20 / 14,
-    fontWeight: FontWeight.w700,
-    letterSpacing: 0,
-  );
+  static const _style14Medium = TalkTypography.bodyMedium;
+  static const _style14Bold = TalkTypography.labelLarge;
 
   // ── 尺寸约束（适用于文字/填充/描边按钮） ───────────────────────────────────
   static const _minSize = WidgetStatePropertyAll<Size>(Size(72, 30));
@@ -289,13 +277,7 @@ class TalkButton extends StatelessWidget {
             return TalkColors.light.main;
           }),
           overlayColor: _noOverlay,
-          textStyle: const WidgetStatePropertyAll(TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 12,
-            height: 16 / 12,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 0,
-          )),
+          textStyle: const WidgetStatePropertyAll(TalkTypography.bodySmall),
           padding: const WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           ),

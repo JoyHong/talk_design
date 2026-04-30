@@ -17,6 +17,10 @@ void main() {
       final colors = theme.extension<TalkColors>()!;
       expect(colors.main, const Color(0xFFFF2C55));
     });
+
+    test('light() labelLarge letterSpacing is 0', () {
+      expect(TalkTheme.light().textTheme.labelLarge!.letterSpacing, 0);
+    });
   });
 
   group('BuildContext extensions', () {
