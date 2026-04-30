@@ -44,6 +44,7 @@ class TalkButtonStyles extends ThemeExtension<TalkButtonStyles> {
   final ButtonStyle textSecondaryRipple;
   final TalkBlockButtonColors block;
 
+  // ButtonStyle 依赖 WidgetStateProperty.resolveWith 无法 const 化，因此使用 static final。
   static final light = TalkButtonStyles(
     textTheme: _textTheme(),
     textSecondary: _textSecondary(),

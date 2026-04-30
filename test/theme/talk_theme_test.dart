@@ -57,7 +57,7 @@ void main() {
           return const SizedBox();
         }),
       ));
-      expect(result.level1.fillColor, const Color(0xFFF5F5F5));
+      expect(result.level1FillColor, const Color(0xFFF5F5F5));
     });
   });
 }
