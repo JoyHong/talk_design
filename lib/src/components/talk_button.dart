@@ -100,10 +100,6 @@ class TalkButton extends StatelessWidget {
   final Widget? icon;
   final VoidCallback? onPressed;
 
-  // ── 共用文字样式 ────────────────────────────────────────────────────────────
-  static const _style14Medium = TalkTypography.bodyMedium;
-  static const _style14Bold = TalkTypography.labelLarge;
-
   // ── 尺寸约束（适用于文字/填充/描边按钮） ───────────────────────────────────
   static const _minSize = WidgetStatePropertyAll<Size>(Size(72, 30));
   static const _maxSize = WidgetStatePropertyAll<Size>(Size(400, 52));
@@ -133,7 +129,7 @@ class TalkButton extends StatelessWidget {
           foregroundColor: WidgetStateProperty.resolveWith(_textForeground),
           backgroundColor: WidgetStateProperty.resolveWith(_textBackground),
           overlayColor: _noOverlay,
-          textStyle: const WidgetStatePropertyAll(_style14Medium),
+          textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
           minimumSize: _minSize,
           maximumSize: _maxSize,
           padding: _stdPadding,
@@ -188,7 +184,7 @@ class TalkButton extends StatelessWidget {
           return Colors.white;
         }),
         overlayColor: _noOverlay,
-        textStyle: WidgetStatePropertyAll(hasIcon ? _style14Bold : _style14Medium),
+        textStyle: WidgetStatePropertyAll(hasIcon ? TalkTypography.labelLarge : TalkTypography.bodyMedium),
         minimumSize: _minSize,
         maximumSize: _maxSize,
         padding: _stdPadding,
@@ -226,7 +222,7 @@ class TalkButton extends StatelessWidget {
           return BorderSide(color: TalkColors.light.textSecondary, width: 2);
         }),
         overlayColor: _noOverlay,
-        textStyle: const WidgetStatePropertyAll(_style14Medium),
+        textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
         minimumSize: _minSize,
         maximumSize: _maxSize,
         padding: _stdPadding,
