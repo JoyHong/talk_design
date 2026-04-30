@@ -8,7 +8,7 @@ class ColorsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.talkColors;
     final items = [
-      ('themeColor', colors.themeColor),
+      ('main', colors.main),
       ('textMain', colors.textMain),
       ('textSecondary', colors.textSecondary),
       ('backgroundLevel1', colors.backgroundLevel1),

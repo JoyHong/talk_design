@@ -16,10 +16,10 @@ void main() {
       expect(TalkTheme.light().extension<TalkInputStyles>(), isNotNull);
     });
 
-    test('light() colorScheme seed matches themeColor', () {
+    test('light() colorScheme seed matches main', () {
       final theme = TalkTheme.light();
       final colors = theme.extension<TalkColors>()!;
-      expect(colors.themeColor, const Color(0xFFFF2C55));
+      expect(colors.main, const Color(0xFFFF2C55));
     });
   });
 
@@ -33,7 +33,7 @@ void main() {
           return const SizedBox();
         }),
       ));
-      expect(result.themeColor, const Color(0xFFFF2C55));
+      expect(result.main, const Color(0xFFFF2C55));
     });
 
     testWidgets('talkButtonStyles returns TalkButtonStyles from context', (tester) async {

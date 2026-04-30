@@ -5,8 +5,8 @@ import 'package:talk_design/src/tokens/talk_colors.dart';
 
 void main() {
   group('TalkColors', () {
-    test('light has correct themeColor', () {
-      expect(TalkColors.light.themeColor, const Color(0xFFFF2C55));
+    test('light has correct main', () {
+      expect(TalkColors.light.main, const Color(0xFFFF2C55));
     });
 
     test('light has all 17 tokens with correct values', () {
@@ -31,15 +31,15 @@ void main() {
 
     test('copyWith replaces only specified field', () {
       final modified = TalkColors.light.copyWith(
-        themeColor: const Color(0xFF000000),
+        main: const Color(0xFF000000),
       );
-      expect(modified.themeColor, const Color(0xFF000000));
+      expect(modified.main, const Color(0xFF000000));
       expect(modified.textMain, TalkColors.light.textMain);
     });
 
     test('lerp at t=0 returns self values', () {
       final lerped = TalkColors.light.lerp(TalkColors.light, 0);
-      expect(lerped.themeColor, TalkColors.light.themeColor);
+      expect(lerped.main, TalkColors.light.main);
     });
   });
 }

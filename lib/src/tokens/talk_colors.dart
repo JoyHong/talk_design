@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TalkColors extends ThemeExtension<TalkColors> {
   const TalkColors({
-    required this.themeColor,
+    required this.main,
     required this.textMain,
     required this.textSecondary,
     required this.backgroundLevel1,
@@ -21,7 +21,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
     required this.redDotError,
   });
 
-  final Color themeColor;
+  final Color main;
   final Color textMain;
   final Color textSecondary;
   final Color backgroundLevel1;
@@ -40,7 +40,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
   final Color redDotError;
 
   static const light = TalkColors(
-    themeColor: Color(0xFFFF2C55),
+    main: Color(0xFFFF2C55),
     textMain: Color(0xFF262626),
     textSecondary: Color(0xFFAAAAAA),
     backgroundLevel1: Color(0xFFFFFFFF),
@@ -61,7 +61,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
 
   @override
   TalkColors copyWith({
-    Color? themeColor,
+    Color? main,
     Color? textMain,
     Color? textSecondary,
     Color? backgroundLevel1,
@@ -80,7 +80,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
     Color? redDotError,
   }) =>
       TalkColors(
-        themeColor: themeColor ?? this.themeColor,
+        main: main ?? this.main,
         textMain: textMain ?? this.textMain,
         textSecondary: textSecondary ?? this.textSecondary,
         backgroundLevel1: backgroundLevel1 ?? this.backgroundLevel1,
@@ -103,7 +103,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
   TalkColors lerp(TalkColors? other, double t) {
     if (other is! TalkColors) return this;
     return TalkColors(
-      themeColor: Color.lerp(themeColor, other.themeColor, t)!,
+      main: Color.lerp(main, other.main, t)!,
       textMain: Color.lerp(textMain, other.textMain, t)!,
       textSecondary: Color.lerp(textSecondary, other.textSecondary, t)!,
       backgroundLevel1: Color.lerp(backgroundLevel1, other.backgroundLevel1, t)!,

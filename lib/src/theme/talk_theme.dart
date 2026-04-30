@@ -7,7 +7,7 @@ class TalkTheme {
   const TalkTheme._();
 
   static ThemeData light() => ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: TalkColors.light.themeColor),
+        colorScheme: ColorScheme.fromSeed(seedColor: TalkColors.light.main),
         extensions: [
           TalkColors.light,
           TalkButtonStyles.light,
