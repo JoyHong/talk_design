@@ -7,6 +7,8 @@ class TalkTheme {
   const TalkTheme._();
 
   static ThemeData light() => ThemeData(
+        useMaterial3: true,
+        fontFamily: 'Roboto',
         colorScheme: ColorScheme.fromSeed(seedColor: TalkColors.light.main),
         extensions: [
           TalkColors.light,
