@@ -9,30 +9,32 @@ class TalkInputStyles extends ThemeExtension<TalkInputStyles> {
   final Color level1FillColor;
   final Color level2FillColor;
 
-  static const light = TalkInputStyles(
+  static const TalkInputStyles light = TalkInputStyles(
     level1FillColor: Color(0xFFF5F5F5),
     level2FillColor: Color(0xFFFFFFFF),
   );
 
-  InputDecoration get level1 => InputDecoration(
+  InputDecoration _buildDecoration(Color fillColor) => InputDecoration(
         filled: true,
-        fillColor: level1FillColor,
+        fillColor: fillColor,
         border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4),
           borderSide: BorderSide.none,
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       );
 
-  InputDecoration get level2 => InputDecoration(
-        filled: true,
-        fillColor: level2FillColor,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide.none,
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      );
+  InputDecoration get level1 => _buildDecoration(level1FillColor);
+
+  InputDecoration get level2 => _buildDecoration(level2FillColor);
 
   @override
   TalkInputStyles copyWith({
