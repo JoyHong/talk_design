@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../tokens/talk_colors.dart';
-import '../components/talk_button_styles.dart';
 import '../components/talk_input_styles.dart';
 
 class TalkTheme {
@@ -10,9 +9,8 @@ class TalkTheme {
         useMaterial3: true,
         fontFamily: 'Roboto',
         colorScheme: ColorScheme.fromSeed(seedColor: TalkColors.light.main),
-        extensions: [
+        extensions: const [
           TalkColors.light,
-          TalkButtonStyles.light,
           TalkInputStyles.light,
         ],
       );
