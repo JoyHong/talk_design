@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../tokens/talk_colors.dart';
 
 enum _V {
   textTheme,
@@ -165,20 +166,20 @@ class TalkButton extends StatelessWidget {
           ? const Color(0xFFE5284D)
           : s.contains(WidgetState.hovered)
               ? const Color(0xFFFF4569)
-              : const Color(0xFFFF2C55),
+              : TalkColors.light.main,
       _V.textSecondary => s.contains(WidgetState.pressed)
           ? const Color(0xFF777777)
           : s.contains(WidgetState.hovered)
               ? const Color(0xFF888888)
-              : const Color(0xFFAAAAAA),
-      _ => const Color(0xFFAAAAAA), // textSecondaryRipple 文字色不随状态变
+              : TalkColors.light.textSecondary,
+      _ => TalkColors.light.textSecondary, // textSecondaryRipple 文字色不随状态变
     };
   }
 
   Color _textBackground(Set<WidgetState> s) {
     if (_variant != _V.textSecondaryRipple) return Colors.transparent;
-    if (s.contains(WidgetState.pressed)) return const Color(0x33999999);
-    if (s.contains(WidgetState.hovered)) return const Color(0x1A999999);
+    if (s.contains(WidgetState.pressed)) return TalkColors.light.listCardMenuPressed;
+    if (s.contains(WidgetState.hovered)) return TalkColors.light.listCardMenuFloating;
     return Colors.transparent;
   }
 
@@ -192,7 +193,7 @@ class TalkButton extends StatelessWidget {
           if (s.contains(WidgetState.disabled)) return const Color(0x424F4F4F);
           if (s.contains(WidgetState.pressed)) return const Color(0xFFE5284D);
           if (s.contains(WidgetState.hovered)) return const Color(0xFFFF4569);
-          return const Color(0xFFFF2C55);
+          return TalkColors.light.main;
         }),
         foregroundColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
@@ -228,13 +229,13 @@ class TalkButton extends StatelessWidget {
         }),
         foregroundColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
-          return const Color(0xFF262626);
+          return TalkColors.light.textMain;
         }),
         side: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) {
             return const BorderSide(color: Color(0x1F000000), width: 2);
           }
-          return const BorderSide(color: Color(0xFFAAAAAA), width: 2);
+          return BorderSide(color: TalkColors.light.textSecondary, width: 2);
         }),
         overlayColor: _noOverlay,
         textStyle: const WidgetStatePropertyAll(_style14Medium),
@@ -258,12 +259,12 @@ class TalkButton extends StatelessWidget {
         onPressed: onPressed,
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.resolveWith((s) {
-            if (s.contains(WidgetState.disabled)) return const Color(0x33999999);
-            if (s.contains(WidgetState.pressed)) return const Color(0x33999999);
-            if (s.contains(WidgetState.hovered)) return const Color(0x1A999999);
+            if (s.contains(WidgetState.disabled)) return TalkColors.light.listCardMenuPressed;
+            if (s.contains(WidgetState.pressed)) return TalkColors.light.listCardMenuPressed;
+            if (s.contains(WidgetState.hovered)) return TalkColors.light.listCardMenuFloating;
             return Colors.transparent;
           }),
-          foregroundColor: const WidgetStatePropertyAll(Color(0xFFFF2C55)),
+          foregroundColor: WidgetStatePropertyAll(TalkColors.light.main),
           overlayColor: _noOverlay,
           minimumSize: const WidgetStatePropertyAll(Size(36, 36)),
           maximumSize: const WidgetStatePropertyAll(Size(36, 36)),
@@ -279,13 +280,13 @@ class TalkButton extends StatelessWidget {
         onPressed: onPressed,
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.resolveWith((s) {
-            if (s.contains(WidgetState.pressed)) return const Color(0x33999999);
-            if (s.contains(WidgetState.hovered)) return const Color(0x1A999999);
+            if (s.contains(WidgetState.pressed)) return TalkColors.light.listCardMenuPressed;
+            if (s.contains(WidgetState.hovered)) return TalkColors.light.listCardMenuFloating;
             return Colors.transparent;
           }),
           foregroundColor: WidgetStateProperty.resolveWith((s) {
             if (s.contains(WidgetState.disabled)) return const Color(0x333C3C43);
-            return const Color(0xFFFF2C55);
+            return TalkColors.light.main;
           }),
           overlayColor: _noOverlay,
           textStyle: const WidgetStatePropertyAll(TextStyle(
