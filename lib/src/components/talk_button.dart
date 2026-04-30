@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../tokens/talk_colors.dart';
 import '../tokens/talk_typography.dart';
+import '../theme/talk_context_extensions.dart';
 
 enum _V {
   textTheme,
@@ -114,32 +115,35 @@ class TalkButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (_variant) {
-      _V.fillTheme || _V.fillThemeIcon => _buildFill(),
-      _V.strokeSecondary || _V.strokeSecondaryIcon => _buildStroke(),
-      _V.themeIcon => _buildIconOnly(),
-      _V.block => _buildBlock(),
-      _ => _buildText(),
+      _V.fillTheme || _V.fillThemeIcon => _buildFill(context),
+      _V.strokeSecondary || _V.strokeSecondaryIcon => _buildStroke(context),
+      _V.themeIcon => _buildIconOnly(context),
+      _V.block => _buildBlock(context),
+      _ => _buildText(context),
     };
   }
 
   // ── 文字按钮（textTheme / textSecondary / textSecondaryRipple） ─────────────
-  Widget _buildText() => TextButton(
-        onPressed: onPressed,
-        style: ButtonStyle(
-          foregroundColor: WidgetStateProperty.resolveWith(_textForeground),
-          backgroundColor: WidgetStateProperty.resolveWith(_textBackground),
-          overlayColor: _noOverlay,
-          textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
-          minimumSize: _minSize,
-          maximumSize: _maxSize,
-          padding: _stdPadding,
-          shape: _stadiumShape,
-          elevation: _noElevation,
-        ),
-        child: Text(label!),
-      );
+  Widget _buildText(BuildContext context) {
+    final colors = context.talkColors;
+    return TextButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        foregroundColor: WidgetStateProperty.resolveWith((s) => _textForeground(s, colors)),
+        backgroundColor: WidgetStateProperty.resolveWith((s) => _textBackground(s, colors)),
+        overlayColor: _noOverlay,
+        textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
+        minimumSize: _minSize,
+        maximumSize: _maxSize,
+        padding: _stdPadding,
+        shape: _stadiumShape,
+        elevation: _noElevation,
+      ),
+      child: Text(label!),
+    );
+  }
 
-  Color _textForeground(Set<WidgetState> s) {
+  Color _textForeground(Set<WidgetState> s, TalkColors colors) {
     if (s.contains(WidgetState.disabled)) {
       return _variant == _V.textTheme
           ? const Color(0x333C3C43)
@@ -150,25 +154,26 @@ class TalkButton extends StatelessWidget {
           ? const Color(0xFFE5284D)
           : s.contains(WidgetState.hovered)
               ? const Color(0xFFFF4569)
-              : TalkColors.light.main,
+              : colors.main,
       _V.textSecondary => s.contains(WidgetState.pressed)
           ? const Color(0xFF777777)
           : s.contains(WidgetState.hovered)
               ? const Color(0xFF888888)
-              : TalkColors.light.textSecondary,
-      _ => TalkColors.light.textSecondary, // textSecondaryRipple 文字色不随状态变
+              : colors.textSecondary,
+      _ => colors.textSecondary, // textSecondaryRipple 文字色不随状态变
     };
   }
 
-  Color _textBackground(Set<WidgetState> s) {
+  Color _textBackground(Set<WidgetState> s, TalkColors colors) {
     if (_variant != _V.textSecondaryRipple) return Colors.transparent;
-    if (s.contains(WidgetState.pressed)) return TalkColors.light.listCardMenuPressed;
-    if (s.contains(WidgetState.hovered)) return TalkColors.light.listCardMenuFloating;
+    if (s.contains(WidgetState.pressed)) return colors.listCardMenuPressed;
+    if (s.contains(WidgetState.hovered)) return colors.listCardMenuFloating;
     return Colors.transparent;
   }
 
   // ── 填充按钮（fillTheme / fillThemeIcon） ──────────────────────────────────
-  Widget _buildFill() {
+  Widget _buildFill(BuildContext context) {
+    final colors = context.talkColors;
     final hasIcon = _variant == _V.fillThemeIcon;
     return TextButton(
       onPressed: onPressed,
@@ -177,7 +182,7 @@ class TalkButton extends StatelessWidget {
           if (s.contains(WidgetState.disabled)) return const Color(0x424F4F4F);
           if (s.contains(WidgetState.pressed)) return const Color(0xFFE5284D);
           if (s.contains(WidgetState.hovered)) return const Color(0xFFFF4569);
-          return TalkColors.light.main;
+          return colors.main;
         }),
         foregroundColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
@@ -201,7 +206,8 @@ class TalkButton extends StatelessWidget {
   }
 
   // ── 描边按钮（strokeSecondary / strokeSecondaryIcon） ──────────────────────
-  Widget _buildStroke() {
+  Widget _buildStroke(BuildContext context) {
+    final colors = context.talkColors;
     final hasIcon = _variant == _V.strokeSecondaryIcon;
     return TextButton(
       onPressed: onPressed,
@@ -213,13 +219,13 @@ class TalkButton extends StatelessWidget {
         }),
         foregroundColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
-          return TalkColors.light.textMain;
+          return colors.textMain;
         }),
         side: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) {
             return const BorderSide(color: Color(0x1F000000), width: 2);
           }
-          return BorderSide(color: TalkColors.light.textSecondary, width: 2);
+          return BorderSide(color: colors.textSecondary, width: 2);
         }),
         overlayColor: _noOverlay,
         textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
@@ -239,16 +245,18 @@ class TalkButton extends StatelessWidget {
   }
 
   // ── 纯图标按钮（themeIcon，36×36） ────────────────────────────────────────
-  Widget _buildIconOnly() => TextButton(
+  Widget _buildIconOnly(BuildContext context) {
+    final colors = context.talkColors;
+    return TextButton(
         onPressed: onPressed,
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.resolveWith((s) {
-            if (s.contains(WidgetState.disabled)) return TalkColors.light.listCardMenuPressed;
-            if (s.contains(WidgetState.pressed)) return TalkColors.light.listCardMenuPressed;
-            if (s.contains(WidgetState.hovered)) return TalkColors.light.listCardMenuFloating;
+            if (s.contains(WidgetState.disabled)) return colors.listCardMenuPressed;
+            if (s.contains(WidgetState.pressed)) return colors.listCardMenuPressed;
+            if (s.contains(WidgetState.hovered)) return colors.listCardMenuFloating;
             return Colors.transparent;
           }),
-          foregroundColor: WidgetStatePropertyAll(TalkColors.light.main),
+          foregroundColor: WidgetStatePropertyAll(colors.main),
           overlayColor: _noOverlay,
           minimumSize: const WidgetStatePropertyAll(Size(36, 36)),
           maximumSize: const WidgetStatePropertyAll(Size(36, 36)),
@@ -258,19 +266,22 @@ class TalkButton extends StatelessWidget {
         ),
         child: icon!,
       );
+  }
 
   // ── 块状按钮（图标居上、文字居下） ───────────────────────────────────────
-  Widget _buildBlock() => TextButton(
+  Widget _buildBlock(BuildContext context) {
+    final colors = context.talkColors;
+    return TextButton(
         onPressed: onPressed,
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.resolveWith((s) {
-            if (s.contains(WidgetState.pressed)) return TalkColors.light.listCardMenuPressed;
-            if (s.contains(WidgetState.hovered)) return TalkColors.light.listCardMenuFloating;
+            if (s.contains(WidgetState.pressed)) return colors.listCardMenuPressed;
+            if (s.contains(WidgetState.hovered)) return colors.listCardMenuFloating;
             return Colors.transparent;
           }),
           foregroundColor: WidgetStateProperty.resolveWith((s) {
             if (s.contains(WidgetState.disabled)) return const Color(0x333C3C43);
-            return TalkColors.light.main;
+            return colors.main;
           }),
           overlayColor: _noOverlay,
           textStyle: const WidgetStatePropertyAll(TalkTypography.bodySmall),
@@ -297,4 +308,5 @@ class TalkButton extends StatelessWidget {
           ],
         ),
       );
+  }
 }
