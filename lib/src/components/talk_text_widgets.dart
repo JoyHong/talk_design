@@ -152,8 +152,8 @@ class LabelSmall extends _TalkText {
 
 // ── Body ──────────────────────────────────────────────────────────────────────
 
-class BodyExtraLarge extends _TalkText {
-  const BodyExtraLarge(super.data, {super.key, super.color, super.textAlign, super.maxLines, super.overflow});
+class BodyLarge2 extends _TalkText {
+  const BodyLarge2(super.data, {super.key, super.color, super.textAlign, super.maxLines, super.overflow});
   @override double get _size => 18;
   @override double get _lineHeight => 26;
   @override FontWeight get _weight => FontWeight.w500;

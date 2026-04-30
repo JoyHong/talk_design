@@ -29,7 +29,7 @@ class TypographyPage extends StatelessWidget {
         _Row('LabelMedium', '12 / 16 / Bold', LabelMedium('设计系统 Design System')),
         _Row('LabelSmall', '11 / 16 / Bold', LabelSmall('设计系统 Design System')),
         _Category('Body'),
-        _Row('BodyExtraLarge', '18 / 26 / Medium', BodyExtraLarge('设计系统 Design System')),
+        _Row('BodyLarge2', '18 / 26 / Medium', BodyLarge2('设计系统 Design System')),
         _Row('BodyLarge', '16 / 24 / Medium', BodyLarge('设计系统 Design System')),
         _Row('BodyMedium', '14 / 20 / Medium', BodyMedium('设计系统 Design System')),
         _Row('BodySmall', '12 / 16 / Medium', BodySmall('设计系统 Design System')),

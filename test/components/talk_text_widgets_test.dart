@@ -123,8 +123,8 @@ void main() {
 
   // ── Body ─────────────────────────────────────────────────────────────────
 
-  testWidgets('BodyExtraLarge: 18/26/w500', (tester) async {
-    await tester.pumpWidget(_wrap(const BodyExtraLarge('x')));
+  testWidgets('BodyLarge2: 18/26/w500', (tester) async {
+    await tester.pumpWidget(_wrap(const BodyLarge2('x')));
     final style = _styleOf(tester);
     expect(style.fontSize, 18);
     expect(style.height, closeTo(26 / 18, 0.001));
