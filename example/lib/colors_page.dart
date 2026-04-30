@@ -18,7 +18,7 @@ class ColorsPage extends StatelessWidget {
       ('inputBoxLevel1', colors.inputBoxLevel1),
       ('inputBoxLevel2', colors.inputBoxLevel2),
       ('messageBubble', colors.messageBubble),
-      ('listPopUpWindow', colors.listPopUpWindow),
+      ('listDialogBox', colors.listDialogBox),
       ('sidePopUp', colors.sidePopUp),
       ('buttonBlock', colors.buttonBlock),
       ('listCardMenuFloating', colors.listCardMenuFloating),

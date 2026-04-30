@@ -12,7 +12,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
     required this.inputBoxLevel1,
     required this.inputBoxLevel2,
     required this.messageBubble,
-    required this.listPopUpWindow,
+    required this.listDialogBox,
     required this.sidePopUp,
     required this.buttonBlock,
     required this.listCardMenuFloating,
@@ -31,7 +31,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
   final Color inputBoxLevel1;
   final Color inputBoxLevel2;
   final Color messageBubble;
-  final Color listPopUpWindow;
+  final Color listDialogBox;
   final Color sidePopUp;
   final Color buttonBlock;
   final Color listCardMenuFloating;  // #999999 @ 10%
@@ -50,7 +50,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
     inputBoxLevel1: Color(0xFFF5F5F5),
     inputBoxLevel2: Color(0xFFFFFFFF),
     messageBubble: Color(0xFFF1F1F1),
-    listPopUpWindow: Color(0xFFFFFFFF),
+    listDialogBox: Color(0xFFFFFFFF),
     sidePopUp: Color(0xFFF5F5F5),
     buttonBlock: Color(0xFFFFFFFF),
     listCardMenuFloating: Color(0x1A999999),
@@ -71,7 +71,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
     Color? inputBoxLevel1,
     Color? inputBoxLevel2,
     Color? messageBubble,
-    Color? listPopUpWindow,
+    Color? listDialogBox,
     Color? sidePopUp,
     Color? buttonBlock,
     Color? listCardMenuFloating,
@@ -90,7 +90,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
         inputBoxLevel1: inputBoxLevel1 ?? this.inputBoxLevel1,
         inputBoxLevel2: inputBoxLevel2 ?? this.inputBoxLevel2,
         messageBubble: messageBubble ?? this.messageBubble,
-        listPopUpWindow: listPopUpWindow ?? this.listPopUpWindow,
+        listDialogBox: listDialogBox ?? this.listDialogBox,
         sidePopUp: sidePopUp ?? this.sidePopUp,
         buttonBlock: buttonBlock ?? this.buttonBlock,
         listCardMenuFloating: listCardMenuFloating ?? this.listCardMenuFloating,
@@ -113,7 +113,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
       inputBoxLevel1: Color.lerp(inputBoxLevel1, other.inputBoxLevel1, t)!,
       inputBoxLevel2: Color.lerp(inputBoxLevel2, other.inputBoxLevel2, t)!,
       messageBubble: Color.lerp(messageBubble, other.messageBubble, t)!,
-      listPopUpWindow: Color.lerp(listPopUpWindow, other.listPopUpWindow, t)!,
+      listDialogBox: Color.lerp(listDialogBox, other.listDialogBox, t)!,
       sidePopUp: Color.lerp(sidePopUp, other.sidePopUp, t)!,
       buttonBlock: Color.lerp(buttonBlock, other.buttonBlock, t)!,
       listCardMenuFloating: Color.lerp(listCardMenuFloating, other.listCardMenuFloating, t)!,
