@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 abstract final class TalkTypography {
   static const double label = 12.0;

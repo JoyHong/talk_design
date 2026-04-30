@@ -16,5 +16,9 @@ void main() {
       expect(TalkSpacing.radiusM, greaterThan(TalkSpacing.radiusS));
       expect(TalkSpacing.radiusL, greaterThan(TalkSpacing.radiusM));
     });
+
+    test('radiusFull is sufficiently large to represent full rounding', () {
+      expect(TalkSpacing.radiusFull, greaterThanOrEqualTo(500.0));
+    });
   });
 }

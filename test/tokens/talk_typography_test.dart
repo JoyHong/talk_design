@@ -17,5 +17,16 @@ void main() {
       expect(TalkTypography.title, 18.0);
       expect(TalkTypography.headline, 22.0);
     });
+
+    test('font weights are in ascending order', () {
+      expect(TalkTypography.regular.index < TalkTypography.medium.index, isTrue);
+      expect(TalkTypography.medium.index < TalkTypography.semiBold.index, isTrue);
+      expect(TalkTypography.semiBold.index < TalkTypography.bold.index, isTrue);
+    });
+
+    test('line heights are in ascending order', () {
+      expect(TalkTypography.lineHeightTight < TalkTypography.lineHeightNormal, isTrue);
+      expect(TalkTypography.lineHeightNormal < TalkTypography.lineHeightLoose, isTrue);
+    });
   });
 }
