@@ -5,6 +5,7 @@ import 'colors_page.dart';
 import 'buttons_page.dart';
 import 'inputs_page.dart';
 import 'tokens_page.dart';
+import 'typography_page.dart';
 
 void main() {
   runApp(const ExampleApp());
@@ -30,7 +31,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('talk_design'),
@@ -39,6 +40,7 @@ class HomePage extends StatelessWidget {
               Tab(text: '颜色'),
               Tab(text: '按钮'),
               Tab(text: '输入框'),
+              Tab(text: '字体'),
               Tab(text: 'Token'),
             ],
           ),
@@ -48,6 +50,7 @@ class HomePage extends StatelessWidget {
             ColorsPage(),
             ButtonsPage(),
             InputsPage(),
+            TypographyPage(),
             TokensPage(),
           ],
         ),

@@ -132,7 +132,7 @@ class _Section extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              fontSize: TalkTypography.label,
+              fontSize: 12,
               color: Colors.black45,
             ),
           ),
@@ -177,9 +177,9 @@ class _BlockButton extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                fontSize: TalkTypography.label,
+                fontSize: 12,
                 color: colors.foreground,
-                fontWeight: TalkTypography.medium,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],

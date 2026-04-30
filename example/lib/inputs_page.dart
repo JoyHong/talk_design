@@ -16,7 +16,7 @@ class InputsPage extends StatelessWidget {
           const Text(
             'level1 — 灰底输入框',
             style: TextStyle(
-              fontSize: TalkTypography.label,
+              fontSize: 12,
               color: Colors.black45,
             ),
           ),
@@ -26,7 +26,7 @@ class InputsPage extends StatelessWidget {
           const Text(
             'level2 — 白底输入框',
             style: TextStyle(
-              fontSize: TalkTypography.label,
+              fontSize: 12,
               color: Colors.black45,
             ),
           ),
@@ -45,7 +45,7 @@ class InputsPage extends StatelessWidget {
           const Text(
             'level1 — 多行输入',
             style: TextStyle(
-              fontSize: TalkTypography.label,
+              fontSize: 12,
               color: Colors.black45,
             ),
           ),

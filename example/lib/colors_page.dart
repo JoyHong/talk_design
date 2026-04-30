@@ -52,14 +52,14 @@ class ColorsPage extends StatelessWidget {
                   Text(
                     name,
                     style: const TextStyle(
-                      fontSize: TalkTypography.body,
-                      fontWeight: TalkTypography.medium,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   Text(
                     '#${color.toARGB32().toRadixString(16).toUpperCase()}',
                     style: const TextStyle(
-                      fontSize: TalkTypography.label,
+                      fontSize: 12,
                       color: Colors.black54,
                     ),
                   ),

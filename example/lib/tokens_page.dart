@@ -11,21 +11,6 @@ class TokensPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _sectionTitle('Typography — 字号'),
-          ...[
-            ('headline', TalkTypography.headline, TalkTypography.bold),
-            ('title', TalkTypography.title, TalkTypography.semiBold),
-            ('bodyLarge', TalkTypography.bodyLarge, TalkTypography.medium),
-            ('body', TalkTypography.body, TalkTypography.regular),
-            ('label', TalkTypography.label, TalkTypography.regular),
-          ].map((e) => Padding(
-                padding: const EdgeInsets.only(bottom: TalkSpacing.s),
-                child: Text(
-                  '${e.$1} — ${e.$2.toInt()}px',
-                  style: TextStyle(fontSize: e.$2, fontWeight: e.$3),
-                ),
-              )),
-          const SizedBox(height: TalkSpacing.xl),
           _sectionTitle('Spacing — 间距'),
           ...{
             'xs': TalkSpacing.xs,
@@ -40,13 +25,7 @@ class TokensPage extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 48,
-                      child: Text(
-                        e.key,
-                        style: const TextStyle(
-                          fontSize: TalkTypography.label,
-                          color: Colors.black45,
-                        ),
-                      ),
+                      child: Text(e.key, style: _labelStyle),
                     ),
                     Container(
                       width: e.value * 2,
@@ -54,10 +33,7 @@ class TokensPage extends StatelessWidget {
                       color: const Color(0xFFFF2C55),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      '${e.value.toInt()}px',
-                      style: const TextStyle(fontSize: TalkTypography.label),
-                    ),
+                    Text('${e.value.toInt()}px', style: _labelStyle),
                   ],
                 ),
               )),
@@ -89,15 +65,11 @@ class TokensPage extends StatelessWidget {
     );
   }
 
+  static const _labelStyle = TextStyle(fontSize: 12, color: Colors.black45);
+
   Widget _sectionTitle(String text) => Padding(
         padding: const EdgeInsets.only(bottom: TalkSpacing.s),
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontSize: TalkTypography.label,
-            color: Colors.black45,
-          ),
-        ),
+        child: Text(text, style: _labelStyle),
       );
 }
 
@@ -121,7 +93,7 @@ class _ShadowCard extends StatelessWidget {
           ),
         ),
         const SizedBox(height: TalkSpacing.s),
-        Text(label, style: const TextStyle(fontSize: TalkTypography.label, color: Colors.black45)),
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.black45)),
       ],
     );
   }
@@ -147,7 +119,7 @@ class _RadiusCard extends StatelessWidget {
           ),
         ),
         const SizedBox(height: TalkSpacing.xs),
-        Text(label, style: const TextStyle(fontSize: TalkTypography.label, color: Colors.black45)),
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.black45)),
       ],
     );
   }
