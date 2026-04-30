@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
 class TalkInputStyles extends ThemeExtension<TalkInputStyles> {
   const TalkInputStyles({
@@ -9,6 +10,7 @@ class TalkInputStyles extends ThemeExtension<TalkInputStyles> {
   final Color level1FillColor;
   final Color level2FillColor;
 
+  @internal
   static const TalkInputStyles light = TalkInputStyles(
     level1FillColor: Color(0xFFF5F5F5),
     level2FillColor: Color(0xFFFFFFFF),

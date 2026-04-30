@@ -50,7 +50,8 @@
       "name": "talk_design",
       "version": "0.1.0",
       "dependencies": [
-        "flutter"
+        "flutter",
+        "meta"
       ]
     },
     {

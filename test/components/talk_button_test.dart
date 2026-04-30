@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talk_design/src/components/talk_button.dart';
+import 'package:talk_design/src/theme/talk_theme.dart';
 
 // 从已渲染的 TextButton 中提取 ButtonStyle（来自 widget 实例，非 effective style）。
 ButtonStyle _styleOf(WidgetTester tester) =>
     tester.widget<TextButton>(find.byType(TextButton)).style!;
 
-Widget _wrap(Widget child) => MaterialApp(home: Scaffold(body: child));
+Widget _wrap(Widget child) => MaterialApp(
+      theme: TalkTheme.light(),
+      home: Scaffold(body: child),
+    );
 
 void main() {
   // ── fillTheme ──────────────────────────────────────────────────────────────

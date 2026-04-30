@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
 class TalkColors extends ThemeExtension<TalkColors> {
   const TalkColors({
@@ -39,6 +40,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
   final Color success;
   final Color redDotError;
 
+  @internal
   static const light = TalkColors(
     main: Color(0xFFFF2C55),
     textMain: Color(0xFF262626),
