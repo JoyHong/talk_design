@@ -47,8 +47,10 @@ class TalkButtonStyles extends ThemeExtension<TalkButtonStyles> {
   static final light = TalkButtonStyles(
     textTheme: _textTheme(),
     textSecondary: _textSecondary(),
+    // fillThemeIcon reuses fillTheme style per design spec; reserved for independent customization.
     fillTheme: _fillTheme(),
     fillThemeIcon: _fillTheme(),
+    // strokeSecondaryIcon reuses strokeSecondary style per design spec; reserved for independent customization.
     strokeSecondary: _strokeSecondary(),
     strokeSecondaryIcon: _strokeSecondary(),
     themeIcon: _themeIcon(),
@@ -158,6 +160,7 @@ class TalkButtonStyles extends ThemeExtension<TalkButtonStyles> {
 
   static ButtonStyle _textSecondaryRipple() => ButtonStyle(
         backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) return Colors.transparent;
           if (states.contains(WidgetState.pressed)) return const Color(0x33999999);
           if (states.contains(WidgetState.hovered)) return const Color(0x1A999999);
           return Colors.transparent;

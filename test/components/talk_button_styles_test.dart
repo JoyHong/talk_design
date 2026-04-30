@@ -163,7 +163,8 @@ void main() {
         textTheme: TalkButtonStyles.light.fillTheme,
       );
       expect(modified.textTheme, TalkButtonStyles.light.fillTheme);
-      expect(modified.fillTheme, TalkButtonStyles.light.fillTheme);
+      expect(modified.strokeSecondary, TalkButtonStyles.light.strokeSecondary);
+      expect(modified.block, TalkButtonStyles.light.block);
     });
   });
 }
