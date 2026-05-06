@@ -126,7 +126,6 @@ class TalkButton extends StatelessWidget {
   /// 尺寸模式，默认 [TalkButtonSize.fixed]（216 × 52）。
   final TalkButtonSize size;
 
-  static const _noOverlay = WidgetStatePropertyAll<Color>(Colors.transparent);
   static const _noElevation = WidgetStatePropertyAll<double>(0);
   static const _stadiumShape =
       WidgetStatePropertyAll<OutlinedBorder>(StadiumBorder());
@@ -188,8 +187,8 @@ class TalkButton extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
         foregroundColor: WidgetStateProperty.resolveWith((s) => _textForeground(s, colors)),
-        backgroundColor: WidgetStateProperty.resolveWith((s) => _textBackground(s)),
-        overlayColor: _noOverlay,
+        backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
+        overlayColor: WidgetStateProperty.resolveWith(_textOverlay),
         textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
         fixedSize: _fixedSizeProp,
         minimumSize: _minimumSizeProp,
@@ -223,7 +222,7 @@ class TalkButton extends StatelessWidget {
     };
   }
 
-  Color _textBackground(Set<WidgetState> s) {
+  Color _textOverlay(Set<WidgetState> s) {
     if (s.contains(WidgetState.pressed)) return const Color(0x33999999);
     if (s.contains(WidgetState.hovered)) return const Color(0x1A999999);
     return Colors.transparent;
@@ -238,15 +237,17 @@ class TalkButton extends StatelessWidget {
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) return const Color(0x424F4F4F);
-          if (s.contains(WidgetState.pressed)) return const Color(0xFFE5284D);
-          if (s.contains(WidgetState.hovered)) return const Color(0xFFFF4569);
           return colors.main;
         }),
         foregroundColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
           return Colors.white;
         }),
-        overlayColor: _noOverlay,
+        overlayColor: WidgetStateProperty.resolveWith((s) {
+          if (s.contains(WidgetState.pressed)) return Colors.white24;
+          if (s.contains(WidgetState.hovered)) return Colors.white12;
+          return Colors.transparent;
+        }),
         textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
         fixedSize: _fixedSizeProp,
         minimumSize: _minimumSizeProp,
@@ -275,14 +276,15 @@ class TalkButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.resolveWith((s) {
-          if (s.contains(WidgetState.pressed)) return colors.textSecondary.withValues(alpha: 0.25);
-          if (s.contains(WidgetState.hovered)) return colors.textSecondary.withValues(alpha: 0.12);
-          return Colors.transparent;
-        }),
+        backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
         foregroundColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
           return colors.textMain;
+        }),
+        overlayColor: WidgetStateProperty.resolveWith((s) {
+          if (s.contains(WidgetState.pressed)) return colors.textSecondary.withValues(alpha: 0.25);
+          if (s.contains(WidgetState.hovered)) return colors.textSecondary.withValues(alpha: 0.12);
+          return Colors.transparent;
         }),
         side: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) {
@@ -290,7 +292,6 @@ class TalkButton extends StatelessWidget {
           }
           return BorderSide(color: colors.textSecondary, width: 2);
         }),
-        overlayColor: _noOverlay,
         textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
         fixedSize: _fixedSizeProp,
         minimumSize: _minimumSizeProp,
@@ -318,13 +319,13 @@ class TalkButton extends StatelessWidget {
     return TextButton(
         onPressed: onPressed,
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.resolveWith((s) {
+          backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
+          foregroundColor: WidgetStatePropertyAll(colors.main),
+          overlayColor: WidgetStateProperty.resolveWith((s) {
             if (s.contains(WidgetState.pressed)) return const Color(0x33999999);
             if (s.contains(WidgetState.hovered)) return const Color(0x1A999999);
             return Colors.transparent;
           }),
-          foregroundColor: WidgetStatePropertyAll(colors.main),
-          overlayColor: _noOverlay,
           padding: const WidgetStatePropertyAll(EdgeInsets.all(8)),
           shape: const WidgetStatePropertyAll(CircleBorder()),
           elevation: _noElevation,
@@ -339,15 +340,13 @@ class TalkButton extends StatelessWidget {
     return TextButton(
         onPressed: onPressed,
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.resolveWith((s) {
+          backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
+          foregroundColor: WidgetStatePropertyAll(colors.main),
+          overlayColor: WidgetStateProperty.resolveWith((s) {
             if (s.contains(WidgetState.pressed)) return const Color(0x33999999);
             if (s.contains(WidgetState.hovered)) return const Color(0x1A999999);
             return Colors.transparent;
           }),
-          foregroundColor: WidgetStateProperty.resolveWith((s) {
-            return colors.main;
-          }),
-          overlayColor: _noOverlay,
           textStyle: const WidgetStatePropertyAll(TalkTypography.bodySmall),
           padding: const WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 16, vertical: 16),
