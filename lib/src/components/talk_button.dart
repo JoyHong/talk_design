@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
+import '../theme/talk_context_extensions.dart';
 import '../tokens/talk_colors.dart';
 import '../tokens/talk_typography.dart';
-import '../theme/talk_context_extensions.dart';
 
 enum _V {
   textTheme,
@@ -223,7 +224,6 @@ class TalkButton extends StatelessWidget {
   }
 
   Color _textBackground(Set<WidgetState> s, TalkColors colors) {
-    if (_variant != _V.textSecondaryRipple) return Colors.transparent;
     if (s.contains(WidgetState.pressed)) return colors.listCardMenuPressed;
     if (s.contains(WidgetState.hovered)) return colors.listCardMenuFloating;
     return Colors.transparent;
