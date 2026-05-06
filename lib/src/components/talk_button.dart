@@ -276,8 +276,8 @@ class TalkButton extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.resolveWith((s) {
-          if (s.contains(WidgetState.pressed)) return const Color(0x40AAAAAA);
-          if (s.contains(WidgetState.hovered)) return const Color(0x1FAAAAAA);
+          if (s.contains(WidgetState.pressed)) return colors.textSecondary.withValues(alpha: 0.25);
+          if (s.contains(WidgetState.hovered)) return colors.textSecondary.withValues(alpha: 0.12);
           return Colors.transparent;
         }),
         foregroundColor: WidgetStateProperty.resolveWith((s) {
