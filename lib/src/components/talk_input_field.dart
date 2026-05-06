@@ -101,6 +101,7 @@ class _TalkTextFieldState extends State<TalkTextField> {
         enabledBorder: _border(_kRadius),
         focusedBorder: _border(_kRadius),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        isDense: true, // 开启紧凑模式，消除默认的最小高度和多余间距
         suffixIcon: _showClear
             ? MouseRegion(
                 cursor: SystemMouseCursors.click,
@@ -209,6 +210,7 @@ class _TalkPasswordFieldState extends State<TalkPasswordField> {
           enabledBorder: _border(_kRadius),
           focusedBorder: _border(_kRadius),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          isDense: true,
           suffixIcon: _showToggle
               ? MouseRegion(
                   cursor: SystemMouseCursors.click,
@@ -278,6 +280,7 @@ class TalkIconTextField extends StatelessWidget {
         enabledBorder: _border(_kRadius),
         focusedBorder: _border(_kRadius),
         contentPadding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
+        isDense: true,
         suffixIcon: MouseRegion(
           cursor: onIconTap != null
               ? SystemMouseCursors.click
@@ -362,6 +365,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
         enabledBorder: _border(_kRadius),
         focusedBorder: _border(_kRadius),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        isDense: true,
         suffixIcon: MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
@@ -473,6 +477,7 @@ class _TalkSearchFieldState extends State<TalkSearchField> {
         enabledBorder: _border(_kSearchRadius),
         focusedBorder: _border(_kSearchRadius),
         contentPadding: const EdgeInsets.only(right: 12, top: 10, bottom: 10),
+        isDense: true,
         prefixIcon: Padding(
           padding: const EdgeInsets.only(left: 8, right: 4),
           child: Icon(Icons.search, size: 20, color: colors.textSecondary),

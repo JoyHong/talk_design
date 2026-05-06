@@ -13,6 +13,7 @@ class TalkTheme {
       ],
     );
     return base.copyWith(
+      scaffoldBackgroundColor: TalkColors.light.backgroundLevel1,
       textTheme: base.textTheme.copyWith(
         labelLarge: base.textTheme.labelLarge!.copyWith(letterSpacing: 0),
       ),
