@@ -247,7 +247,7 @@ class TalkButton extends StatelessWidget {
           return Colors.white;
         }),
         overlayColor: _noOverlay,
-        textStyle: WidgetStatePropertyAll(hasIcon ? TalkTypography.labelLarge : TalkTypography.bodyMedium),
+        textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
         fixedSize: _fixedSizeProp,
         minimumSize: _minimumSizeProp,
         maximumSize: _maximumSizeProp,
