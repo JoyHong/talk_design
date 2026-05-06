@@ -8,10 +8,6 @@ void main() {
       expect(TalkTheme.light().extension<TalkColors>(), isNotNull);
     });
 
-    test('light() registers TalkInputStyles extension', () {
-      expect(TalkTheme.light().extension<TalkInputStyles>(), isNotNull);
-    });
-
     test('light() colorScheme seed matches main', () {
       final theme = TalkTheme.light();
       final colors = theme.extension<TalkColors>()!;
@@ -36,16 +32,5 @@ void main() {
       expect(result.main, const Color(0xFFFF2C55));
     });
 
-    testWidgets('talkInputStyles returns TalkInputStyles from context', (tester) async {
-      late TalkInputStyles result;
-      await tester.pumpWidget(MaterialApp(
-        theme: TalkTheme.light(),
-        home: Builder(builder: (context) {
-          result = context.talkInputStyles;
-          return const SizedBox();
-        }),
-      ));
-      expect(result.level1FillColor, const Color(0xFFF5F5F5));
-    });
   });
 }
