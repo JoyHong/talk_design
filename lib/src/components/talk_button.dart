@@ -319,15 +319,12 @@ class TalkButton extends StatelessWidget {
         onPressed: onPressed,
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.resolveWith((s) {
-            if (s.contains(WidgetState.disabled)) return colors.listCardMenuPressed;
-            if (s.contains(WidgetState.pressed)) return colors.listCardMenuPressed;
-            if (s.contains(WidgetState.hovered)) return colors.listCardMenuFloating;
+            if (s.contains(WidgetState.pressed)) return const Color(0x33999999);
+            if (s.contains(WidgetState.hovered)) return const Color(0x1A999999);
             return Colors.transparent;
           }),
           foregroundColor: WidgetStatePropertyAll(colors.main),
           overlayColor: _noOverlay,
-          minimumSize: const WidgetStatePropertyAll(Size(36, 36)),
-          maximumSize: const WidgetStatePropertyAll(Size(36, 36)),
           padding: const WidgetStatePropertyAll(EdgeInsets.all(8)),
           shape: const WidgetStatePropertyAll(CircleBorder()),
           elevation: _noElevation,
