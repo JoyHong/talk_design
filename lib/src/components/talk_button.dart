@@ -114,9 +114,9 @@ class TalkButton extends StatelessWidget {
     required this.label,
     required this.icon,
     this.onPressed,
+    this.size = TalkButtonSize.adaptive,
     super.key,
-  })  : _variant = _V.block,
-        size = TalkButtonSize.fixed;
+  }) : _variant = _V.block;
 
   final _V _variant;
   final String? label;
@@ -352,7 +352,9 @@ class TalkButton extends StatelessWidget {
           padding: const WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           ),
-          minimumSize: const WidgetStatePropertyAll(Size(56, 0)),
+          minimumSize: size == TalkButtonSize.fill
+              ? const WidgetStatePropertyAll(Size(double.infinity, 0))
+              : null,
           shape: const WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
