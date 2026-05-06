@@ -111,7 +111,8 @@ class _TalkTextFieldState extends State<TalkTextField> {
                   onTap: () => _controller.clear(),
                   child: Padding(
                     padding: const EdgeInsets.only(right: 16),
-                    child: Icon(Icons.cancel, size: 16, color: colors.textSecondary),
+                    child: SvgPicture.asset(TalkIcons.clear, width: 16, height: 16,
+                        colorFilter: ColorFilter.mode(colors.textSecondary, BlendMode.srcIn)),
                   ),
                 ),
               )
@@ -492,7 +493,8 @@ class _TalkSearchFieldState extends State<TalkSearchField> {
                   onTap: () => _controller.clear(),
                   child: Padding(
                     padding: const EdgeInsets.only(right: 12),
-                    child: Icon(Icons.cancel, size: 16, color: colors.textSecondary),
+                    child: SvgPicture.asset(TalkIcons.clear, width: 16, height: 16,
+                        colorFilter: ColorFilter.mode(colors.textSecondary, BlendMode.srcIn)),
                   ),
                 ),
               )

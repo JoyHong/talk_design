@@ -25,6 +25,7 @@ flutter:
     - assets/icons/ic_arrow_down.svg
     - assets/icons/ic_password_show.svg
     - assets/icons/ic_password_hide.svg
+    - assets/icons/ic_clear.svg
   fonts:
     - family: Roboto
       fonts:
