@@ -220,10 +220,11 @@ class _TalkPasswordFieldState extends State<TalkPasswordField> {
                     onTap: () => setState(() => _obscure = !_obscure),
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16),
-                      child: Icon(
-                        _obscure ? Icons.visibility : Icons.visibility_off,
-                        size: 20,
-                        color: colors.textSecondary,
+                      child: SvgPicture.asset(
+                        _obscure ? TalkIcons.passwordShow : TalkIcons.passwordHide,
+                        width: 20,
+                        height: 20,
+                        colorFilter: ColorFilter.mode(colors.textPrimary, BlendMode.srcIn),
                       ),
                     ),
                   ),
