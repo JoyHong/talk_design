@@ -4,4 +4,5 @@ abstract final class TalkIcons {
   static const String passwordShow = 'packages/talk_design/assets/icons/ic_password_show.svg';
   static const String passwordHide = 'packages/talk_design/assets/icons/ic_password_hide.svg';
   static const String clear = 'packages/talk_design/assets/icons/ic_clear.svg';
+  static const String search = 'packages/talk_design/assets/icons/ic_search.svg';
 }

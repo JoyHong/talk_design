@@ -479,11 +479,12 @@ class _TalkSearchFieldState extends State<TalkSearchField> {
         border: _border(_kSearchRadius),
         enabledBorder: _border(_kSearchRadius),
         focusedBorder: _border(_kSearchRadius),
-        contentPadding: const EdgeInsets.only(right: 12, top: 10, bottom: 10),
+        contentPadding: EdgeInsets.zero,
         isDense: true,
         prefixIcon: Padding(
-          padding: const EdgeInsets.only(left: 8, right: 4),
-          child: Icon(Icons.search, size: 20, color: colors.textSecondary),
+          padding: const EdgeInsets.fromLTRB(16, 10, 4, 10),
+          child: SvgPicture.asset(TalkIcons.search, width: 20, height: 20,
+              colorFilter: ColorFilter.mode(colors.textSecondary, BlendMode.srcIn)),
         ),
         prefixIconConstraints: _kIconConstraints,
         suffixIcon: _showClear
