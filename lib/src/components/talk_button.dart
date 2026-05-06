@@ -340,12 +340,11 @@ class TalkButton extends StatelessWidget {
         onPressed: onPressed,
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.resolveWith((s) {
-            if (s.contains(WidgetState.pressed)) return colors.listCardMenuPressed;
-            if (s.contains(WidgetState.hovered)) return colors.listCardMenuFloating;
+            if (s.contains(WidgetState.pressed)) return const Color(0x33999999);
+            if (s.contains(WidgetState.hovered)) return const Color(0x1A999999);
             return Colors.transparent;
           }),
           foregroundColor: WidgetStateProperty.resolveWith((s) {
-            if (s.contains(WidgetState.disabled)) return const Color(0x333C3C43);
             return colors.main;
           }),
           overlayColor: _noOverlay,
@@ -356,7 +355,7 @@ class TalkButton extends StatelessWidget {
           minimumSize: const WidgetStatePropertyAll(Size(56, 0)),
           shape: const WidgetStatePropertyAll(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
           ),
           elevation: _noElevation,
@@ -368,7 +367,7 @@ class TalkButton extends StatelessWidget {
               data: const IconThemeData(size: 24),
               child: icon!,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
             Text(label!),
           ],
         ),
