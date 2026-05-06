@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talk_design/talk_design.dart';
 
 import 'badge_page.dart';
+import 'checkbox_page.dart';
 import 'colors_page.dart';
 import 'buttons_page.dart';
 import 'inputs_page.dart';
@@ -36,6 +37,7 @@ class _NavItem {
 
 const _navItems = <_NavItem>[
   _NavItem('Badge', Icons.notifications_outlined, BadgePage()),
+  _NavItem('Checkbox', Icons.check_box_outlined, CheckboxPage()),
   _NavItem('颜色', Icons.palette_outlined, ColorsPage()),
   _NavItem('按钮', Icons.smart_button_outlined, ButtonsPage()),
   _NavItem('输入框', Icons.text_fields_outlined, InputsPage()),

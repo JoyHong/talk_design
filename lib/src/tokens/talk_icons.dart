@@ -5,4 +5,7 @@ abstract final class TalkIcons {
   static const String passwordHide = 'packages/talk_design/assets/icons/ic_password_hide.svg';
   static const String clear = 'packages/talk_design/assets/icons/ic_clear.svg';
   static const String search = 'packages/talk_design/assets/icons/ic_search.svg';
+  static const String checkboxUnchecked = 'packages/talk_design/assets/icons/ic_checkbox_unchecked.svg';
+  static const String checkboxChecked = 'packages/talk_design/assets/icons/ic_checkbox_checked.svg';
+  static const String checkboxDisabled = 'packages/talk_design/assets/icons/ic_checkbox_disabled.svg';
 }
