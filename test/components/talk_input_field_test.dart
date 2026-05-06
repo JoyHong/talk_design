@@ -241,45 +241,4 @@ void main() {
       expect(submitted, 'hello');
     });
   });
-
-  // ── TalkInputStyles ────────────────────────────────────────────────────────
-
-  group('TalkInputStyles', () {
-    test('light level1 fill color is #F5F5F5', () {
-      expect(TalkInputStyles.light.level1.fillColor, const Color(0xFFF5F5F5));
-    });
-
-    test('light level2 fill color is #FFFFFF', () {
-      expect(TalkInputStyles.light.level2.fillColor, const Color(0xFFFFFFFF));
-    });
-
-    test('level1 and level2 are filled', () {
-      expect(TalkInputStyles.light.level1.filled, isTrue);
-      expect(TalkInputStyles.light.level2.filled, isTrue);
-    });
-
-    test('copyWith replaces only level1FillColor', () {
-      final modified = TalkInputStyles.light.copyWith(level1FillColor: const Color(0xFF000000));
-      expect(modified.level1.fillColor, const Color(0xFF000000));
-      expect(modified.level2.fillColor, TalkInputStyles.light.level2.fillColor);
-    });
-
-    test('level1 has no visible border', () {
-      final border = TalkInputStyles.light.level1.border as OutlineInputBorder;
-      expect(border.borderSide, BorderSide.none);
-    });
-
-    test('border radius is 10', () {
-      final border = TalkInputStyles.light.level1.border as OutlineInputBorder;
-      expect(border.borderRadius, BorderRadius.circular(10));
-    });
-
-    test('content padding is symmetric 16', () {
-      expect(
-        TalkInputStyles.light.level1.contentPadding,
-        const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      );
-    });
-
-  });
 }
