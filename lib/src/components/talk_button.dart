@@ -15,11 +15,23 @@ enum _V {
   block,
 }
 
+/// Controls the size behavior of [TalkButton].
+///
+/// - [fixed]    → 固定 216 × 52（默认）
+/// - [adaptive] → 内容自适应，最小 72 × 30，最大 400 × 50
+/// - [fill]     → 撑满父容器宽度，最大不超过 400；高度固定 50
+enum TalkButtonSize {
+  fixed,
+  adaptive,
+  fill,
+}
+
 /// Figma 规范对应的完整按钮组件，覆盖所有 9 种变体。
 ///
 /// 使用具名构造函数选择变体：
 /// ```dart
 /// TalkButton.fillTheme(label: '确认', onPressed: () {})
+/// TalkButton.fillTheme(label: '确认', size: TalkButtonSize.fill, onPressed: () {})
 /// TalkButton.themeIcon(icon: const Icon(Icons.add), onPressed: () {})
 /// TalkButton.block(icon: const Icon(Icons.videocam), label: '视频', onPressed: () {})
 /// ```
@@ -28,6 +40,7 @@ class TalkButton extends StatelessWidget {
   const TalkButton.textTheme({
     required this.label,
     this.onPressed,
+    this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.textTheme,
         icon = null;
@@ -36,6 +49,7 @@ class TalkButton extends StatelessWidget {
   const TalkButton.textSecondary({
     required this.label,
     this.onPressed,
+    this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.textSecondary,
         icon = null;
@@ -44,6 +58,7 @@ class TalkButton extends StatelessWidget {
   const TalkButton.fillTheme({
     required this.label,
     this.onPressed,
+    this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.fillTheme,
         icon = null;
@@ -53,6 +68,7 @@ class TalkButton extends StatelessWidget {
     required this.label,
     required this.icon,
     this.onPressed,
+    this.size = TalkButtonSize.fixed,
     super.key,
   }) : _variant = _V.fillThemeIcon;
 
@@ -60,6 +76,7 @@ class TalkButton extends StatelessWidget {
   const TalkButton.strokeSecondary({
     required this.label,
     this.onPressed,
+    this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.strokeSecondary,
         icon = null;
@@ -69,6 +86,7 @@ class TalkButton extends StatelessWidget {
     required this.label,
     required this.icon,
     this.onPressed,
+    this.size = TalkButtonSize.fixed,
     super.key,
   }) : _variant = _V.strokeSecondaryIcon;
 
@@ -78,12 +96,14 @@ class TalkButton extends StatelessWidget {
     this.onPressed,
     super.key,
   })  : _variant = _V.themeIcon,
-        label = null;
+        label = null,
+        size = TalkButtonSize.fixed;
 
   // ── 次要文字按钮（含悬停/按下背景） ──────────────────────────────────────
   const TalkButton.textSecondaryRipple({
     required this.label,
     this.onPressed,
+    this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.textSecondaryRipple,
         icon = null;
@@ -94,33 +114,70 @@ class TalkButton extends StatelessWidget {
     required this.icon,
     this.onPressed,
     super.key,
-  }) : _variant = _V.block;
+  })  : _variant = _V.block,
+        size = TalkButtonSize.fixed;
 
   final _V _variant;
   final String? label;
   final Widget? icon;
   final VoidCallback? onPressed;
 
-  // ── 尺寸约束（适用于文字/填充/描边按钮） ───────────────────────────────────
-  static const _minSize = WidgetStatePropertyAll<Size>(Size(72, 30));
-  static const _maxSize = WidgetStatePropertyAll<Size>(Size(400, 52));
-  static const _stdPadding = WidgetStatePropertyAll<EdgeInsetsGeometry>(
-    EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-  );
+  /// 尺寸模式，默认 [TalkButtonSize.fixed]（216 × 52）。
+  final TalkButtonSize size;
+
   static const _noOverlay = WidgetStatePropertyAll<Color>(Colors.transparent);
   static const _noElevation = WidgetStatePropertyAll<double>(0);
   static const _stadiumShape =
       WidgetStatePropertyAll<OutlinedBorder>(StadiumBorder());
+  static const _stdPadding = WidgetStatePropertyAll<EdgeInsetsGeometry>(
+    EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+  );
+
+  // ── 尺寸约束 ─────────────────────────────────────────────────────────────
+  // fixed: 固定 216×52
+  static const _fixedSize =
+      WidgetStatePropertyAll<Size>(Size(216, 52));
+  // adaptive: 最小 72×30，最大 400×50
+  static const _adaptiveMin =
+      WidgetStatePropertyAll<Size>(Size(72, 30));
+  static const _adaptiveMax =
+      WidgetStatePropertyAll<Size>(Size(400, 50));
+  // fill: 撑满父容器（最大由外层 ConstrainedBox 限制到 400），高度 50
+  static const _fillMin =
+      WidgetStatePropertyAll<Size>(Size(double.infinity, 50));
+
+  /// 当 [size] 为 [TalkButtonSize.fill] 时，用 ConstrainedBox 将宽度上限限为 400。
+  Widget _wrapSize(Widget child) {
+    if (size == TalkButtonSize.fill) {
+      return ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 400),
+        child: child,
+      );
+    }
+    return child;
+  }
+
+  WidgetStateProperty<Size>? get _fixedSizeProp =>
+      size == TalkButtonSize.fixed ? _fixedSize : null;
+
+  WidgetStateProperty<Size>? get _minimumSizeProp => switch (size) {
+        TalkButtonSize.adaptive => _adaptiveMin,
+        TalkButtonSize.fill => _fillMin,
+        _ => null,
+      };
+
+  WidgetStateProperty<Size>? get _maximumSizeProp =>
+      size == TalkButtonSize.adaptive ? _adaptiveMax : null;
 
   @override
   Widget build(BuildContext context) {
-    return switch (_variant) {
+    return _wrapSize(switch (_variant) {
       _V.fillTheme || _V.fillThemeIcon => _buildFill(context),
       _V.strokeSecondary || _V.strokeSecondaryIcon => _buildStroke(context),
       _V.themeIcon => _buildIconOnly(context),
       _V.block => _buildBlock(context),
       _ => _buildText(context),
-    };
+    });
   }
 
   // ── 文字按钮（textTheme / textSecondary / textSecondaryRipple） ─────────────
@@ -133,8 +190,9 @@ class TalkButton extends StatelessWidget {
         backgroundColor: WidgetStateProperty.resolveWith((s) => _textBackground(s, colors)),
         overlayColor: _noOverlay,
         textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
-        minimumSize: _minSize,
-        maximumSize: _maxSize,
+        fixedSize: _fixedSizeProp,
+        minimumSize: _minimumSizeProp,
+        maximumSize: _maximumSizeProp,
         padding: _stdPadding,
         shape: _stadiumShape,
         elevation: _noElevation,
@@ -190,8 +248,9 @@ class TalkButton extends StatelessWidget {
         }),
         overlayColor: _noOverlay,
         textStyle: WidgetStatePropertyAll(hasIcon ? TalkTypography.labelLarge : TalkTypography.bodyMedium),
-        minimumSize: _minSize,
-        maximumSize: _maxSize,
+        fixedSize: _fixedSizeProp,
+        minimumSize: _minimumSizeProp,
+        maximumSize: _maximumSizeProp,
         padding: _stdPadding,
         shape: _stadiumShape,
         elevation: _noElevation,
@@ -229,8 +288,9 @@ class TalkButton extends StatelessWidget {
         }),
         overlayColor: _noOverlay,
         textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
-        minimumSize: _minSize,
-        maximumSize: _maxSize,
+        fixedSize: _fixedSizeProp,
+        minimumSize: _minimumSizeProp,
+        maximumSize: _maximumSizeProp,
         padding: _stdPadding,
         shape: _stadiumShape,
         elevation: _noElevation,
