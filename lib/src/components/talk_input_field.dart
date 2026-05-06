@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../theme/talk_context_extensions.dart';
+import '../tokens/talk_icons.dart';
 import '../tokens/talk_typography.dart';
 
 // ── Shared helpers ────────────────────────────────────────────────────────────
@@ -372,12 +374,11 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
             onTap: _toggleDropdown,
             child: Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: Icon(
-                _isDropdown
-                    ? Icons.keyboard_arrow_down
-                    : Icons.keyboard_arrow_up,
-                size: 16,
-                color: colors.textPrimary,
+              child: SvgPicture.asset(
+                _isDropdown ? TalkIcons.arrowDown : TalkIcons.arrowUp,
+                width: 16,
+                height: 16,
+                colorFilter: ColorFilter.mode(colors.textPrimary, BlendMode.srcIn),
               ),
             ),
           ),
