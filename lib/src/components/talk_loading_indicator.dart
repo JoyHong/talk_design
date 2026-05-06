@@ -36,7 +36,7 @@ class TalkLoadingIndicator extends StatelessWidget {
 
   final TalkLoadingSize size;
 
-  /// 覆盖默认颜色，默认使用 [TalkColors.main]。
+  /// 覆盖默认颜色，默认使用 [TalkColors.theme]。
   final Color? color;
 
   static const _sizeValues = {
@@ -54,7 +54,7 @@ class TalkLoadingIndicator extends StatelessWidget {
       dimension: d,
       child: CircularProgressIndicator(
         strokeWidth: math.max(1.5, d / 10),
-        valueColor: AlwaysStoppedAnimation(color ?? context.talkColors.main),
+        valueColor: AlwaysStoppedAnimation(color ?? context.talkColors.theme),
       ),
     );
   }

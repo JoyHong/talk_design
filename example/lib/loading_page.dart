@@ -75,7 +75,7 @@ class LoadingPage extends StatelessWidget {
                 width: double.infinity,
                 height: 160,
                 decoration: BoxDecoration(
-                  color: context.talkColors.backgroundLevel2,
+                  color: context.talkColors.backgroundSecondary,
                   borderRadius: BorderRadius.circular(TalkSpacing.m),
                 ),
                 child: const Column(

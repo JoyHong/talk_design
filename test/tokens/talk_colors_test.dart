@@ -6,19 +6,19 @@ import 'package:talk_design/src/tokens/talk_colors.dart';
 void main() {
   group('TalkColors', () {
     test('light has correct main', () {
-      expect(TalkColors.light.main, const Color(0xFFFF2C55));
+      expect(TalkColors.light.theme, const Color(0xFFFF2C55));
     });
 
     test('light has all 17 tokens with correct values', () {
       final c = TalkColors.light;
-      expect(c.textMain, const Color(0xFF262626));
+      expect(c.textPrimary, const Color(0xFF262626));
       expect(c.textSecondary, const Color(0xFFAAAAAA));
-      expect(c.backgroundLevel1, const Color(0xFFFFFFFF));
-      expect(c.backgroundLevel2, const Color(0xFFF5F5F5));
-      expect(c.cardLevel1, const Color(0xFFFFFFFF));
-      expect(c.cardLevel2, const Color(0xFFFFFFFF));
-      expect(c.inputBoxLevel1, const Color(0xFFF5F5F5));
-      expect(c.inputBoxLevel2, const Color(0xFFFFFFFF));
+      expect(c.backgroundPrimary, const Color(0xFFFFFFFF));
+      expect(c.backgroundSecondary, const Color(0xFFF5F5F5));
+      expect(c.cardPrimary, const Color(0xFFFFFFFF));
+      expect(c.cardSecondary, const Color(0xFFFFFFFF));
+      expect(c.inputBoxPrimary, const Color(0xFFF5F5F5));
+      expect(c.inputBoxSecondary, const Color(0xFFFFFFFF));
       expect(c.messageBubble, const Color(0xFFF1F1F1));
       expect(c.listDialogBox, const Color(0xFFFFFFFF));
       expect(c.sidePopUp, const Color(0xFFF5F5F5));
@@ -31,15 +31,15 @@ void main() {
 
     test('copyWith replaces only specified field', () {
       final modified = TalkColors.light.copyWith(
-        main: const Color(0xFF000000),
+        theme: const Color(0xFF000000),
       );
-      expect(modified.main, const Color(0xFF000000));
-      expect(modified.textMain, TalkColors.light.textMain);
+      expect(modified.theme, const Color(0xFF000000));
+      expect(modified.textPrimary, TalkColors.light.textPrimary);
     });
 
     test('lerp at t=0 returns self values', () {
       final lerped = TalkColors.light.lerp(TalkColors.light, 0);
-      expect(lerped.main, TalkColors.light.main);
+      expect(lerped.theme, TalkColors.light.theme);
     });
   });
 }

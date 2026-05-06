@@ -8,15 +8,15 @@ class ColorsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.talkColors;
     final items = [
-      ('main', colors.main),
-      ('textMain', colors.textMain),
+      ('theme', colors.theme),
+      ('textPrimary', colors.textPrimary),
       ('textSecondary', colors.textSecondary),
-      ('backgroundLevel1', colors.backgroundLevel1),
-      ('backgroundLevel2', colors.backgroundLevel2),
-      ('cardLevel1', colors.cardLevel1),
-      ('cardLevel2', colors.cardLevel2),
-      ('inputBoxLevel1', colors.inputBoxLevel1),
-      ('inputBoxLevel2', colors.inputBoxLevel2),
+      ('backgroundPrimary', colors.backgroundPrimary),
+      ('backgroundSecondary', colors.backgroundSecondary),
+      ('cardPrimary', colors.cardPrimary),
+      ('cardSecondary', colors.cardSecondary),
+      ('inputBoxPrimary', colors.inputBoxPrimary),
+      ('inputBoxSecondary', colors.inputBoxSecondary),
       ('messageBubble', colors.messageBubble),
       ('listDialogBox', colors.listDialogBox),
       ('sidePopUp', colors.sidePopUp),

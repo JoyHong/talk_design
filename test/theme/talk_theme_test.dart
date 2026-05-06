@@ -11,7 +11,7 @@ void main() {
     test('light() colorScheme seed matches main', () {
       final theme = TalkTheme.light();
       final colors = theme.extension<TalkColors>()!;
-      expect(colors.main, const Color(0xFFFF2C55));
+      expect(colors.theme, const Color(0xFFFF2C55));
     });
 
     test('light() labelLarge letterSpacing is 0', () {
@@ -29,7 +29,7 @@ void main() {
           return const SizedBox();
         }),
       ));
-      expect(result.main, const Color(0xFFFF2C55));
+      expect(result.theme, const Color(0xFFFF2C55));
     });
 
   });

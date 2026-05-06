@@ -3,15 +3,15 @@ import 'package:meta/meta.dart';
 
 class TalkColors extends ThemeExtension<TalkColors> {
   const TalkColors({
-    required this.main,
-    required this.textMain,
+    required this.theme,
+    required this.textPrimary,
     required this.textSecondary,
-    required this.backgroundLevel1,
-    required this.backgroundLevel2,
-    required this.cardLevel1,
-    required this.cardLevel2,
-    required this.inputBoxLevel1,
-    required this.inputBoxLevel2,
+    required this.backgroundPrimary,
+    required this.backgroundSecondary,
+    required this.cardPrimary,
+    required this.cardSecondary,
+    required this.inputBoxPrimary,
+    required this.inputBoxSecondary,
     required this.messageBubble,
     required this.listDialogBox,
     required this.sidePopUp,
@@ -22,15 +22,15 @@ class TalkColors extends ThemeExtension<TalkColors> {
     required this.redDotError,
   });
 
-  final Color main;
-  final Color textMain;
+  final Color theme;
+  final Color textPrimary;
   final Color textSecondary;
-  final Color backgroundLevel1;
-  final Color backgroundLevel2;
-  final Color cardLevel1;
-  final Color cardLevel2;
-  final Color inputBoxLevel1;
-  final Color inputBoxLevel2;
+  final Color backgroundPrimary;
+  final Color backgroundSecondary;
+  final Color cardPrimary;
+  final Color cardSecondary;
+  final Color inputBoxPrimary;
+  final Color inputBoxSecondary;
   final Color messageBubble;
   final Color listDialogBox;
   final Color sidePopUp;
@@ -42,15 +42,15 @@ class TalkColors extends ThemeExtension<TalkColors> {
 
   @internal
   static const light = TalkColors(
-    main: Color(0xFFFF2C55),
-    textMain: Color(0xFF262626),
+    theme: Color(0xFFFF2C55),
+    textPrimary: Color(0xFF262626),
     textSecondary: Color(0xFFAAAAAA),
-    backgroundLevel1: Color(0xFFFFFFFF),
-    backgroundLevel2: Color(0xFFF5F5F5),
-    cardLevel1: Color(0xFFFFFFFF),
-    cardLevel2: Color(0xFFFFFFFF),
-    inputBoxLevel1: Color(0xFFF5F5F5),
-    inputBoxLevel2: Color(0xFFFFFFFF),
+    backgroundPrimary: Color(0xFFFFFFFF),
+    backgroundSecondary: Color(0xFFF5F5F5),
+    cardPrimary: Color(0xFFFFFFFF),
+    cardSecondary: Color(0xFFFFFFFF),
+    inputBoxPrimary: Color(0xFFF5F5F5),
+    inputBoxSecondary: Color(0xFFFFFFFF),
     messageBubble: Color(0xFFF1F1F1),
     listDialogBox: Color(0xFFFFFFFF),
     sidePopUp: Color(0xFFF5F5F5),
@@ -63,15 +63,15 @@ class TalkColors extends ThemeExtension<TalkColors> {
 
   @override
   TalkColors copyWith({
-    Color? main,
-    Color? textMain,
+    Color? theme,
+    Color? textPrimary,
     Color? textSecondary,
-    Color? backgroundLevel1,
-    Color? backgroundLevel2,
-    Color? cardLevel1,
-    Color? cardLevel2,
-    Color? inputBoxLevel1,
-    Color? inputBoxLevel2,
+    Color? backgroundPrimary,
+    Color? backgroundSecondary,
+    Color? cardPrimary,
+    Color? cardSecondary,
+    Color? inputBoxPrimary,
+    Color? inputBoxSecondary,
     Color? messageBubble,
     Color? listDialogBox,
     Color? sidePopUp,
@@ -82,15 +82,15 @@ class TalkColors extends ThemeExtension<TalkColors> {
     Color? redDotError,
   }) =>
       TalkColors(
-        main: main ?? this.main,
-        textMain: textMain ?? this.textMain,
+        theme: theme ?? this.theme,
+        textPrimary: textPrimary ?? this.textPrimary,
         textSecondary: textSecondary ?? this.textSecondary,
-        backgroundLevel1: backgroundLevel1 ?? this.backgroundLevel1,
-        backgroundLevel2: backgroundLevel2 ?? this.backgroundLevel2,
-        cardLevel1: cardLevel1 ?? this.cardLevel1,
-        cardLevel2: cardLevel2 ?? this.cardLevel2,
-        inputBoxLevel1: inputBoxLevel1 ?? this.inputBoxLevel1,
-        inputBoxLevel2: inputBoxLevel2 ?? this.inputBoxLevel2,
+        backgroundPrimary: backgroundPrimary ?? this.backgroundPrimary,
+        backgroundSecondary: backgroundSecondary ?? this.backgroundSecondary,
+        cardPrimary: cardPrimary ?? this.cardPrimary,
+        cardSecondary: cardSecondary ?? this.cardSecondary,
+        inputBoxPrimary: inputBoxPrimary ?? this.inputBoxPrimary,
+        inputBoxSecondary: inputBoxSecondary ?? this.inputBoxSecondary,
         messageBubble: messageBubble ?? this.messageBubble,
         listDialogBox: listDialogBox ?? this.listDialogBox,
         sidePopUp: sidePopUp ?? this.sidePopUp,
@@ -105,15 +105,15 @@ class TalkColors extends ThemeExtension<TalkColors> {
   TalkColors lerp(TalkColors? other, double t) {
     if (other is! TalkColors) return this;
     return TalkColors(
-      main: Color.lerp(main, other.main, t)!,
-      textMain: Color.lerp(textMain, other.textMain, t)!,
+      theme: Color.lerp(theme, other.theme, t)!,
+      textPrimary: Color.lerp(textPrimary, other.textPrimary, t)!,
       textSecondary: Color.lerp(textSecondary, other.textSecondary, t)!,
-      backgroundLevel1: Color.lerp(backgroundLevel1, other.backgroundLevel1, t)!,
-      backgroundLevel2: Color.lerp(backgroundLevel2, other.backgroundLevel2, t)!,
-      cardLevel1: Color.lerp(cardLevel1, other.cardLevel1, t)!,
-      cardLevel2: Color.lerp(cardLevel2, other.cardLevel2, t)!,
-      inputBoxLevel1: Color.lerp(inputBoxLevel1, other.inputBoxLevel1, t)!,
-      inputBoxLevel2: Color.lerp(inputBoxLevel2, other.inputBoxLevel2, t)!,
+      backgroundPrimary: Color.lerp(backgroundPrimary, other.backgroundPrimary, t)!,
+      backgroundSecondary: Color.lerp(backgroundSecondary, other.backgroundSecondary, t)!,
+      cardPrimary: Color.lerp(cardPrimary, other.cardPrimary, t)!,
+      cardSecondary: Color.lerp(cardSecondary, other.cardSecondary, t)!,
+      inputBoxPrimary: Color.lerp(inputBoxPrimary, other.inputBoxPrimary, t)!,
+      inputBoxSecondary: Color.lerp(inputBoxSecondary, other.inputBoxSecondary, t)!,
       messageBubble: Color.lerp(messageBubble, other.messageBubble, t)!,
       listDialogBox: Color.lerp(listDialogBox, other.listDialogBox, t)!,
       sidePopUp: Color.lerp(sidePopUp, other.sidePopUp, t)!,

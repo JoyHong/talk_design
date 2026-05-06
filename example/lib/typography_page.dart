@@ -97,7 +97,7 @@ class _CustomColorDemo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const _Category('自定义颜色示例'),
-        Text('主题色文字', style: TalkTypography.titleLarge.copyWith(color: colors.main)),
+        Text('主题色文字', style: TalkTypography.titleLarge.copyWith(color: colors.theme)),
         const SizedBox(height: 4),
         const Text('TalkTypography.titleLarge.copyWith(color: talkColors.main)', style: TextStyle(fontSize: 11, color: Colors.black38)),
         const SizedBox(height: TalkSpacing.m),

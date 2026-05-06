@@ -212,7 +212,7 @@ class TalkButton extends StatelessWidget {
           ? const Color(0xFFE5284D)
           : s.contains(WidgetState.hovered)
               ? const Color(0xFFFF4569)
-              : colors.main,
+              : colors.theme,
       _V.textSecondary => s.contains(WidgetState.pressed)
           ? const Color(0xFF777777)
           : s.contains(WidgetState.hovered)
@@ -237,7 +237,7 @@ class TalkButton extends StatelessWidget {
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) return const Color(0x424F4F4F);
-          return colors.main;
+          return colors.theme;
         }),
         foregroundColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
@@ -279,7 +279,7 @@ class TalkButton extends StatelessWidget {
         backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
         foregroundColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
-          return colors.textMain;
+          return colors.textPrimary;
         }),
         overlayColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.pressed)) return colors.textSecondary.withValues(alpha: 0.25);
@@ -320,7 +320,7 @@ class TalkButton extends StatelessWidget {
         onPressed: onPressed,
         style: ButtonStyle(
           backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
-          foregroundColor: WidgetStatePropertyAll(colors.main),
+          foregroundColor: WidgetStatePropertyAll(colors.theme),
           overlayColor: WidgetStateProperty.resolveWith((s) {
             if (s.contains(WidgetState.pressed)) return const Color(0x33999999);
             if (s.contains(WidgetState.hovered)) return const Color(0x1A999999);
@@ -341,7 +341,7 @@ class TalkButton extends StatelessWidget {
         onPressed: onPressed,
         style: ButtonStyle(
           backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
-          foregroundColor: WidgetStatePropertyAll(colors.main),
+          foregroundColor: WidgetStatePropertyAll(colors.theme),
           overlayColor: WidgetStateProperty.resolveWith((s) {
             if (s.contains(WidgetState.pressed)) return const Color(0x33999999);
             if (s.contains(WidgetState.hovered)) return const Color(0x1A999999);

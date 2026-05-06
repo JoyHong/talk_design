@@ -7,13 +7,13 @@ class TalkTheme {
     final base = ThemeData(
       useMaterial3: true,
       fontFamily: 'Roboto',
-      colorScheme: ColorScheme.fromSeed(seedColor: TalkColors.light.main),
+      colorScheme: ColorScheme.fromSeed(seedColor: TalkColors.light.theme),
       extensions: const [
         TalkColors.light,
       ],
     );
     return base.copyWith(
-      scaffoldBackgroundColor: TalkColors.light.backgroundLevel1,
+      scaffoldBackgroundColor: TalkColors.light.backgroundPrimary,
       textTheme: base.textTheme.copyWith(
         labelLarge: base.textTheme.labelLarge!.copyWith(letterSpacing: 0),
       ),
