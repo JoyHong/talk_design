@@ -258,7 +258,11 @@ class TalkButton extends StatelessWidget {
       child: hasIcon
           ? Row(
               mainAxisSize: MainAxisSize.min,
-              children: [icon!, const SizedBox(width: 8), Text(label!)],
+              children: [
+                IconTheme.merge(data: const IconThemeData(size: 20), child: icon!),
+                const SizedBox(width: 8),
+                Text(label!),
+              ],
             )
           : Text(label!),
     );
@@ -298,7 +302,11 @@ class TalkButton extends StatelessWidget {
       child: hasIcon
           ? Row(
               mainAxisSize: MainAxisSize.min,
-              children: [icon!, const SizedBox(width: 10), Text(label!)],
+              children: [
+                IconTheme.merge(data: const IconThemeData(size: 20), child: icon!),
+                const SizedBox(width: 10),
+                Text(label!),
+              ],
             )
           : Text(label!),
     );
