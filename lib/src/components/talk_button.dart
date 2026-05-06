@@ -188,7 +188,7 @@ class TalkButton extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
         foregroundColor: WidgetStateProperty.resolveWith((s) => _textForeground(s, colors)),
-        backgroundColor: WidgetStateProperty.resolveWith((s) => _textBackground(s, colors)),
+        backgroundColor: WidgetStateProperty.resolveWith((s) => _textBackground(s)),
         overlayColor: _noOverlay,
         textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
         fixedSize: _fixedSizeProp,
@@ -223,9 +223,9 @@ class TalkButton extends StatelessWidget {
     };
   }
 
-  Color _textBackground(Set<WidgetState> s, TalkColors colors) {
-    if (s.contains(WidgetState.pressed)) return colors.listCardMenuPressed;
-    if (s.contains(WidgetState.hovered)) return colors.listCardMenuFloating;
+  Color _textBackground(Set<WidgetState> s) {
+    if (s.contains(WidgetState.pressed)) return const Color(0x33999999);
+    if (s.contains(WidgetState.hovered)) return const Color(0x1A999999);
     return Colors.transparent;
   }
 
