@@ -1,0 +1,137 @@
+import 'package:flutter/material.dart';
+import 'package:talk_design/talk_design.dart';
+
+class LoadingPage extends StatelessWidget {
+  const LoadingPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(TalkSpacing.l),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _Section(
+            title: '环形不确定进度指示器 — 5 种尺寸',
+            description: 'small(12) / medium(16) / large(28) / xlarge(40) / xxlarge(60)，颜色默认 main',
+            children: const [
+              TalkLoadingIndicator(size: TalkLoadingSize.small),
+              TalkLoadingIndicator(size: TalkLoadingSize.medium),
+              TalkLoadingIndicator(size: TalkLoadingSize.large),
+              TalkLoadingIndicator(size: TalkLoadingSize.xlarge),
+              TalkLoadingIndicator(size: TalkLoadingSize.xxlarge),
+            ],
+          ),
+          _Section(
+            title: '自定义颜色',
+            description: '通过 color 参数覆盖，可用于消息发送中等场景',
+            children: [
+              TalkLoadingIndicator(
+                size: TalkLoadingSize.medium,
+                color: context.talkColors.textSecondary,
+              ),
+              TalkLoadingIndicator(
+                size: TalkLoadingSize.large,
+                color: context.talkColors.textSecondary,
+              ),
+              TalkLoadingIndicator(
+                size: TalkLoadingSize.xlarge,
+                color: context.talkColors.textSecondary,
+              ),
+            ],
+          ),
+          _Section(
+            title: '典型用法 — 消息发送中',
+            description: '与消息气泡行内对齐，使用 textSecondary 灰色',
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: TalkSpacing.m,
+                      vertical: TalkSpacing.s,
+                    ),
+                    decoration: BoxDecoration(
+                      color: context.talkColors.messageBubble,
+                      borderRadius: BorderRadius.circular(TalkSpacing.m),
+                    ),
+                    child: const Text('正在发送中...'),
+                  ),
+                  const SizedBox(width: TalkSpacing.xs),
+                  TalkLoadingIndicator(
+                    size: TalkLoadingSize.medium,
+                    color: context.talkColors.textSecondary,
+                  ),
+                ],
+              ),
+            ],
+          ),
+          _Section(
+            title: '典型用法 — 全屏加载',
+            description: '使用 xxlarge 尺寸配合说明文字',
+            children: [
+              Container(
+                width: double.infinity,
+                height: 160,
+                decoration: BoxDecoration(
+                  color: context.talkColors.backgroundLevel2,
+                  borderRadius: BorderRadius.circular(TalkSpacing.m),
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TalkLoadingIndicator(size: TalkLoadingSize.xxlarge),
+                    SizedBox(height: TalkSpacing.m),
+                    Text('加载中，请稍候…'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Section extends StatelessWidget {
+  const _Section({
+    required this.title,
+    required this.children,
+    this.description,
+  });
+
+  final String title;
+  final String? description;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: TalkSpacing.xl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: Theme.of(context).textTheme.titleSmall),
+          if (description != null) ...[
+            const SizedBox(height: TalkSpacing.xs),
+            Text(
+              description!,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: context.talkColors.textSecondary,
+                  ),
+            ),
+          ],
+          const SizedBox(height: TalkSpacing.m),
+          Wrap(
+            spacing: TalkSpacing.l,
+            runSpacing: TalkSpacing.m,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: children,
+          ),
+        ],
+      ),
+    );
+  }
+}

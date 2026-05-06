@@ -4,5 +4,6 @@ export 'src/tokens/talk_shadows.dart';
 export 'src/tokens/talk_typography.dart';
 export 'src/components/talk_button.dart';
 export 'src/components/talk_input_field.dart';
+export 'src/components/talk_loading_indicator.dart';
 export 'src/theme/talk_theme.dart';
 export 'src/theme/talk_context_extensions.dart';
