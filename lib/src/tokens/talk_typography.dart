@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// 所有样式均不设置 color，颜色由 Text widget 继承 DefaultTextStyle（即 TalkTheme 中的 bodyMedium）获得
+// 即默认颜色就是主文本色（textPrimary）
 abstract final class TalkTypography {
   // ── Display ─────────────────────────────────────────────────────────────────
   static const TextStyle displayLarge = TextStyle(

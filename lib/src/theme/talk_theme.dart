@@ -17,7 +17,10 @@ class TalkTheme {
     return base.copyWith(
       scaffoldBackgroundColor: TalkColors.light.backgroundPrimary,
       textTheme: base.textTheme.copyWith(
+        // Material 3 默认有 0.1 的 letterSpacing，与设计稿不符
         labelLarge: base.textTheme.labelLarge!.copyWith(letterSpacing: 0),
+        // Material 将 bodyMedium 设为 DefaultTextStyle，覆盖此颜色使无显式 color 的 Text 默认呈现 textPrimary
+        bodyMedium: base.textTheme.bodyMedium!.copyWith(color: TalkColors.light.textPrimary),
       ),
       menuTheme: MenuThemeData(
         style: MenuStyle(
