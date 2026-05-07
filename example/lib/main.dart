@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talk_design/talk_design.dart';
 
+import 'avatar_page.dart';
 import 'badge_page.dart';
 import 'checkbox_page.dart';
 import 'colors_page.dart';
@@ -39,6 +40,7 @@ class _NavItem {
 }
 
 const _navItems = <_NavItem>[
+  _NavItem('头像', Icons.account_circle_outlined, AvatarPage()),
   _NavItem('Badge', Icons.notifications_outlined, BadgePage()),
   _NavItem('Checkbox', Icons.check_box_outlined, CheckboxPage()),
   _NavItem('颜色', Icons.palette_outlined, ColorsPage()),
