@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talk_design/talk_design.dart';
 
 class ToastPage extends StatelessWidget {
@@ -12,59 +11,27 @@ class ToastPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _Section(
+          _Section(
             title: '纯文本 Toast',
             description: '宽度随文本内容自适应，圆角 20px，白底阴影',
             children: [
-              TalkToast(message: '操作成功'),
-              TalkToast(message: '这是一条较长的提示信息，宽度自适应'),
+              _TriggerButton(
+                label: '操作成功',
+                onPressed: (ctx) => TalkToast.show(ctx, '操作成功'),
+              ),
+              _TriggerButton(
+                label: '较长提示信息',
+                onPressed: (ctx) =>
+                    TalkToast.show(ctx, '这是一条较长的提示信息，宽度自适应'),
+              ),
             ],
           ),
           _Section(
             title: '带图标 Toast',
             description: '前置图标固定 20×20，与文字间距 8px',
             children: [
-              TalkToast(
-                message: '复制成功',
-                icon: Icon(Icons.check_circle_outline,
-                    color: context.talkColors.success),
-              ),
-              TalkToast(
-                message: '链接已复制',
-                icon: Icon(Icons.link,
-                    color: context.talkColors.textSecondary),
-              ),
-              TalkToast(
-                message: '操作失败，请重试',
-                icon: Icon(Icons.error_outline,
-                    color: context.talkColors.redDotError),
-              ),
-            ],
-          ),
-          _Section(
-            title: '成功 / 失败 Toast',
-            description: '使用 TalkIcons.correct / TalkIcons.error 内置 SVG 图标',
-            children: [
-              TalkToast(
-                message: '保存成功',
-                icon: SvgPicture.asset(TalkIcons.correct),
-              ),
-              TalkToast(
-                message: '操作失败，请重试',
-                icon: SvgPicture.asset(TalkIcons.error),
-              ),
-            ],
-          ),
-          _Section(
-            title: '弹出式 Toast — TalkToast.show()',
-            description: '点击按钮触发，底部居中弹出，自动消失',
-            children: [
               _TriggerButton(
-                label: '显示纯文本',
-                onPressed: (ctx) => TalkToast.show(ctx, '操作成功'),
-              ),
-              _TriggerButton(
-                label: '显示带图标',
+                label: '复制成功',
                 onPressed: (ctx) => TalkToast.show(
                   ctx,
                   '复制成功',
@@ -73,6 +40,30 @@ class ToastPage extends StatelessWidget {
                 ),
               ),
               _TriggerButton(
+                label: '链接已复制',
+                onPressed: (ctx) => TalkToast.show(
+                  ctx,
+                  '链接已复制',
+                  icon: Icon(Icons.link,
+                      color: ctx.talkColors.textSecondary),
+                ),
+              ),
+              _TriggerButton(
+                label: '操作失败',
+                onPressed: (ctx) => TalkToast.show(
+                  ctx,
+                  '操作失败，请重试',
+                  icon: Icon(Icons.error_outline,
+                      color: ctx.talkColors.redDotError),
+                ),
+              ),
+            ],
+          ),
+          _Section(
+            title: '成功 / 失败 Toast',
+            description: '使用 TalkIcons.correct / TalkIcons.error 内置 SVG 图标',
+            children: [
+              _TriggerButton(
                 label: '成功 Toast',
                 onPressed: (ctx) => TalkToast.showSuccess(ctx, '保存成功'),
               ),
@@ -80,8 +71,14 @@ class ToastPage extends StatelessWidget {
                 label: '失败 Toast',
                 onPressed: (ctx) => TalkToast.showError(ctx, '操作失败，请重试'),
               ),
+            ],
+          ),
+          _Section(
+            title: '时长与偏移',
+            description: '控制 Toast 显示时长和顶部偏移量',
+            children: [
               _TriggerButton(
-                label: 'Long 时长',
+                label: 'Long 时长 (4 秒)',
                 onPressed: (ctx) => TalkToast.show(
                   ctx,
                   '这条 toast 会显示 4 秒',
@@ -89,7 +86,7 @@ class ToastPage extends StatelessWidget {
                 ),
               ),
               _TriggerButton(
-                label: 'Short 时长',
+                label: 'Short 时长 (1.5 秒)',
                 onPressed: (ctx) => TalkToast.show(
                   ctx,
                   '1.5 秒后消失',

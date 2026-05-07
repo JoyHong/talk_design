@@ -21,27 +21,20 @@ enum TalkToastDuration {
 
 /// Toast 提示组件。
 ///
-/// 可作为独立 widget 嵌入布局，也可通过 [TalkToast.show] 在屏幕底部弹出
-/// 并在指定时间后自动消失。
+/// 通过 [TalkToast.show] 在屏幕顶部弹出并在指定时间后自动消失。
 ///
 /// ```dart
-/// // 弹出式用法（推荐）
 /// TalkToast.show(context, '操作成功');
 /// TalkToast.show(context, '已复制链接', icon: Icon(Icons.link, size: 20));
 ///
 /// // 成功 / 失败快捷方式
 /// TalkToast.showSuccess(context, '保存成功');
 /// TalkToast.showError(context, '操作失败，请重试');
-///
-/// // 内嵌用法
-/// TalkToast(message: '操作成功')
-/// TalkToast(message: '已复制链接', icon: Icon(Icons.link, size: 20))
 /// ```
 class TalkToast extends StatelessWidget {
-  const TalkToast({
+  const TalkToast._({
     required this.message,
     this.icon,
-    super.key,
   });
 
   /// 显示的文本内容。
@@ -204,7 +197,7 @@ class _TalkToastOverlayState extends State<_TalkToastOverlay>
       child: FadeTransition(
         opacity: _opacity,
         child: Center(
-          child: TalkToast(
+          child: TalkToast._(
             message: widget.message,
             icon: widget.icon,
           ),
