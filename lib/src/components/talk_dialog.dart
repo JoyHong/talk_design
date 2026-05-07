@@ -149,7 +149,7 @@ class _TitleRow extends StatelessWidget {
           GestureDetector(
             onTap: onClose,
             child: SvgPicture.asset(
-              TalkIcons.clear,
+              TalkIcons.close,
               width: 16,
               height: 16,
               colorFilter: ColorFilter.mode(
