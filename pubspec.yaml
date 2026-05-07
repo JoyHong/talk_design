@@ -30,6 +30,7 @@ flutter:
     - assets/icons/ic_checkbox_unchecked.svg
     - assets/icons/ic_checkbox_checked.svg
     - assets/icons/ic_checkbox_disabled.svg
+    - assets/icons/ic_check.svg
   fonts:
     - family: Roboto
       fonts:

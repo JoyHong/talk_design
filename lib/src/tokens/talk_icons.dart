@@ -8,4 +8,5 @@ abstract final class TalkIcons {
   static const String checkboxUnchecked = 'packages/talk_design/assets/icons/ic_checkbox_unchecked.svg';
   static const String checkboxChecked = 'packages/talk_design/assets/icons/ic_checkbox_checked.svg';
   static const String checkboxDisabled = 'packages/talk_design/assets/icons/ic_checkbox_disabled.svg';
+  static const String check = 'packages/talk_design/assets/icons/ic_check.svg';
 }

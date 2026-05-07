@@ -519,7 +519,14 @@ class _DropdownMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return MenuItemButton(
       onPressed: onPressed,
-      trailingIcon: isSelected ? Icon(Icons.check, size: 14, color: themeColor) : null,
+      trailingIcon: isSelected
+          ? SvgPicture.asset(
+              TalkIcons.check,
+              width: 13.33,
+              height: 13.33,
+              colorFilter: ColorFilter.mode(themeColor, BlendMode.srcIn),
+            )
+          : null,
       style: const ButtonStyle(
         padding: WidgetStatePropertyAll(
           EdgeInsets.symmetric(horizontal: 12, vertical: 14),
