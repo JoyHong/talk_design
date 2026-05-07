@@ -376,11 +376,15 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
             onTap: _toggleDropdown,
             child: Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: SvgPicture.asset(
-                _isDropdown ? TalkIcons.arrowDown : TalkIcons.arrowUp,
-                width: 16,
-                height: 16,
-                colorFilter: ColorFilter.mode(colors.textPrimary, BlendMode.srcIn),
+              child: AnimatedRotation(
+                turns: _isDropdown ? 0.5 : 0,
+                duration: const Duration(milliseconds: 150),
+                child: SvgPicture.asset(
+                  TalkIcons.arrowDown,
+                  width: 16,
+                  height: 16,
+                  colorFilter: ColorFilter.mode(colors.textPrimary, BlendMode.srcIn),
+                ),
               ),
             ),
           ),
