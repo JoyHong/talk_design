@@ -10,4 +10,6 @@ abstract final class TalkIcons {
   static const String checkboxDisabled = 'packages/talk_design/assets/icons/ic_checkbox_disabled.svg';
   static const String check = 'packages/talk_design/assets/icons/ic_check.svg';
   static const String close = 'packages/talk_design/assets/icons/ic_close.svg';
+  static const String correct = 'packages/talk_design/assets/icons/ic_correct.svg';
+  static const String error = 'packages/talk_design/assets/icons/ic_error.svg';
 }

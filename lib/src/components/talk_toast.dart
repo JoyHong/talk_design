@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../theme/talk_context_extensions.dart';
+import '../tokens/talk_icons.dart';
 import '../tokens/talk_shadows.dart';
 import '../tokens/talk_spacing.dart';
 import '../tokens/talk_typography.dart';
@@ -25,28 +27,28 @@ enum TalkToastDuration {
 /// ```dart
 /// // 弹出式用法（推荐）
 /// TalkToast.show(context, '操作成功');
-/// TalkToast.show(context, '已复制链接', icon: Icons.link, iconColor: Colors.grey);
+/// TalkToast.show(context, '已复制链接', icon: Icon(Icons.link, size: 20));
+///
+/// // 成功 / 失败快捷方式
+/// TalkToast.showSuccess(context, '保存成功');
+/// TalkToast.showError(context, '操作失败，请重试');
 ///
 /// // 内嵌用法
 /// TalkToast(message: '操作成功')
-/// TalkToast(message: '已复制链接', icon: Icons.link)
+/// TalkToast(message: '已复制链接', icon: Icon(Icons.link, size: 20))
 /// ```
 class TalkToast extends StatelessWidget {
   const TalkToast({
     required this.message,
     this.icon,
-    this.iconColor,
     super.key,
   });
 
   /// 显示的文本内容。
   final String message;
 
-  /// 可选前置图标，固定渲染为 20×20。
-  final IconData? icon;
-
-  /// 图标颜色，默认继承 [TalkColors.textPrimary]。
-  final Color? iconColor;
+  /// 可选前置图标，内部固定渲染为 20×20。
+  final Widget? icon;
 
   /// 在屏幕顶部居中弹出一个自动消失的 toast。
   ///
@@ -54,8 +56,7 @@ class TalkToast extends StatelessWidget {
   static void show(
     BuildContext context,
     String message, {
-    IconData? icon,
-    Color? iconColor,
+    Widget? icon,
     TalkToastDuration duration = TalkToastDuration.normal,
     double topOffset = 30,
   }) {
@@ -65,13 +66,44 @@ class TalkToast extends StatelessWidget {
       builder: (_) => _TalkToastOverlay(
         message: message,
         icon: icon,
-        iconColor: iconColor,
         duration: duration,
         topOffset: topOffset,
         onDismissed: entry.remove,
       ),
     );
     overlay.insert(entry);
+  }
+
+  /// 弹出「成功」toast，使用 [TalkIcons.correct] 图标。
+  static void showSuccess(
+    BuildContext context,
+    String message, {
+    TalkToastDuration duration = TalkToastDuration.normal,
+    double topOffset = 30,
+  }) {
+    show(
+      context,
+      message,
+      icon: SvgPicture.asset(TalkIcons.correct),
+      duration: duration,
+      topOffset: topOffset,
+    );
+  }
+
+  /// 弹出「失败」toast，使用 [TalkIcons.error] 图标。
+  static void showError(
+    BuildContext context,
+    String message, {
+    TalkToastDuration duration = TalkToastDuration.normal,
+    double topOffset = 30,
+  }) {
+    show(
+      context,
+      message,
+      icon: SvgPicture.asset(TalkIcons.error),
+      duration: duration,
+      topOffset: topOffset,
+    );
   }
 
   @override
@@ -91,7 +123,7 @@ class TalkToast extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (icon != null) ...[
-              Icon(icon, size: 20, color: iconColor ?? context.talkColors.textPrimary),
+              SizedBox(width: 20, height: 20, child: icon),
               const SizedBox(width: TalkSpacing.s),
             ],
             Text(
@@ -115,12 +147,10 @@ class _TalkToastOverlay extends StatefulWidget {
     required this.topOffset,
     required this.onDismissed,
     this.icon,
-    this.iconColor,
   });
 
   final String message;
-  final IconData? icon;
-  final Color? iconColor;
+  final Widget? icon;
   final TalkToastDuration duration;
   final double topOffset;
   final VoidCallback onDismissed;
@@ -177,7 +207,6 @@ class _TalkToastOverlayState extends State<_TalkToastOverlay>
           child: TalkToast(
             message: widget.message,
             icon: widget.icon,
-            iconColor: widget.iconColor,
           ),
         ),
       ),

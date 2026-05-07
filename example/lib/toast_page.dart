@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talk_design/talk_design.dart';
 
 class ToastPage extends StatelessWidget {
@@ -25,18 +26,32 @@ class ToastPage extends StatelessWidget {
             children: [
               TalkToast(
                 message: '复制成功',
-                icon: Icons.check_circle_outline,
-                iconColor: context.talkColors.success,
+                icon: Icon(Icons.check_circle_outline,
+                    color: context.talkColors.success),
               ),
               TalkToast(
                 message: '链接已复制',
-                icon: Icons.link,
-                iconColor: context.talkColors.textSecondary,
+                icon: Icon(Icons.link,
+                    color: context.talkColors.textSecondary),
               ),
               TalkToast(
                 message: '操作失败，请重试',
-                icon: Icons.error_outline,
-                iconColor: context.talkColors.redDotError,
+                icon: Icon(Icons.error_outline,
+                    color: context.talkColors.redDotError),
+              ),
+            ],
+          ),
+          _Section(
+            title: '成功 / 失败 Toast',
+            description: '使用 TalkIcons.correct / TalkIcons.error 内置 SVG 图标',
+            children: [
+              TalkToast(
+                message: '保存成功',
+                icon: SvgPicture.asset(TalkIcons.correct),
+              ),
+              TalkToast(
+                message: '操作失败，请重试',
+                icon: SvgPicture.asset(TalkIcons.error),
               ),
             ],
           ),
@@ -53,9 +68,17 @@ class ToastPage extends StatelessWidget {
                 onPressed: (ctx) => TalkToast.show(
                   ctx,
                   '复制成功',
-                  icon: Icons.check_circle_outline,
-                  iconColor: ctx.talkColors.success,
+                  icon: Icon(Icons.check_circle_outline,
+                      color: ctx.talkColors.success),
                 ),
+              ),
+              _TriggerButton(
+                label: '成功 Toast',
+                onPressed: (ctx) => TalkToast.showSuccess(ctx, '保存成功'),
+              ),
+              _TriggerButton(
+                label: '失败 Toast',
+                onPressed: (ctx) => TalkToast.showError(ctx, '操作失败，请重试'),
               ),
               _TriggerButton(
                 label: 'Long 时长',
