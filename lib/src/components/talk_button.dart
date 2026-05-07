@@ -420,7 +420,6 @@ class TalkDropdownButton<T> extends StatefulWidget {
 
 class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
   static const _buttonBg = Color(0x1449454F);
-  static const _textColor = Color(0xFF49454F);
   static const _minWidth = 130.0;
   static const _maxWidth = 200.0;
   // left padding(12) + min gap(12) + icon(14) + right padding(8)
@@ -442,7 +441,7 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final themeColor = Theme.of(context).colorScheme.primary;
+    final themeColor = context.talkColors.theme;
     final width = _computeWidth();
 
     return MenuAnchor(
@@ -476,7 +475,7 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
               Expanded(
                 child: Text(
                   _selectedLabel,
-                  style: TalkTypography.bodyMedium.copyWith(color: _textColor),
+                  style: TalkTypography.bodyMedium,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
@@ -527,7 +526,7 @@ class _DropdownMenuItem extends StatelessWidget {
         ),
         minimumSize: WidgetStatePropertyAll(Size(0, 0)),
       ),
-      child: Text(label),
+      child: Text(label, style: TalkTypography.bodyMedium),
     );
   }
 }
