@@ -17,4 +17,11 @@ abstract final class TalkShadows {
       spreadRadius: 2,
     ),
   ];
+
+  static const List<BoxShadow> toast = [
+    BoxShadow(
+      color: Color(0x14000000),
+      blurRadius: 10,
+    ),
+  ];
 }
