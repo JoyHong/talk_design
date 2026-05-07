@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/talk_context_extensions.dart';
 import '../tokens/talk_colors.dart';
 import '../tokens/talk_icons.dart';
+import '../tokens/talk_spacing.dart';
 import '../tokens/talk_typography.dart';
 
 enum _V {
@@ -422,7 +423,7 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
   static const _buttonBg = Color(0x1449454F);
   static const _minWidth = 130.0;
   static const _maxWidth = 200.0;
-  // left padding(12) + min gap(12) + icon(14) + right padding(8)
+  // left padding(12) + min gap(12) + arrow icon(14) + right padding(8)
   static const _fixedExtras = 12.0 + 12.0 + 14.0 + 8.0;
 
   bool _isOpen = false;
@@ -430,7 +431,7 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
   String get _selectedLabel =>
       widget.items.firstWhere((i) => i.value == widget.value).label;
 
-  double _computeWidth() {
+  double _computeButtonWidth() {
     final tp = TextPainter(
       text: TextSpan(text: _selectedLabel, style: TalkTypography.bodyMedium),
       textDirection: TextDirection.ltr,
@@ -439,18 +440,15 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
     return (tp.width + _fixedExtras).clamp(_minWidth, _maxWidth);
   }
 
-  @override
+@override
   Widget build(BuildContext context) {
     final themeColor = context.talkColors.theme;
-    final width = _computeWidth();
+    final buttonWidth = _computeButtonWidth();
 
     return MenuAnchor(
       onOpen: () => setState(() => _isOpen = true),
       onClose: () => setState(() => _isOpen = false),
-      style: MenuStyle(
-        minimumSize: WidgetStatePropertyAll(Size(width, 0)),
-        maximumSize: WidgetStatePropertyAll(Size(width, double.infinity)),
-      ),
+      alignmentOffset: TalkSpacing.menuAnchorOffset,
       menuChildren: [
         for (final item in widget.items)
           _DropdownMenuItem(
@@ -463,7 +461,7 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
       builder: (context, controller, _) => GestureDetector(
         onTap: controller.isOpen ? controller.close : controller.open,
         child: Container(
-          width: width,
+          width: buttonWidth,
           height: 32,
           decoration: BoxDecoration(
             color: _buttonBg,
@@ -519,21 +517,16 @@ class _DropdownMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return MenuItemButton(
       onPressed: onPressed,
-      trailingIcon: isSelected
-          ? SvgPicture.asset(
-              TalkIcons.check,
-              width: 13.33,
-              height: 13.33,
-              colorFilter: ColorFilter.mode(themeColor, BlendMode.srcIn),
-            )
-          : null,
-      style: const ButtonStyle(
-        padding: WidgetStatePropertyAll(
-          EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+      trailingIcon: SvgPicture.asset(
+        TalkIcons.check,
+        width: 14,
+        height: 14,
+        colorFilter: ColorFilter.mode(
+          isSelected ? themeColor : Colors.transparent,
+          BlendMode.srcIn,
         ),
-        minimumSize: WidgetStatePropertyAll(Size(0, 0)),
       ),
-      child: Text(label, style: TalkTypography.bodyMedium),
+      child: Text(label),
     );
   }
 }

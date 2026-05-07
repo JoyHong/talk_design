@@ -55,7 +55,7 @@ class TalkTheme {
           padding: const WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           ),
-          minimumSize: const WidgetStatePropertyAll(Size(160, 44)),
+          minimumSize: const WidgetStatePropertyAll(Size(130, 44)),
           shape: const WidgetStatePropertyAll(RoundedRectangleBorder()),
         ),
       ),

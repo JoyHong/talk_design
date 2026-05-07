@@ -41,6 +41,7 @@ class _SimpleMenuDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MenuAnchor(
+      alignmentOffset: TalkSpacing.menuAnchorOffset,
       menuChildren: [
         MenuItemButton(
           leadingIcon: const Icon(Icons.person_remove_outlined),
@@ -69,6 +70,7 @@ class _SubMenuDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.talkColors;
     return MenuAnchor(
+      alignmentOffset: TalkSpacing.menuAnchorOffset,
       menuChildren: [
         SubmenuButton(
           leadingIcon: const Icon(Icons.people_outlined),
