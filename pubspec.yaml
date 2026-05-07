@@ -21,16 +21,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/icons/ic_arrow_up.svg
-    - assets/icons/ic_arrow_down.svg
-    - assets/icons/ic_password_show.svg
-    - assets/icons/ic_password_hide.svg
-    - assets/icons/ic_clear.svg
-    - assets/icons/ic_search.svg
-    - assets/icons/ic_checkbox_unchecked.svg
-    - assets/icons/ic_checkbox_checked.svg
-    - assets/icons/ic_checkbox_disabled.svg
-    - assets/icons/ic_check.svg
+    - assets/icons/
   fonts:
     - family: Roboto
       fonts:
