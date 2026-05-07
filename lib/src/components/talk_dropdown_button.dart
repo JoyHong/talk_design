@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talk_design/src/theme/talk_context_extensions.dart';
 import 'package:talk_design/src/tokens/talk_typography.dart';
@@ -49,46 +48,35 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
   static const _textColor = Color(0xFF49454F); // M3 on-surface-variant
   static const _minWidth = 130.0;
   static const _maxWidth = 200.0;
+  // left padding(12) + min gap(12) + icon(14) + right padding(8)
+  static const _fixedExtras = 12.0 + 12.0 + 14.0 + 8.0;
 
-  final _triggerKey = GlobalKey();
-  double _menuWidth = _minWidth;
   bool _isOpen = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _scheduleWidthMeasure();
-  }
-
-  @override
-  void didUpdateWidget(TalkDropdownButton<T> old) {
-    super.didUpdateWidget(old);
-    // Re-measure when the selected label changes (different text length).
-    if (old.value != widget.value) _scheduleWidthMeasure();
-  }
-
-  void _scheduleWidthMeasure() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      final box = _triggerKey.currentContext?.findRenderObject() as RenderBox?;
-      if (box == null || !box.hasSize) return;
-      final w = box.size.width.clamp(_minWidth, _maxWidth);
-      if (w != _menuWidth) setState(() => _menuWidth = w);
-    });
-  }
 
   String get _selectedLabel =>
       widget.items.firstWhere((i) => i.value == widget.value).label;
 
+  /// 根据当前选中文字自然宽度同步计算按钮宽度，clamp 到 [_minWidth, _maxWidth]。
+  double _computeWidth() {
+    final tp = TextPainter(
+      text: TextSpan(text: _selectedLabel, style: TalkTypography.bodyMedium),
+      textDirection: TextDirection.ltr,
+      maxLines: 1,
+    )..layout(maxWidth: _maxWidth - _fixedExtras);
+    return (tp.width + _fixedExtras).clamp(_minWidth, _maxWidth);
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeColor = Theme.of(context).colorScheme.primary;
+    final width = _computeWidth();
 
     return MenuAnchor(
       onOpen: () => setState(() => _isOpen = true),
       onClose: () => setState(() => _isOpen = false),
       style: MenuStyle(
-        minimumSize: WidgetStatePropertyAll(Size(_menuWidth, 0)),
-        maximumSize: WidgetStatePropertyAll(Size(_menuWidth, double.infinity)),
+        minimumSize: WidgetStatePropertyAll(Size(width, 0)),
+        maximumSize: WidgetStatePropertyAll(Size(width, double.infinity)),
       ),
       menuChildren: [
         for (final item in widget.items)
@@ -101,47 +89,39 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
       ],
       builder: (context, controller, _) => GestureDetector(
         onTap: controller.isOpen ? controller.close : controller.open,
-        child: ConstrainedBox(
-          key: _triggerKey,
-          constraints: const BoxConstraints(
-            minWidth: _minWidth,
-            maxWidth: _maxWidth,
+        child: Container(
+          width: width,
+          height: 32,
+          decoration: BoxDecoration(
+            color: _buttonBg,
+            borderRadius: BorderRadius.circular(8),
           ),
-          child: IntrinsicWidth(
-            child: Container(
-              height: 32,
-              decoration: BoxDecoration(
-                color: _buttonBg,
-                borderRadius: BorderRadius.circular(8),
+          padding: const EdgeInsets.only(left: 12, right: 8, top: 6, bottom: 6),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  _selectedLabel,
+                  style: TalkTypography.bodyMedium.copyWith(color: _textColor),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ),
-              padding: const EdgeInsets.only(left: 12, right: 8, top: 6, bottom: 6),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flexible(
-                    child: Text(
-                      _selectedLabel,
-                      style: TalkTypography.bodyMedium.copyWith(color: _textColor),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
+              const SizedBox(width: 12),
+              AnimatedRotation(
+                turns: _isOpen ? 0.5 : 0,
+                duration: const Duration(milliseconds: 150),
+                child: SvgPicture.asset(
+                  TalkIcons.arrowDown,
+                  width: 14,
+                  height: 14,
+                  colorFilter: ColorFilter.mode(
+                    context.talkColors.textSecondary,
+                    BlendMode.srcIn,
                   ),
-                  AnimatedRotation(
-                    turns: _isOpen ? 0.5 : 0,
-                    duration: const Duration(milliseconds: 150),
-                    child: SvgPicture.asset(
-                      TalkIcons.arrowDown,
-                      width: 14,
-                      height: 14,
-                      colorFilter: ColorFilter.mode(
-                        context.talkColors.textSecondary,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
