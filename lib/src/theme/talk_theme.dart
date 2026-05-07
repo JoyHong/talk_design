@@ -25,8 +25,10 @@ class TalkTheme {
       menuTheme: MenuThemeData(
         style: MenuStyle(
           backgroundColor: WidgetStatePropertyAll(TalkColors.light.listDialogBox),
-          elevation: const WidgetStatePropertyAll(8),
-          shadowColor: const WidgetStatePropertyAll(Color(0x26000000)),
+          elevation: const WidgetStatePropertyAll(4),
+          // 让 elevation 系数直接作用在纯黑色上
+          // 在 elevation 4 下 Flutter M3 会产生清晰可见的阴影（key shadow ≈ 14% 黑、ambient shadow ≈ 12% 黑，视觉上与 Figma 的 15% 接近）。
+          shadowColor: const WidgetStatePropertyAll(Colors.black),
           surfaceTintColor: const WidgetStatePropertyAll(Colors.transparent),
           shape: const WidgetStatePropertyAll(
             RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4))),

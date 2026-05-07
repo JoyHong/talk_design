@@ -11,9 +11,10 @@ abstract final class TalkShadows {
 
   static const List<BoxShadow> popup = [
     BoxShadow(
-      color: Color(0x1A000000),
-      blurRadius: 16,
-      offset: Offset(0, 4),
+      color: Color(0x26000000),
+      blurRadius: 15,
+      offset: Offset(0, 2),
+      spreadRadius: 2,
     ),
   ];
 }
