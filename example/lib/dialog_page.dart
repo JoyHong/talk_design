@@ -14,83 +14,62 @@ class _DialogPageState extends State<DialogPage> {
   void _log(String action) => setState(() => _lastAction = action);
 
   void _showSingleLine() {
-    showDialog<void>(
+    showTalkDialog(
       context: context,
-      barrierColor: Colors.black54,
-      builder: (_) => Dialog(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        child: TalkDialog(
-          title: '确认删除这条消息吗？',
-          onClose: () => Navigator.pop(context),
-          cancelLabel: '取消',
-          onCancel: () {
-            Navigator.pop(context);
-            _log('单行文本 → 取消');
-          },
-          confirmLabel: '删除',
-          onConfirm: () {
-            Navigator.pop(context);
-            _log('单行文本 → 删除');
-          },
-        ),
-      ),
+      title: '确认删除这条消息吗？',
+      onClose: () => Navigator.pop(context),
+      cancelLabel: '取消',
+      onCancel: () {
+        Navigator.pop(context);
+        _log('单行文本 → 取消');
+      },
+      confirmLabel: '删除',
+      onConfirm: () {
+        Navigator.pop(context);
+        _log('单行文本 → 删除');
+      },
     );
   }
 
   void _showMultiLine() {
-    showDialog<void>(
+    showTalkDialog(
       context: context,
-      barrierColor: Colors.black54,
-      builder: (_) => Dialog(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        child: TalkDialog(
-          title: '退出当前通话',
-          message: '退出后将无法再加入此通话，是否确认退出？',
-          onClose: () => Navigator.pop(context),
-          cancelLabel: '取消',
-          onCancel: () {
-            Navigator.pop(context);
-            _log('多行文本 → 取消');
-          },
-          confirmLabel: '退出',
-          onConfirm: () {
-            Navigator.pop(context);
-            _log('多行文本 → 退出');
-          },
-        ),
-      ),
+      title: '退出当前通话',
+      message: '退出后将无法再加入此通话，是否确认退出？',
+      onClose: () => Navigator.pop(context),
+      cancelLabel: '取消',
+      onCancel: () {
+        Navigator.pop(context);
+        _log('多行文本 → 取消');
+      },
+      confirmLabel: '退出',
+      onConfirm: () {
+        Navigator.pop(context);
+        _log('多行文本 → 退出');
+      },
     );
   }
 
   void _showDropdown() {
-    showDialog<void>(
+    showTalkDialog(
       context: context,
-      barrierColor: Colors.black54,
-      builder: (_) => Dialog(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        child: TalkDialog(
-          title: '结束本次通话',
-          onClose: () => Navigator.pop(context),
-          cancelLabel: '取消',
-          onCancel: () {
-            Navigator.pop(context);
-            _log('下拉按钮 → 取消');
-          },
-          confirmLabel: '结束通话',
-          onConfirm: () {
-            Navigator.pop(context);
-            _log('下拉按钮 → 结束通话（主操作）');
-          },
-          confirmDropdownItems: const ['所有人离开', '仅自己离开'],
-          onConfirmDropdownSelected: (value) {
-            Navigator.pop(context);
-            _log('下拉按钮 → $value');
-          },
-        ),
-      ),
+      title: '结束本次通话',
+      onClose: () => Navigator.pop(context),
+      cancelLabel: '取消',
+      onCancel: () {
+        Navigator.pop(context);
+        _log('下拉按钮 → 取消');
+      },
+      confirmLabel: '结束通话',
+      onConfirm: () {
+        Navigator.pop(context);
+        _log('下拉按钮 → 结束通话（主操作）');
+      },
+      confirmDropdownItems: const ['所有人离开', '仅自己离开'],
+      onConfirmDropdownSelected: (value) {
+        Navigator.pop(context);
+        _log('下拉按钮 → $value');
+      },
     );
   }
 

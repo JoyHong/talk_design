@@ -7,43 +7,81 @@ import '../tokens/talk_shadows.dart';
 import '../tokens/talk_spacing.dart';
 import '../tokens/talk_typography.dart';
 
-/// Figma "Dialog box" 组件，覆盖 3 种变体：
+/// 显示 JusTalk 风格弹框，覆盖 3 种变体：
 ///
 /// **变体 1 — 单行文本**
 /// ```dart
-/// TalkDialog(
+/// showTalkDialog(
+///   context: context,
 ///   title: '确认删除这条消息吗？',
 ///   onClose: () => Navigator.pop(context),
 ///   cancelLabel: '取消',
 ///   onCancel: () => Navigator.pop(context),
 ///   confirmLabel: '删除',
 ///   onConfirm: () {},
-/// )
+/// );
 /// ```
 ///
 /// **变体 2 — 多行文本**（传入 [message] 即为多行变体）
 /// ```dart
-/// TalkDialog(
+/// showTalkDialog(
+///   context: context,
 ///   title: '退出当前通话',
 ///   message: '退出后将无法再加入，请确认是否退出。',
 ///   ...
-/// )
+/// );
 /// ```
 ///
 /// **变体 3 — 确认按钮可下拉**（传入 [confirmDropdownItems] 即为分裂按钮变体）
 /// ```dart
-/// TalkDialog(
+/// showTalkDialog(
+///   context: context,
 ///   title: '结束本次通话',
 ///   confirmLabel: '结束通话',
 ///   confirmDropdownItems: const ['所有人离开', '仅自己离开'],
 ///   onConfirmDropdownSelected: (value) {},
 ///   ...
-/// )
+/// );
 /// ```
-///
-/// 弹框宽度固定 420，高度随内容自适应。
-class TalkDialog extends StatelessWidget {
-  const TalkDialog({
+Future<T?> showTalkDialog<T>({
+  required BuildContext context,
+  required String title,
+  String? message,
+  VoidCallback? onClose,
+  required String cancelLabel,
+  VoidCallback? onCancel,
+  required String confirmLabel,
+  VoidCallback? onConfirm,
+  List<String>? confirmDropdownItems,
+  ValueChanged<String>? onConfirmDropdownSelected,
+  bool barrierDismissible = true,
+}) {
+  return showDialog<T>(
+    context: context,
+    barrierColor: Colors.black54,
+    barrierDismissible: barrierDismissible,
+    builder: (_) => Dialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      child: _TalkDialogContent(
+        title: title,
+        message: message,
+        onClose: onClose,
+        cancelLabel: cancelLabel,
+        onCancel: onCancel,
+        confirmLabel: confirmLabel,
+        onConfirm: onConfirm,
+        confirmDropdownItems: confirmDropdownItems,
+        onConfirmDropdownSelected: onConfirmDropdownSelected,
+      ),
+    ),
+  );
+}
+
+// ── 弹框内容 ────────────────────────────────────────────────────────────────────
+
+class _TalkDialogContent extends StatelessWidget {
+  const _TalkDialogContent({
     required this.title,
     this.message,
     this.onClose,
@@ -53,24 +91,15 @@ class TalkDialog extends StatelessWidget {
     this.onConfirm,
     this.confirmDropdownItems,
     this.onConfirmDropdownSelected,
-    super.key,
   });
 
   final String title;
-
-  /// 副文本，传入后显示在标题下方（多行文本变体）。
   final String? message;
-
-  /// 右上角关闭按钮的回调；传 `null` 则不显示关闭按钮。
   final VoidCallback? onClose;
-
   final String cancelLabel;
   final VoidCallback? onCancel;
-
   final String confirmLabel;
   final VoidCallback? onConfirm;
-
-  /// 确认按钮的下拉选项；传入后确认按钮变为分裂按钮（分裂按钮变体）。
   final List<String>? confirmDropdownItems;
   final ValueChanged<String>? onConfirmDropdownSelected;
 
