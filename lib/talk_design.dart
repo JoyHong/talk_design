@@ -9,6 +9,5 @@ export 'src/components/talk_input_field.dart';
 export 'src/components/talk_badge.dart';
 export 'src/components/talk_loading_indicator.dart';
 export 'src/components/talk_menu_divider.dart';
-export 'src/components/talk_dropdown_button.dart';
 export 'src/theme/talk_theme.dart';
 export 'src/theme/talk_context_extensions.dart';

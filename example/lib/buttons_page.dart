@@ -63,8 +63,53 @@ class ButtonsPage extends StatelessWidget {
               onPressed: () {},
             ),
           ]),
+          const _DropdownSection(),
         ],
       ),
+    );
+  }
+}
+
+// ── 下拉选择按钮示例 ─────────────────────────────────────────────────────────
+
+class _DropdownSection extends StatefulWidget {
+  const _DropdownSection();
+
+  @override
+  State<_DropdownSection> createState() => _DropdownSectionState();
+}
+
+class _DropdownSectionState extends State<_DropdownSection> {
+  String _gender = 'Male';
+  String _country = 'China';
+
+  static const _genderItems = [
+    TalkDropdownItem(value: 'Male', label: 'Male'),
+    TalkDropdownItem(value: 'Female', label: 'Female'),
+  ];
+
+  static const _countryItems = [
+    TalkDropdownItem(value: 'China', label: 'China'),
+    TalkDropdownItem(value: 'United States of America', label: 'United States of America'),
+    TalkDropdownItem(value: 'Japan', label: 'Japan'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: 'dropdown（下拉选择）',
+      children: [
+        TalkDropdownButton<String>(
+          value: _gender,
+          items: _genderItems,
+          onChanged: (v) => setState(() => _gender = v),
+        ),
+        TalkDropdownButton<String>(
+          value: _country,
+          items: _countryItems,
+          onChanged: (v) => setState(() => _country = v),
+        ),
+      ],
     );
   }
 }

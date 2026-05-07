@@ -12,11 +12,6 @@ class MenuPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _Section(
-            title: '下拉选择按钮',
-            description: '点击按钮弹出选项列表，当前选中项右侧显示勾选图标',
-            child: _DropdownDemo(),
-          ),
-          _Section(
             title: '简单菜单（一级）',
             description: '点击右侧按钮，展示只有一级菜单项的菜单',
             child: _SimpleMenuDemo(),
@@ -28,51 +23,6 @@ class MenuPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-// ── 下拉选择按钮示例 ─────────────────────────────────────────────────────────
-
-class _DropdownDemo extends StatefulWidget {
-  const _DropdownDemo();
-
-  @override
-  State<_DropdownDemo> createState() => _DropdownDemoState();
-}
-
-class _DropdownDemoState extends State<_DropdownDemo> {
-  String _gender = 'Male';
-  String _country = 'China';
-
-  static const _genderItems = [
-    TalkDropdownItem(value: 'Male', label: 'Male'),
-    TalkDropdownItem(value: 'Female', label: 'Female'),
-  ];
-
-  static const _countryItems = [
-    TalkDropdownItem(value: 'China', label: 'China'),
-    TalkDropdownItem(value: 'United States of America', label: 'United States of America'),
-    TalkDropdownItem(value: 'Japan', label: 'Japan'),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: TalkSpacing.m,
-      runSpacing: TalkSpacing.s,
-      children: [
-        TalkDropdownButton<String>(
-          value: _gender,
-          items: _genderItems,
-          onChanged: (v) => setState(() => _gender = v),
-        ),
-        TalkDropdownButton<String>(
-          value: _country,
-          items: _countryItems,
-          onChanged: (v) => setState(() => _country = v),
-        ),
-      ],
     );
   }
 }
