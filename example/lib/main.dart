@@ -7,6 +7,7 @@ import 'colors_page.dart';
 import 'buttons_page.dart';
 import 'inputs_page.dart';
 import 'loading_page.dart';
+import 'dialog_page.dart';
 import 'menu_page.dart';
 import 'toast_page.dart';
 import 'tokens_page.dart';
@@ -45,6 +46,7 @@ const _navItems = <_NavItem>[
   _NavItem('输入框', Icons.text_fields_outlined, InputsPage()),
   _NavItem('Loading', Icons.hourglass_empty_outlined, LoadingPage()),
   _NavItem('Toast', Icons.announcement_outlined, ToastPage()),
+  _NavItem('弹框', Icons.web_asset_outlined, DialogPage()),
   _NavItem('菜单', Icons.menu_outlined, MenuPage()),
   _NavItem('字体', Icons.font_download_outlined, TypographyPage()),
   _NavItem('Token', Icons.token_outlined, TokensPage()),

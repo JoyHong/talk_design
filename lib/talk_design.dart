@@ -10,5 +10,6 @@ export 'src/components/talk_badge.dart';
 export 'src/components/talk_loading_indicator.dart';
 export 'src/components/talk_menu_divider.dart';
 export 'src/components/talk_toast.dart';
+export 'src/components/talk_dialog.dart';
 export 'src/theme/talk_theme.dart';
 export 'src/theme/talk_context_extensions.dart';
