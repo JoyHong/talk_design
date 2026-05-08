@@ -23,6 +23,10 @@ class _InputsPageState extends State<InputsPage> {
           _Hint('有焦点且有内容时显示清空图标'),
           TalkTextField(hintText: '请输入内容…'),
 
+          const SizedBox(height: TalkSpacing.s),
+          _Hint('isLoading=true：右侧显示加载指示器，清空图标不显示'),
+          TalkTextField(hintText: '加载中…', isLoading: true),
+
           _Divider(),
 
           // ── 密码输入框 ──────────────────────────────────────────────────────

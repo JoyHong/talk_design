@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/talk_context_extensions.dart';
 import '../tokens/talk_icons.dart';
 import '../tokens/talk_typography.dart';
+import 'talk_loading_indicator.dart';
 
 // ── Shared helpers ────────────────────────────────────────────────────────────
 
@@ -17,7 +18,7 @@ OutlineInputBorder _border(double radius) => OutlineInputBorder(
     );
 
 /// 文本输入框。
-/// 规则：有焦点且有内容时在右侧显示清空图标；否则不显示。
+/// 规则：有焦点且有内容时在右侧显示清空图标；[isLoading] 为 true 时右侧显示加载指示器，清空图标不显示。
 class TalkTextField extends StatefulWidget {
   const TalkTextField({
     this.controller,
@@ -26,6 +27,7 @@ class TalkTextField extends StatefulWidget {
     this.onChanged,
     this.onSubmitted,
     this.textInputAction,
+    this.isLoading = false,
     super.key,
   });
 
@@ -35,6 +37,9 @@ class TalkTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
   final TextInputAction? textInputAction;
+
+  /// 为 true 时在右侧显示加载指示器，清空图标不显示。
+  final bool isLoading;
 
   @override
   State<TalkTextField> createState() => _TalkTextFieldState();
@@ -104,19 +109,24 @@ class _TalkTextFieldState extends State<TalkTextField> {
         focusedBorder: _border(_kRadius),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         isDense: true, // 开启紧凑模式，消除默认的最小高度和多余间距
-        suffixIcon: _showClear
-            ? MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () => _controller.clear(),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: SvgPicture.asset(TalkIcons.clear, width: 16, height: 16,
-                        colorFilter: ColorFilter.mode(colors.textSecondary, BlendMode.srcIn)),
-                  ),
-                ),
+        suffixIcon: widget.isLoading
+            ? Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: TalkLoadingIndicator(size: 12, color: colors.textPrimary),
               )
-            : null,
+            : _showClear
+                ? MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () => _controller.clear(),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: SvgPicture.asset(TalkIcons.clear, width: 16, height: 16,
+                            colorFilter: ColorFilter.mode(colors.textSecondary, BlendMode.srcIn)),
+                      ),
+                    ),
+                  )
+                : null,
         suffixIconConstraints: _kIconConstraints,
       ),
       onChanged: widget.onChanged,

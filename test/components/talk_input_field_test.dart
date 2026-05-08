@@ -63,6 +63,25 @@ void main() {
       await tester.enterText(find.byType(TextField), 'x');
       expect(last, 'x');
     });
+
+    testWidgets('isLoading shows loading indicator', (tester) async {
+      await tester.pumpWidget(_wrap(const TalkTextField(isLoading: true)));
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    });
+
+    testWidgets('isLoading hides clear icon when focused and has content', (tester) async {
+      await tester.pumpWidget(_wrap(const TalkTextField(isLoading: true, hintText: 'hint')));
+      await tester.tap(find.byType(TextField));
+      await tester.enterText(find.byType(TextField), 'hello');
+      await tester.pump();
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.byIcon(Icons.cancel), findsNothing);
+    });
+
+    testWidgets('loading indicator not shown when isLoading is false', (tester) async {
+      await tester.pumpWidget(_wrap(const TalkTextField(isLoading: false)));
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+    });
   });
 
   // ── TalkPasswordField ──────────────────────────────────────────────────────
