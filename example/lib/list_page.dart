@@ -9,6 +9,8 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
+  bool _checkItem1Selected = false;
+  bool _checkItem2Selected = true;
   bool _switch1 = true;
   bool _switch2 = false;
 
@@ -21,10 +23,63 @@ class _ListPageState extends State<ListPage> {
     );
     const divider = SizedBox(height: 24);
 
+    final placeholder = Container(
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Color(0xFFD9D9D9),
+      ),
+    );
+
+    final smallPlaceholder = Container(
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Color(0xFFD9D9D9),
+      ),
+    );
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // ── 头像列表 ────────────────────────────────────────────────────────
+          const Text('头像列表 — List_avatar_check', style: sectionStyle),
+          const SizedBox(height: 8),
+          TalkAvatarCheckListItem(
+            avatar: smallPlaceholder,
+            name: '未选中状态',
+            selected: _checkItem1Selected,
+            onTap: () => setState(() => _checkItem1Selected = !_checkItem1Selected),
+          ),
+          TalkAvatarCheckListItem(
+            avatar: smallPlaceholder,
+            name: '已选中状态',
+            selected: _checkItem2Selected,
+            onTap: () => setState(() => _checkItem2Selected = !_checkItem2Selected),
+          ),
+          divider,
+          const Text('头像列表 — List_avatar_button', style: sectionStyle),
+          const SizedBox(height: 8),
+          TalkAvatarButtonListItem(
+            avatar: placeholder,
+            name: 'Martha Walsh',
+            subtitle: 'I sent a message.',
+            buttonLabel: '添加',
+            onButtonTap: () {},
+            onTap: () {},
+          ),
+          const SizedBox(height: 8),
+          TalkAvatarButtonListItem(
+            avatar: placeholder,
+            name: 'Bob Lee',
+            buttonLabel: '关注',
+            onButtonTap: () {},
+            onTap: () {},
+          ),
+
+          divider,
+          const Divider(),
+          divider,
+
           // ── 常规列表 ────────────────────────────────────────────────────────
           const Text('常规列表 — List_text（纯文本）', style: sectionStyle),
           const SizedBox(height: 8),
