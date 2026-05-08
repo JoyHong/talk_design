@@ -54,7 +54,8 @@ class TalkButton extends StatelessWidget {
   })  : _variant = _V.textTheme,
         icon = null,
         isLoading = false,
-        textStyle = null;
+        textStyle = null,
+        inDialog = false;
 
   // ── 文字按钮（次要色） ──────────────────────────────────────────────────────
   const TalkButton.textSecondary({
@@ -65,7 +66,8 @@ class TalkButton extends StatelessWidget {
   })  : _variant = _V.textSecondary,
         icon = null,
         isLoading = false,
-        textStyle = null;
+        textStyle = null,
+        inDialog = false;
 
   // ── 填充按钮（主题色，纯文字） ─────────────────────────────────────────────
   const TalkButton.fillTheme({
@@ -76,7 +78,8 @@ class TalkButton extends StatelessWidget {
     super.key,
   })  : _variant = _V.fillTheme,
         icon = null,
-        textStyle = null;
+        textStyle = null,
+        inDialog = false;
 
   // ── 填充按钮（主题色 + 图标） ──────────────────────────────────────────────
   const TalkButton.fillThemeIcon({
@@ -87,7 +90,8 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.fillThemeIcon,
-        textStyle = null;
+        textStyle = null,
+        inDialog = false;
 
   // ── 填充按钮（主题色，自定义字体样式） ────────────────────────────────────
   const TalkButton.fillThemeCustom({
@@ -98,7 +102,8 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.fillThemeCustom,
-        icon = null;
+        icon = null,
+        inDialog = false;
 
   // ── 主题色描边按钮（文字 + 描边均为 Color_main） ──────────────────────────
   const TalkButton.strokeTheme({
@@ -109,7 +114,8 @@ class TalkButton extends StatelessWidget {
     super.key,
   })  : _variant = _V.strokeTheme,
         icon = null,
-        textStyle = null;
+        textStyle = null,
+        inDialog = false;
 
   // ── 主题色描边按钮（自定义字体样式） ─────────────────────────────────────
   const TalkButton.strokeThemeCustom({
@@ -118,6 +124,7 @@ class TalkButton extends StatelessWidget {
     this.isLoading = false,
     this.textStyle,
     this.size = TalkButtonSize.fixed,
+    this.inDialog = false,
     super.key,
   })  : _variant = _V.strokeThemeCustom,
         icon = null;
@@ -131,7 +138,8 @@ class TalkButton extends StatelessWidget {
     super.key,
   })  : _variant = _V.strokeSecondary,
         icon = null,
-        textStyle = null;
+        textStyle = null,
+        inDialog = false;
 
   // ── 次要描边按钮（自定义字体样式） ───────────────────────────────────────
   const TalkButton.strokeSecondaryCustom({
@@ -140,6 +148,7 @@ class TalkButton extends StatelessWidget {
     this.isLoading = false,
     this.textStyle,
     this.size = TalkButtonSize.fixed,
+    this.inDialog = false,
     super.key,
   })  : _variant = _V.strokeSecondaryCustom,
         icon = null;
@@ -153,7 +162,8 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.strokeSecondaryIcon,
-        textStyle = null;
+        textStyle = null,
+        inDialog = false;
 
   // ── 纯图标按钮（36×36） ────────────────────────────────────────────────────
   const TalkButton.themeIcon({
@@ -164,7 +174,8 @@ class TalkButton extends StatelessWidget {
         label = null,
         size = TalkButtonSize.fixed,
         isLoading = false,
-        textStyle = null;
+        textStyle = null,
+        inDialog = false;
 
   // ── 次要文字按钮（含悬停/按下背景） ──────────────────────────────────────
   const TalkButton.textSecondaryRipple({
@@ -175,7 +186,8 @@ class TalkButton extends StatelessWidget {
   })  : _variant = _V.textSecondaryRipple,
         icon = null,
         isLoading = false,
-        textStyle = null;
+        textStyle = null,
+        inDialog = false;
 
   // ── 块状按钮（图标居上、文字居下的垂直布局，常用于工具栏/面板） ────────────
   const TalkButton.block({
@@ -186,7 +198,8 @@ class TalkButton extends StatelessWidget {
     super.key,
   })  : _variant = _V.block,
         isLoading = false,
-        textStyle = null;
+        textStyle = null,
+        inDialog = false;
 
   final _V _variant;
   final String? label;
@@ -207,6 +220,11 @@ class TalkButton extends StatelessWidget {
 
   /// 尺寸模式，默认 [TalkButtonSize.fixed]（216 × 52）。
   final TalkButtonSize size;
+
+  /// 是否用于对话框内（仅 strokeThemeCustom / strokeSecondaryCustom）。
+  ///
+  /// `true` 时边框粗细为 1，否则为 2。
+  final bool inDialog;
 
   static const _noElevation = WidgetStatePropertyAll<double>(0);
   static const _stadiumShape =
@@ -478,6 +496,7 @@ class TalkButton extends StatelessWidget {
   Widget _buildStrokeThemeCustom(BuildContext context) {
     final colors = context.talkColors;
     final customColor = textStyle?.color;
+    final borderWidth = inDialog ? 1.0 : 2.0;
     final style = ButtonStyle(
       backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
       foregroundColor: WidgetStateProperty.resolveWith((s) {
@@ -491,9 +510,9 @@ class TalkButton extends StatelessWidget {
       }),
       side: WidgetStateProperty.resolveWith((s) {
         if (s.contains(WidgetState.disabled)) {
-          return const BorderSide(color: Color(0x1F000000), width: 2);
+          return BorderSide(color: const Color(0x1F000000), width: borderWidth);
         }
-        return BorderSide(color: colors.theme, width: 2);
+        return BorderSide(color: colors.theme, width: borderWidth);
       }),
       textStyle: WidgetStatePropertyAll(textStyle ?? TalkTypography.bodyMedium),
       fixedSize: _customFixedSizeProp,
@@ -564,6 +583,7 @@ class TalkButton extends StatelessWidget {
   Widget _buildStrokeSecondaryCustom(BuildContext context) {
     final colors = context.talkColors;
     final customColor = textStyle?.color;
+    final borderWidth = inDialog ? 1.0 : 2.0;
     final style = ButtonStyle(
       backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
       foregroundColor: WidgetStateProperty.resolveWith((s) {
@@ -577,9 +597,9 @@ class TalkButton extends StatelessWidget {
       }),
       side: WidgetStateProperty.resolveWith((s) {
         if (s.contains(WidgetState.disabled)) {
-          return const BorderSide(color: Color(0x1F000000), width: 2);
+          return BorderSide(color: const Color(0x1F000000), width: borderWidth);
         }
-        return BorderSide(color: colors.textSecondary, width: 2);
+        return BorderSide(color: colors.textSecondary, width: borderWidth);
       }),
       textStyle: WidgetStatePropertyAll(textStyle ?? TalkTypography.bodyMedium),
       fixedSize: _customFixedSizeProp,
