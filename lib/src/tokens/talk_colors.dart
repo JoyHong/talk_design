@@ -12,7 +12,12 @@ class TalkColors extends ThemeExtension<TalkColors> {
     required this.cardSecondary,
     required this.inputBoxPrimary,
     required this.inputBoxSecondary,
-    required this.messageBubble,
+    required this.receivedMessageBubble,
+    required this.receivedMessageBubblePressed,
+    required this.receivedMessageText,
+    required this.sentMessageBubble,
+    required this.sentMessageBubblePressed,
+    required this.sentMessageText,
     required this.listDialogBox,
     required this.sidePopUp,
     required this.buttonBlock,
@@ -31,7 +36,12 @@ class TalkColors extends ThemeExtension<TalkColors> {
   final Color cardSecondary;
   final Color inputBoxPrimary;
   final Color inputBoxSecondary;
-  final Color messageBubble;
+  final Color receivedMessageBubble;
+  final Color receivedMessageBubblePressed;  // 15% #000000 over receivedMessageBubble
+  final Color receivedMessageText;
+  final Color sentMessageBubble;
+  final Color sentMessageBubblePressed;      // 15% #000000 over sentMessageBubble
+  final Color sentMessageText;
   final Color listDialogBox;
   final Color sidePopUp;
   final Color buttonBlock;
@@ -51,7 +61,12 @@ class TalkColors extends ThemeExtension<TalkColors> {
     cardSecondary: Color(0xFFFFFFFF),
     inputBoxPrimary: Color(0xFFF5F5F5),
     inputBoxSecondary: Color(0xFFFFFFFF),
-    messageBubble: Color(0xFFF1F1F1),
+    receivedMessageBubble: Color(0xFFF1F1F1),
+    receivedMessageBubblePressed: Color(0xFFCDCDCD),
+    receivedMessageText: Color(0xFF262626),
+    sentMessageBubble: Color(0xFFFF2C55),
+    sentMessageBubblePressed: Color(0xFFD92548),
+    sentMessageText: Color(0xFFFFFFFF),
     listDialogBox: Color(0xFFFFFFFF),
     sidePopUp: Color(0xFFF5F5F5),
     buttonBlock: Color(0xFFFFFFFF),
@@ -72,7 +87,12 @@ class TalkColors extends ThemeExtension<TalkColors> {
     Color? cardSecondary,
     Color? inputBoxPrimary,
     Color? inputBoxSecondary,
-    Color? messageBubble,
+    Color? receivedMessageBubble,
+    Color? receivedMessageBubblePressed,
+    Color? receivedMessageText,
+    Color? sentMessageBubble,
+    Color? sentMessageBubblePressed,
+    Color? sentMessageText,
     Color? listDialogBox,
     Color? sidePopUp,
     Color? buttonBlock,
@@ -91,7 +111,12 @@ class TalkColors extends ThemeExtension<TalkColors> {
         cardSecondary: cardSecondary ?? this.cardSecondary,
         inputBoxPrimary: inputBoxPrimary ?? this.inputBoxPrimary,
         inputBoxSecondary: inputBoxSecondary ?? this.inputBoxSecondary,
-        messageBubble: messageBubble ?? this.messageBubble,
+        receivedMessageBubble: receivedMessageBubble ?? this.receivedMessageBubble,
+        receivedMessageBubblePressed: receivedMessageBubblePressed ?? this.receivedMessageBubblePressed,
+        receivedMessageText: receivedMessageText ?? this.receivedMessageText,
+        sentMessageBubble: sentMessageBubble ?? this.sentMessageBubble,
+        sentMessageBubblePressed: sentMessageBubblePressed ?? this.sentMessageBubblePressed,
+        sentMessageText: sentMessageText ?? this.sentMessageText,
         listDialogBox: listDialogBox ?? this.listDialogBox,
         sidePopUp: sidePopUp ?? this.sidePopUp,
         buttonBlock: buttonBlock ?? this.buttonBlock,
@@ -114,7 +139,12 @@ class TalkColors extends ThemeExtension<TalkColors> {
       cardSecondary: Color.lerp(cardSecondary, other.cardSecondary, t)!,
       inputBoxPrimary: Color.lerp(inputBoxPrimary, other.inputBoxPrimary, t)!,
       inputBoxSecondary: Color.lerp(inputBoxSecondary, other.inputBoxSecondary, t)!,
-      messageBubble: Color.lerp(messageBubble, other.messageBubble, t)!,
+      receivedMessageBubble: Color.lerp(receivedMessageBubble, other.receivedMessageBubble, t)!,
+      receivedMessageBubblePressed: Color.lerp(receivedMessageBubblePressed, other.receivedMessageBubblePressed, t)!,
+      receivedMessageText: Color.lerp(receivedMessageText, other.receivedMessageText, t)!,
+      sentMessageBubble: Color.lerp(sentMessageBubble, other.sentMessageBubble, t)!,
+      sentMessageBubblePressed: Color.lerp(sentMessageBubblePressed, other.sentMessageBubblePressed, t)!,
+      sentMessageText: Color.lerp(sentMessageText, other.sentMessageText, t)!,
       listDialogBox: Color.lerp(listDialogBox, other.listDialogBox, t)!,
       sidePopUp: Color.lerp(sidePopUp, other.sidePopUp, t)!,
       buttonBlock: Color.lerp(buttonBlock, other.buttonBlock, t)!,

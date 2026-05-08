@@ -44,7 +44,7 @@ class LoadingPage extends StatelessWidget {
                       vertical: TalkSpacing.s,
                     ),
                     decoration: BoxDecoration(
-                      color: context.talkColors.messageBubble,
+                      color: context.talkColors.receivedMessageBubble,
                       borderRadius: BorderRadius.circular(TalkSpacing.m),
                     ),
                     child: const Text('正在发送中...'),

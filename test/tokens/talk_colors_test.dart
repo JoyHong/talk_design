@@ -9,7 +9,7 @@ void main() {
       expect(TalkColors.light.theme, const Color(0xFFFF2C55));
     });
 
-    test('light has all 17 tokens with correct values', () {
+    test('light has all 22 tokens with correct values', () {
       final c = TalkColors.light;
       expect(c.textPrimary, const Color(0xFF262626));
       expect(c.textSecondary, const Color(0xFFAAAAAA));
@@ -19,7 +19,12 @@ void main() {
       expect(c.cardSecondary, const Color(0xFFFFFFFF));
       expect(c.inputBoxPrimary, const Color(0xFFF5F5F5));
       expect(c.inputBoxSecondary, const Color(0xFFFFFFFF));
-      expect(c.messageBubble, const Color(0xFFF1F1F1));
+      expect(c.receivedMessageBubble, const Color(0xFFF1F1F1));
+      expect(c.receivedMessageBubblePressed, const Color(0xFFCDCDCD));
+      expect(c.receivedMessageText, const Color(0xFF262626));
+      expect(c.sentMessageBubble, const Color(0xFFFF2C55));
+      expect(c.sentMessageBubblePressed, const Color(0xFFD92548));
+      expect(c.sentMessageText, const Color(0xFFFFFFFF));
       expect(c.listDialogBox, const Color(0xFFFFFFFF));
       expect(c.sidePopUp, const Color(0xFFF5F5F5));
       expect(c.buttonBlock, const Color(0xFFFFFFFF));
