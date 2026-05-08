@@ -56,61 +56,6 @@ class _ListPageState extends State<ListPage> {
             selected: _checkItem2Selected,
             onTap: () => setState(() => _checkItem2Selected = !_checkItem2Selected),
           ),
-
-          divider,
-          const Text('头像列表 — List_avatar_singleline', style: sectionStyle),
-          const SizedBox(height: 8),
-          TalkAvatarSimpleListItem(
-            avatar: placeholder,
-            name: 'Martha Walsh',
-            onTap: () {},
-          ),
-
-          divider,
-          const Text('头像列表 — List_avatar_multiline', style: sectionStyle),
-          const SizedBox(height: 8),
-          TalkAvatarSimpleListItem(
-            avatar: placeholder,
-            name: 'Martha Walsh',
-            subtitle: '副标题文本',
-            onTap: () {},
-          ),
-
-          divider,
-          const Text('头像列表 — List_avatar_multiline_icon（消息预览）', style: sectionStyle),
-          const SizedBox(height: 8),
-          TalkAvatarMessageListItem(
-            avatar: placeholder,
-            name: 'Martha Walsh',
-            message: 'I sent a message.',
-            time: '09:41 AM',
-            leadingIcon: Container(
-              width: 14,
-              height: 14,
-              decoration: BoxDecoration(
-                color: const Color(0xFFD9D9D9),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            unreadBadge: Container(
-              width: 16,
-              height: 16,
-              decoration: BoxDecoration(
-                color: const Color(0xFFD9D9D9),
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            onTap: () {},
-          ),
-          const SizedBox(height: 8),
-          TalkAvatarMessageListItem(
-            avatar: placeholder,
-            name: 'Bob Lee',
-            message: 'Hello there!',
-            time: '昨天',
-            onTap: () {},
-          ),
-
           divider,
           const Text('头像列表 — List_avatar_button', style: sectionStyle),
           const SizedBox(height: 8),
