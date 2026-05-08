@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:talk_design/src/components/talk_loading_indicator.dart';
 
 import '../theme/talk_context_extensions.dart';
 import '../tokens/talk_colors.dart';
@@ -274,13 +275,7 @@ class TalkButton extends StatelessWidget {
         elevation: _noElevation,
       ),
       child: isLoading
-          ? const SizedBox.square(
-              dimension: 20,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation(Color(0x61000000)),
-              ),
-            )
+          ? const TalkLoadingIndicator(size: 20, color: Color(0x61000000))
           : hasIcon
               ? Row(
                   mainAxisSize: MainAxisSize.min,
@@ -326,13 +321,7 @@ class TalkButton extends StatelessWidget {
         elevation: _noElevation,
       ),
       child: isLoading
-          ? const SizedBox.square(
-              dimension: 20,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation(Color(0x61000000)),
-              ),
-            )
+          ? const TalkLoadingIndicator(size: 20, color: Color(0x61000000))
           : hasIcon
               ? Row(
                   mainAxisSize: MainAxisSize.min,
