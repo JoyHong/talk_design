@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/talk_context_extensions.dart';
 import '../tokens/talk_typography.dart';
+import 'talk_button.dart';
 import 'talk_checkbox.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -77,7 +78,6 @@ class TalkAvatarSimpleListItem extends StatelessWidget {
     final colors = context.talkColors;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
@@ -143,7 +143,6 @@ class TalkAvatarMessageListItem extends StatelessWidget {
     final colors = context.talkColors;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
         child: Row(
@@ -229,7 +228,6 @@ class TalkAvatarButtonListItem extends StatelessWidget {
     final colors = context.talkColors;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: Row(
@@ -256,19 +254,10 @@ class TalkAvatarButtonListItem extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            GestureDetector(
-              onTap: onButtonTap,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  border: Border.all(color: colors.theme, width: 2),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  buttonLabel,
-                  style: TalkTypography.bodyMedium.copyWith(color: colors.theme),
-                ),
-              ),
+            TalkButton.strokeThemeCustom(
+              label: buttonLabel,
+              onPressed: onButtonTap,
+              size: TalkButtonSize.adaptive,
             ),
           ],
         ),
@@ -301,7 +290,6 @@ class TalkTextListItem extends StatelessWidget {
     final colors = context.talkColors;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 19),
         child: Row(
@@ -343,7 +331,6 @@ class TalkTextIconListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 18),
         child: Row(
@@ -383,7 +370,6 @@ class TalkTextButtonListItem extends StatelessWidget {
     final colors = context.talkColors;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: Row(
@@ -408,19 +394,10 @@ class TalkTextButtonListItem extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            GestureDetector(
-              onTap: onButtonTap,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                  border: Border.all(color: colors.textSecondary),
-                  borderRadius: BorderRadius.circular(26),
-                ),
-                child: Text(
-                  buttonLabel,
-                  style: TalkTypography.bodyMedium,
-                ),
-              ),
+            TalkButton.strokeSecondaryCustom(
+              label: buttonLabel,
+              onPressed: onButtonTap,
+              size: TalkButtonSize.adaptive,
             ),
           ],
         ),
@@ -453,7 +430,6 @@ class TalkTextSwitchListItem extends StatelessWidget {
     final colors = context.talkColors;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: 24,
