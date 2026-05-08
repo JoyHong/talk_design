@@ -38,7 +38,6 @@ class _ListPageState extends State<ListPage> {
     );
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(TalkSpacing.l),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

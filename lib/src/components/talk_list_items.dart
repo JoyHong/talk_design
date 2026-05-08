@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../theme/talk_context_extensions.dart';
-import '../tokens/talk_icons.dart';
 import '../tokens/talk_typography.dart';
+import 'talk_checkbox.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 头像列表 items
@@ -11,7 +10,7 @@ import '../tokens/talk_typography.dart';
 
 /// 头像列表项 — 样式一：带勾选状态
 ///
-/// 左侧头像(32×32)由 [avatar] 传入，右侧显示空圆圈(未选)或 correct 图标(已选)。
+/// 左侧头像(32×32)由 [avatar] 传入，右侧显示 [TalkCheckbox] 反映 [selected] 状态。
 class TalkAvatarCheckListItem extends StatelessWidget {
   const TalkAvatarCheckListItem({
     super.key,
@@ -30,7 +29,6 @@ class TalkAvatarCheckListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
         child: Row(
@@ -44,19 +42,12 @@ class TalkAvatarCheckListItem extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            selected
-                ? SvgPicture.asset(TalkIcons.correct, width: 20, height: 20)
-                : Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: const Color(0xFFD9D9D9),
-                        width: 1.5,
-                      ),
-                    ),
-                  ),
+            IgnorePointer(
+              child: TalkCheckbox(
+                value: selected,
+                onChanged: (_) {},
+              ),
+            ),
           ],
         ),
       ),
@@ -350,7 +341,6 @@ class TalkTextIconListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.talkColors;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(24),
