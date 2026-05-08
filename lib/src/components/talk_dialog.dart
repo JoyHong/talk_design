@@ -7,6 +7,7 @@ import '../tokens/talk_shadows.dart';
 import '../tokens/talk_spacing.dart';
 import '../tokens/talk_typography.dart';
 import 'talk_button.dart';
+import 'talk_loading_indicator.dart';
 
 /// 显示 JusTalk 风格弹框，覆盖 3 种变体：
 ///
@@ -44,6 +45,26 @@ import 'talk_button.dart';
 ///   ...
 /// );
 /// ```
+///
+/// **带 loading 的确认按钮**（传入 [onConfirmAsync] 即启用 loading 模式）
+///
+/// 点击确认后按钮进入 loading 状态，弹框禁止被关闭，直到业务逻辑结束：
+/// - Future 正常完成 → 弹框自动关闭
+/// - Future 抛出异常 → 确认按钮恢复正常状态，弹框保持打开
+///
+/// loading 期间关闭按钮和取消按钮均不可用。
+///
+/// ```dart
+/// showTalkDialog(
+///   context: context,
+///   title: '确认提交吗？',
+///   cancelLabel: '取消',
+///   confirmLabel: '提交',
+///   onConfirmAsync: () async {
+///     await submitData(); // 成功 → 弹框关闭；抛出异常 → 按钮恢复
+///   },
+/// );
+/// ```
 Future<T?> showTalkDialog<T>({
   required BuildContext context,
   required String title,
@@ -53,10 +74,20 @@ Future<T?> showTalkDialog<T>({
   VoidCallback? onCancel,
   required String confirmLabel,
   VoidCallback? onConfirm,
+  Future<void> Function()? onConfirmAsync,
   List<String>? confirmDropdownItems,
   ValueChanged<String>? onConfirmDropdownSelected,
+  Future<void> Function(String)? onConfirmDropdownAsync,
   bool barrierDismissible = true,
 }) {
+  assert(
+    onConfirm == null || onConfirmAsync == null,
+    'onConfirm 和 onConfirmAsync 不能同时传入，请选择其一',
+  );
+  assert(
+    onConfirmDropdownSelected == null || onConfirmDropdownAsync == null,
+    'onConfirmDropdownSelected 和 onConfirmDropdownAsync 不能同时传入，请选择其一',
+  );
   return showDialog<T>(
     context: context,
     barrierColor: Colors.black54,
@@ -72,8 +103,10 @@ Future<T?> showTalkDialog<T>({
         onCancel: onCancel,
         confirmLabel: confirmLabel,
         onConfirm: onConfirm,
+        onConfirmAsync: onConfirmAsync,
         confirmDropdownItems: confirmDropdownItems,
         onConfirmDropdownSelected: onConfirmDropdownSelected,
+        onConfirmDropdownAsync: onConfirmDropdownAsync,
       ),
     ),
   );
@@ -81,7 +114,7 @@ Future<T?> showTalkDialog<T>({
 
 // ── 弹框内容 ────────────────────────────────────────────────────────────────────
 
-class _TalkDialogContent extends StatelessWidget {
+class _TalkDialogContent extends StatefulWidget {
   const _TalkDialogContent({
     required this.title,
     this.message,
@@ -90,8 +123,10 @@ class _TalkDialogContent extends StatelessWidget {
     this.onCancel,
     required this.confirmLabel,
     this.onConfirm,
+    this.onConfirmAsync,
     this.confirmDropdownItems,
     this.onConfirmDropdownSelected,
+    this.onConfirmDropdownAsync,
   });
 
   final String title;
@@ -101,43 +136,85 @@ class _TalkDialogContent extends StatelessWidget {
   final VoidCallback? onCancel;
   final String confirmLabel;
   final VoidCallback? onConfirm;
+  final Future<void> Function()? onConfirmAsync;
   final List<String>? confirmDropdownItems;
   final ValueChanged<String>? onConfirmDropdownSelected;
+  final Future<void> Function(String)? onConfirmDropdownAsync;
+
+  @override
+  State<_TalkDialogContent> createState() => _TalkDialogContentState();
+}
+
+class _TalkDialogContentState extends State<_TalkDialogContent> {
+  bool _isConfirmLoading = false;
 
   static const double _width = 420.0;
   static const double _radius = 20.0;
   static const double _titleToButtonGap = 40.0;
 
+  Future<void> _handleConfirmAsync() async {
+    setState(() => _isConfirmLoading = true);
+    try {
+      await widget.onConfirmAsync!();
+      if (mounted) Navigator.pop(context);
+    } catch (_) {
+      if (mounted) setState(() => _isConfirmLoading = false);
+    }
+  }
+
+  Future<void> _handleDropdownAsync(String value) async {
+    setState(() => _isConfirmLoading = true);
+    try {
+      await widget.onConfirmDropdownAsync!(value);
+      if (mounted) Navigator.pop(context);
+    } catch (_) {
+      if (mounted) setState(() => _isConfirmLoading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = context.talkColors;
-    return Container(
-      width: _width,
-      decoration: BoxDecoration(
-        color: colors.listDialogBox,
-        borderRadius: BorderRadius.circular(_radius),
-        boxShadow: TalkShadows.popup,
-      ),
-      padding: const EdgeInsets.all(TalkSpacing.xl),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _TitleRow(title: title, message: message, onClose: onClose),
-          const SizedBox(height: _titleToButtonGap),
-          _ButtonRow(
-            cancelLabel: cancelLabel,
-            onCancel: onCancel,
-            confirmLabel: confirmLabel,
-            onConfirm: onConfirm,
-            confirmDropdownItems: confirmDropdownItems,
-            onConfirmDropdownSelected: onConfirmDropdownSelected,
-          ),
-        ],
+    final isAsyncMode = widget.onConfirmAsync != null;
+    return PopScope(
+      canPop: !_isConfirmLoading,
+      child: Container(
+        width: _width,
+        decoration: BoxDecoration(
+          color: colors.listDialogBox,
+          borderRadius: BorderRadius.circular(_radius),
+          boxShadow: TalkShadows.popup,
+        ),
+        padding: const EdgeInsets.all(TalkSpacing.xl),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _TitleRow(
+              title: widget.title,
+              message: widget.message,
+              onClose: widget.onClose,
+              closeEnabled: !(isAsyncMode && _isConfirmLoading),
+            ),
+            const SizedBox(height: _titleToButtonGap),
+            _ButtonRow(
+              cancelLabel: widget.cancelLabel,
+              onCancel: (isAsyncMode && _isConfirmLoading) ? null : widget.onCancel,
+              confirmLabel: widget.confirmLabel,
+              onConfirm: isAsyncMode ? _handleConfirmAsync : widget.onConfirm,
+              isConfirmLoading: _isConfirmLoading,
+              confirmDropdownItems: widget.confirmDropdownItems,
+              onConfirmDropdownSelected: widget.onConfirmDropdownAsync != null
+                  ? _handleDropdownAsync
+                  : widget.onConfirmDropdownSelected,
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
 
 // ── 标题区 ─────────────────────────────────────────────────────────────────────
 
@@ -146,11 +223,15 @@ class _TitleRow extends StatelessWidget {
     required this.title,
     this.message,
     this.onClose,
+    this.closeEnabled = true,
   });
 
   final String title;
   final String? message;
   final VoidCallback? onClose;
+
+  /// 为 false 时关闭按钮保留占位（防止布局偏移）但不可见、不可交互。
+  final bool closeEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -176,15 +257,21 @@ class _TitleRow extends StatelessWidget {
         ),
         if (onClose != null) ...[
           const SizedBox(width: TalkSpacing.m),
-          GestureDetector(
-            onTap: onClose,
-            child: SvgPicture.asset(
-              TalkIcons.close,
-              width: 16,
-              height: 16,
-              colorFilter: ColorFilter.mode(
-                colors.textSecondary,
-                BlendMode.srcIn,
+          IgnorePointer(
+            ignoring: !closeEnabled,
+            child: Opacity(
+              opacity: closeEnabled ? 1.0 : 0.0,
+              child: GestureDetector(
+                onTap: onClose,
+                child: SvgPicture.asset(
+                  TalkIcons.close,
+                  width: 16,
+                  height: 16,
+                  colorFilter: ColorFilter.mode(
+                    colors.textSecondary,
+                    BlendMode.srcIn,
+                  ),
+                ),
               ),
             ),
           ),
@@ -202,6 +289,7 @@ class _ButtonRow extends StatelessWidget {
     this.onCancel,
     required this.confirmLabel,
     this.onConfirm,
+    this.isConfirmLoading = false,
     this.confirmDropdownItems,
     this.onConfirmDropdownSelected,
   });
@@ -210,6 +298,7 @@ class _ButtonRow extends StatelessWidget {
   final VoidCallback? onCancel;
   final String confirmLabel;
   final VoidCallback? onConfirm;
+  final bool isConfirmLoading;
   final List<String>? confirmDropdownItems;
   final ValueChanged<String>? onConfirmDropdownSelected;
 
@@ -224,11 +313,16 @@ class _ButtonRow extends StatelessWidget {
           _DialogSplitButton(
             label: confirmLabel,
             onPressed: onConfirm,
+            isLoading: isConfirmLoading,
             dropdownItems: confirmDropdownItems!,
             onDropdownSelected: onConfirmDropdownSelected,
           )
         else
-          TalkButton.fillThemeCustom(label: confirmLabel, onPressed: onConfirm),
+          TalkButton.fillThemeCustom(
+            label: confirmLabel,
+            onPressed: isConfirmLoading ? null : onConfirm,
+            isLoading: isConfirmLoading,
+          ),
       ],
     );
   }
@@ -240,12 +334,14 @@ class _DialogSplitButton extends StatefulWidget {
   const _DialogSplitButton({
     required this.label,
     this.onPressed,
+    this.isLoading = false,
     required this.dropdownItems,
     this.onDropdownSelected,
   });
 
   final String label;
   final VoidCallback? onPressed;
+  final bool isLoading;
   final List<String> dropdownItems;
   final ValueChanged<String>? onDropdownSelected;
 
@@ -267,6 +363,7 @@ class _DialogSplitButtonState extends State<_DialogSplitButton> {
   @override
   Widget build(BuildContext context) {
     final themeColor = context.talkColors.theme;
+    final isLoading = widget.isLoading;
 
     return MenuAnchor(
       onOpen: () => setState(() => _isOpen = true),
@@ -284,68 +381,77 @@ class _DialogSplitButtonState extends State<_DialogSplitButton> {
           Container(
             height: 36,
             decoration: BoxDecoration(
-              color: themeColor,
+              color: isLoading ? const Color(0x424F4F4F) : themeColor,
               borderRadius: BorderRadius.circular(30),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // 左侧：主操作区
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (_) => setState(() => _isLeftHovered = true),
-                  onExit: (_) => setState(() => _isLeftHovered = false),
-                  child: GestureDetector(
-                    onTap: widget.onPressed,
-                    onTapDown: (_) => setState(() => _isLeftPressed = true),
-                    onTapUp: (_) => setState(() => _isLeftPressed = false),
-                    onTapCancel: () => setState(() => _isLeftPressed = false),
-                    child: Container(
-                      constraints: const BoxConstraints(minWidth: 75),
-                      padding: const EdgeInsets.only(left: 16, right: 8),
-                      height: 36,
-                      alignment: Alignment.center,
-                      child: Text(
-                        widget.label,
-                        style: TalkTypography.bodyMedium
-                            .copyWith(color: Colors.white),
+            child: Opacity(
+              opacity: isLoading ? 0.0 : 1.0,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // 左侧：主操作区
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (_) => setState(() => _isLeftHovered = true),
+                    onExit: (_) => setState(() => _isLeftHovered = false),
+                    child: GestureDetector(
+                      onTap: widget.onPressed,
+                      onTapDown: (_) => setState(() => _isLeftPressed = true),
+                      onTapUp: (_) => setState(() => _isLeftPressed = false),
+                      onTapCancel: () => setState(() => _isLeftPressed = false),
+                      child: Container(
+                        constraints: const BoxConstraints(minWidth: 75),
+                        padding: const EdgeInsets.only(left: 16, right: 8),
+                        height: 36,
+                        alignment: Alignment.center,
+                        child: Text(
+                          widget.label,
+                          style: TalkTypography.bodyMedium.copyWith(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
-                ),
-            // 竖线分隔符
-            Container(
-              width: 1,
-              height: 16,
-              color: Colors.white.withValues(alpha: 0.4),
-            ),
-            // 右侧：下拉箭头区
-            GestureDetector(
-              onTap: controller.isOpen ? controller.close : controller.open,
-              child: Container(
-                height: 36,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                alignment: Alignment.center,
-                child: AnimatedRotation(
-                  turns: _isOpen ? 0.5 : 0,
-                  duration: const Duration(milliseconds: 150),
-                  child: SvgPicture.asset(
-                    TalkIcons.arrowDown,
-                    width: 16,
+                  // 竖线分隔符
+                  Container(
+                    width: 1,
                     height: 16,
-                    colorFilter: const ColorFilter.mode(
-                      Colors.white,
-                      BlendMode.srcIn,
+                    color: Colors.white.withValues(alpha: 0.4),
+                  ),
+                  // 右侧：下拉箭头区
+                  GestureDetector(
+                    onTap: controller.isOpen ? controller.close : controller.open,
+                    child: Container(
+                      height: 36,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      alignment: Alignment.center,
+                      child: AnimatedRotation(
+                        turns: _isOpen ? 0.5 : 0,
+                        duration: const Duration(milliseconds: 150),
+                        child: SvgPicture.asset(
+                          TalkIcons.arrowDown,
+                          width: 16,
+                          height: 16,
+                          colorFilter: const ColorFilter.mode(
+                            Colors.white,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
-          ],
-        ),
           ),
+          // loading 时居中显示 indicator，整体尺寸由上方 Row 占位保持不变
+          if (isLoading)
+            const Positioned.fill(
+              child: Center(
+                child: TalkLoadingIndicator(size: 12, color: Colors.white),
+              ),
+            ),
           // 整体叠加层：仅由左侧 hover/press 触发，右侧事件穿透
-          if (_leftOverlay != Colors.transparent)
+          if (!isLoading && _leftOverlay != Colors.transparent)
             Positioned.fill(
               child: IgnorePointer(
                 child: Container(
