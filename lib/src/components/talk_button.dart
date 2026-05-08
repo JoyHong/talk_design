@@ -275,7 +275,7 @@ class TalkButton extends StatelessWidget {
         elevation: _noElevation,
       ),
       child: isLoading
-          ? const TalkLoadingIndicator(size: 20, color: Color(0x61000000))
+          ? const TalkLoadingIndicator(size: 20, color: Color(0xFFFFFFFF))
           : hasIcon
               ? Row(
                   mainAxisSize: MainAxisSize.min,
