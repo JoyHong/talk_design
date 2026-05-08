@@ -47,7 +47,8 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.textTheme,
-        icon = null;
+        icon = null,
+        isLoading = false;
 
   // ── 文字按钮（次要色） ──────────────────────────────────────────────────────
   const TalkButton.textSecondary({
@@ -56,12 +57,14 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.textSecondary,
-        icon = null;
+        icon = null,
+        isLoading = false;
 
   // ── 填充按钮（主题色，纯文字） ─────────────────────────────────────────────
   const TalkButton.fillTheme({
     required this.label,
     this.onPressed,
+    this.isLoading = false,
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.fillTheme,
@@ -72,6 +75,7 @@ class TalkButton extends StatelessWidget {
     required this.label,
     required this.icon,
     this.onPressed,
+    this.isLoading = false,
     this.size = TalkButtonSize.fixed,
     super.key,
   }) : _variant = _V.fillThemeIcon;
@@ -80,6 +84,7 @@ class TalkButton extends StatelessWidget {
   const TalkButton.strokeSecondary({
     required this.label,
     this.onPressed,
+    this.isLoading = false,
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.strokeSecondary,
@@ -90,6 +95,7 @@ class TalkButton extends StatelessWidget {
     required this.label,
     required this.icon,
     this.onPressed,
+    this.isLoading = false,
     this.size = TalkButtonSize.fixed,
     super.key,
   }) : _variant = _V.strokeSecondaryIcon;
@@ -101,7 +107,8 @@ class TalkButton extends StatelessWidget {
     super.key,
   })  : _variant = _V.themeIcon,
         label = null,
-        size = TalkButtonSize.fixed;
+        size = TalkButtonSize.fixed,
+        isLoading = false;
 
   // ── 次要文字按钮（含悬停/按下背景） ──────────────────────────────────────
   const TalkButton.textSecondaryRipple({
@@ -110,7 +117,8 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.textSecondaryRipple,
-        icon = null;
+        icon = null,
+        isLoading = false;
 
   // ── 块状按钮（图标居上、文字居下的垂直布局，常用于工具栏/面板） ────────────
   const TalkButton.block({
@@ -119,12 +127,18 @@ class TalkButton extends StatelessWidget {
     this.onPressed,
     this.size = TalkButtonSize.adaptive,
     super.key,
-  }) : _variant = _V.block;
+  })  : _variant = _V.block,
+        isLoading = false;
 
   final _V _variant;
   final String? label;
   final Widget? icon;
   final VoidCallback? onPressed;
+
+  /// 是否显示加载中状态（仅适用于 fillTheme / fillThemeIcon / strokeSecondary / strokeSecondaryIcon）。
+  ///
+  /// 为 `true` 时按钮呈现 disabled 外观并将文字/图标替换为圆形进度指示器。
+  final bool isLoading;
 
   /// 尺寸模式，默认 [TalkButtonSize.fixed]（216 × 52）。
   final TalkButtonSize size;
@@ -236,7 +250,7 @@ class TalkButton extends StatelessWidget {
     final colors = context.talkColors;
     final hasIcon = _variant == _V.fillThemeIcon;
     return TextButton(
-      onPressed: onPressed,
+      onPressed: isLoading ? null : onPressed,
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.resolveWith((s) {
           if (s.contains(WidgetState.disabled)) return const Color(0x424F4F4F);
@@ -259,16 +273,24 @@ class TalkButton extends StatelessWidget {
         shape: _stadiumShape,
         elevation: _noElevation,
       ),
-      child: hasIcon
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconTheme.merge(data: const IconThemeData(size: 20), child: icon!),
-                const SizedBox(width: 8),
-                Text(label!),
-              ],
+      child: isLoading
+          ? const SizedBox.square(
+              dimension: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                valueColor: AlwaysStoppedAnimation(Color(0x61000000)),
+              ),
             )
-          : Text(label!),
+          : hasIcon
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconTheme.merge(data: const IconThemeData(size: 20), child: icon!),
+                    const SizedBox(width: 8),
+                    Text(label!),
+                  ],
+                )
+              : Text(label!),
     );
   }
 
@@ -277,7 +299,7 @@ class TalkButton extends StatelessWidget {
     final colors = context.talkColors;
     final hasIcon = _variant == _V.strokeSecondaryIcon;
     return TextButton(
-      onPressed: onPressed,
+      onPressed: isLoading ? null : onPressed,
       style: ButtonStyle(
         backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
         foregroundColor: WidgetStateProperty.resolveWith((s) {
@@ -303,16 +325,24 @@ class TalkButton extends StatelessWidget {
         shape: _stadiumShape,
         elevation: _noElevation,
       ),
-      child: hasIcon
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconTheme.merge(data: const IconThemeData(size: 20), child: icon!),
-                const SizedBox(width: 10),
-                Text(label!),
-              ],
+      child: isLoading
+          ? const SizedBox.square(
+              dimension: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                valueColor: AlwaysStoppedAnimation(Color(0x61000000)),
+              ),
             )
-          : Text(label!),
+          : hasIcon
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconTheme.merge(data: const IconThemeData(size: 20), child: icon!),
+                    const SizedBox(width: 10),
+                    Text(label!),
+                  ],
+                )
+              : Text(label!),
     );
   }
 
