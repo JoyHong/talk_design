@@ -13,7 +13,11 @@ enum _V {
   textSecondary,
   fillTheme,
   fillThemeIcon,
+  fillThemeCustom,
+  strokeTheme,
+  strokeThemeCustom,
   strokeSecondary,
+  strokeSecondaryCustom,
   strokeSecondaryIcon,
   themeIcon,
   textSecondaryRipple,
@@ -49,7 +53,8 @@ class TalkButton extends StatelessWidget {
     super.key,
   })  : _variant = _V.textTheme,
         icon = null,
-        isLoading = false;
+        isLoading = false,
+        textStyle = null;
 
   // ── 文字按钮（次要色） ──────────────────────────────────────────────────────
   const TalkButton.textSecondary({
@@ -59,7 +64,8 @@ class TalkButton extends StatelessWidget {
     super.key,
   })  : _variant = _V.textSecondary,
         icon = null,
-        isLoading = false;
+        isLoading = false,
+        textStyle = null;
 
   // ── 填充按钮（主题色，纯文字） ─────────────────────────────────────────────
   const TalkButton.fillTheme({
@@ -69,7 +75,8 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.fillTheme,
-        icon = null;
+        icon = null,
+        textStyle = null;
 
   // ── 填充按钮（主题色 + 图标） ──────────────────────────────────────────────
   const TalkButton.fillThemeIcon({
@@ -79,7 +86,41 @@ class TalkButton extends StatelessWidget {
     this.isLoading = false,
     this.size = TalkButtonSize.fixed,
     super.key,
-  }) : _variant = _V.fillThemeIcon;
+  })  : _variant = _V.fillThemeIcon,
+        textStyle = null;
+
+  // ── 填充按钮（主题色，自定义字体样式） ────────────────────────────────────
+  const TalkButton.fillThemeCustom({
+    required this.label,
+    this.onPressed,
+    this.isLoading = false,
+    this.textStyle,
+    this.size = TalkButtonSize.fixed,
+    super.key,
+  })  : _variant = _V.fillThemeCustom,
+        icon = null;
+
+  // ── 主题色描边按钮（文字 + 描边均为 Color_main） ──────────────────────────
+  const TalkButton.strokeTheme({
+    required this.label,
+    this.onPressed,
+    this.isLoading = false,
+    this.size = TalkButtonSize.fixed,
+    super.key,
+  })  : _variant = _V.strokeTheme,
+        icon = null,
+        textStyle = null;
+
+  // ── 主题色描边按钮（自定义字体样式） ─────────────────────────────────────
+  const TalkButton.strokeThemeCustom({
+    required this.label,
+    this.onPressed,
+    this.isLoading = false,
+    this.textStyle,
+    this.size = TalkButtonSize.fixed,
+    super.key,
+  })  : _variant = _V.strokeThemeCustom,
+        icon = null;
 
   // ── 描边按钮（纯文字） ─────────────────────────────────────────────────────
   const TalkButton.strokeSecondary({
@@ -89,6 +130,18 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.strokeSecondary,
+        icon = null,
+        textStyle = null;
+
+  // ── 次要描边按钮（自定义字体样式） ───────────────────────────────────────
+  const TalkButton.strokeSecondaryCustom({
+    required this.label,
+    this.onPressed,
+    this.isLoading = false,
+    this.textStyle,
+    this.size = TalkButtonSize.fixed,
+    super.key,
+  })  : _variant = _V.strokeSecondaryCustom,
         icon = null;
 
   // ── 描边按钮（文字 + 图标） ────────────────────────────────────────────────
@@ -99,7 +152,8 @@ class TalkButton extends StatelessWidget {
     this.isLoading = false,
     this.size = TalkButtonSize.fixed,
     super.key,
-  }) : _variant = _V.strokeSecondaryIcon;
+  })  : _variant = _V.strokeSecondaryIcon,
+        textStyle = null;
 
   // ── 纯图标按钮（36×36） ────────────────────────────────────────────────────
   const TalkButton.themeIcon({
@@ -109,7 +163,8 @@ class TalkButton extends StatelessWidget {
   })  : _variant = _V.themeIcon,
         label = null,
         size = TalkButtonSize.fixed,
-        isLoading = false;
+        isLoading = false,
+        textStyle = null;
 
   // ── 次要文字按钮（含悬停/按下背景） ──────────────────────────────────────
   const TalkButton.textSecondaryRipple({
@@ -119,7 +174,8 @@ class TalkButton extends StatelessWidget {
     super.key,
   })  : _variant = _V.textSecondaryRipple,
         icon = null,
-        isLoading = false;
+        isLoading = false,
+        textStyle = null;
 
   // ── 块状按钮（图标居上、文字居下的垂直布局，常用于工具栏/面板） ────────────
   const TalkButton.block({
@@ -129,17 +185,25 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.adaptive,
     super.key,
   })  : _variant = _V.block,
-        isLoading = false;
+        isLoading = false,
+        textStyle = null;
 
   final _V _variant;
   final String? label;
   final Widget? icon;
   final VoidCallback? onPressed;
 
-  /// 是否显示加载中状态（仅适用于 fillTheme / fillThemeIcon / strokeSecondary / strokeSecondaryIcon）。
+  /// 是否显示加载中状态（仅适用于 fillTheme / fillThemeIcon / strokeSecondary /
+  /// strokeSecondaryIcon / fillThemeCustom / strokeThemeCustom / strokeSecondaryCustom）。
   ///
   /// 为 `true` 时按钮呈现 disabled 外观并将文字/图标替换为圆形进度指示器。
   final bool isLoading;
+
+  /// 自定义字体样式（含颜色），仅用于 *Custom 三种变体。
+  ///
+  /// 当 [textStyle.color] 非空时，该颜色用作正常态前景色；悬停/按下/禁用状态
+  /// 仍沿用各变体的标准 overlay / 禁用颜色规则。
+  final TextStyle? textStyle;
 
   /// 尺寸模式，默认 [TalkButtonSize.fixed]（216 × 52）。
   final TalkButtonSize size;
@@ -164,6 +228,19 @@ class TalkButton extends StatelessWidget {
   static const _fillMin =
       WidgetStatePropertyAll<Size>(Size(double.infinity, 50));
 
+  // custom 变体：fixed 107×36，adaptive 最小 72×30 / 最大 400×52，fill 撑满×30，内边距 16/8
+  static const _customFixedSize =
+      WidgetStatePropertyAll<Size>(Size(107, 36));
+  static const _customAdaptiveMin =
+      WidgetStatePropertyAll<Size>(Size(72, 30));
+  static const _customAdaptiveMax =
+      WidgetStatePropertyAll<Size>(Size(400, 52));
+  static const _customFillMin =
+      WidgetStatePropertyAll<Size>(Size(double.infinity, 30));
+  static const _customPadding = WidgetStatePropertyAll<EdgeInsetsGeometry>(
+    EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  );
+
   /// 当 [size] 为 [TalkButtonSize.fill] 时，用 ConstrainedBox 将宽度上限限为 400。
   Widget _wrapSize(Widget child) {
     if (size == TalkButtonSize.fill) {
@@ -187,12 +264,47 @@ class TalkButton extends StatelessWidget {
   WidgetStateProperty<Size>? get _maximumSizeProp =>
       size == TalkButtonSize.adaptive ? _adaptiveMax : null;
 
+  // custom 变体专属 size 计算属性
+  WidgetStateProperty<Size>? get _customFixedSizeProp =>
+      size == TalkButtonSize.fixed ? _customFixedSize : null;
+
+  WidgetStateProperty<Size>? get _customMinimumSizeProp => switch (size) {
+        TalkButtonSize.adaptive => _customAdaptiveMin,
+        TalkButtonSize.fill => _customFillMin,
+        _ => null,
+      };
+
+  WidgetStateProperty<Size>? get _customMaximumSizeProp =>
+      size == TalkButtonSize.adaptive ? _customAdaptiveMax : null;
+
+  // custom 变体 loading 指示器尺寸：根据实际按钮高度决定
+  // 30–36 → 12，37–46 → 16，47+ → 20
+  static double _loadingSizeForHeight(double h) {
+    if (h >= 47) return 20;
+    if (h >= 37) return 16;
+    return 12;
+  }
+
+  // fixed 高度固定可直接计算；adaptive/fill 依赖父级约束，需由 LayoutBuilder 传入
+  double _customLoadingSize(BoxConstraints constraints) {
+    final h = size == TalkButtonSize.fixed
+        ? _customFixedSize.value.height
+        : constraints.maxHeight.isFinite
+            ? constraints.maxHeight
+            : _customAdaptiveMin.value.height; // 无约束时降级到最小高度
+    return _loadingSizeForHeight(h);
+  }
+
   @override
   Widget build(BuildContext context) {
     return _wrapSize(switch (_variant) {
-      _V.fillTheme || _V.fillThemeIcon => _buildFill(context),
-      _V.strokeSecondary || _V.strokeSecondaryIcon => _buildStroke(context),
-      _V.themeIcon => _buildIconOnly(context),
+      _V.fillTheme || _V.fillThemeIcon => _buildFillTheme(context),
+      _V.fillThemeCustom => _buildFillThemeCustom(context),
+      _V.strokeTheme => _buildStrokeTheme(context),
+      _V.strokeThemeCustom => _buildStrokeThemeCustom(context),
+      _V.strokeSecondary || _V.strokeSecondaryIcon => _buildStrokeSecondary(context),
+      _V.strokeSecondaryCustom => _buildStrokeSecondaryCustom(context),
+      _V.themeIcon => _buildThemeIcon(context),
       _V.block => _buildBlock(context),
       _ => _buildText(context),
     });
@@ -247,7 +359,7 @@ class TalkButton extends StatelessWidget {
   }
 
   // ── 填充按钮（fillTheme / fillThemeIcon） ──────────────────────────────────
-  Widget _buildFill(BuildContext context) {
+  Widget _buildFillTheme(BuildContext context) {
     final colors = context.talkColors;
     final hasIcon = _variant == _V.fillThemeIcon;
     return TextButton(
@@ -289,8 +401,121 @@ class TalkButton extends StatelessWidget {
     );
   }
 
+  // ── fillThemeCustom：填充主色，自定义字体样式 ──────────────────────────────
+  Widget _buildFillThemeCustom(BuildContext context) {
+    final colors = context.talkColors;
+    final customColor = textStyle?.color;
+    final style = ButtonStyle(
+      backgroundColor: WidgetStateProperty.resolveWith((s) {
+        if (s.contains(WidgetState.disabled)) return const Color(0x424F4F4F);
+        return colors.theme;
+      }),
+      foregroundColor: WidgetStateProperty.resolveWith((s) {
+        if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
+        return customColor ?? Colors.white;
+      }),
+      overlayColor: WidgetStateProperty.resolveWith((s) {
+        if (s.contains(WidgetState.pressed)) return Colors.white24;
+        if (s.contains(WidgetState.hovered)) return Colors.white12;
+        return Colors.transparent;
+      }),
+      textStyle: WidgetStatePropertyAll(textStyle ?? TalkTypography.bodyMedium),
+      fixedSize: _customFixedSizeProp,
+      minimumSize: _customMinimumSizeProp,
+      maximumSize: _customMaximumSizeProp,
+      padding: _customPadding,
+      shape: _stadiumShape,
+      elevation: _noElevation,
+    );
+    return LayoutBuilder(
+      builder: (_, constraints) => TextButton(
+        onPressed: isLoading ? null : onPressed,
+        style: style,
+        child: isLoading
+            ? TalkLoadingIndicator(size: _customLoadingSize(constraints), color: const Color(0xFFFFFFFF))
+            : Text(label!),
+      ),
+    );
+  }
+
+  // ── strokeTheme：主题色描边（文字 + 描边均为 Color_main） ────────────────────
+  Widget _buildStrokeTheme(BuildContext context) {
+    final colors = context.talkColors;
+    return TextButton(
+      onPressed: isLoading ? null : onPressed,
+      style: ButtonStyle(
+        backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
+        foregroundColor: WidgetStateProperty.resolveWith((s) {
+          if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
+          return colors.theme;
+        }),
+        overlayColor: WidgetStateProperty.resolveWith((s) {
+          if (s.contains(WidgetState.pressed)) return colors.theme.withValues(alpha: 0.20);
+          if (s.contains(WidgetState.hovered)) return colors.theme.withValues(alpha: 0.12);
+          return Colors.transparent;
+        }),
+        side: WidgetStateProperty.resolveWith((s) {
+          if (s.contains(WidgetState.disabled)) {
+            return const BorderSide(color: Color(0x1F000000), width: 2);
+          }
+          return BorderSide(color: colors.theme, width: 2);
+        }),
+        textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
+        fixedSize: _fixedSizeProp,
+        minimumSize: _minimumSizeProp,
+        maximumSize: _maximumSizeProp,
+        padding: _stdPadding,
+        shape: _stadiumShape,
+        elevation: _noElevation,
+      ),
+      child: isLoading
+          ? const TalkLoadingIndicator(size: 20, color: Color(0x61000000))
+          : Text(label!),
+    );
+  }
+
+  // ── strokeThemeCustom：主题色描边，自定义字体样式 ──────────────────────────
+  Widget _buildStrokeThemeCustom(BuildContext context) {
+    final colors = context.talkColors;
+    final customColor = textStyle?.color;
+    final style = ButtonStyle(
+      backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
+      foregroundColor: WidgetStateProperty.resolveWith((s) {
+        if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
+        return customColor ?? colors.theme;
+      }),
+      overlayColor: WidgetStateProperty.resolveWith((s) {
+        if (s.contains(WidgetState.pressed)) return colors.theme.withValues(alpha: 0.20);
+        if (s.contains(WidgetState.hovered)) return colors.theme.withValues(alpha: 0.12);
+        return Colors.transparent;
+      }),
+      side: WidgetStateProperty.resolveWith((s) {
+        if (s.contains(WidgetState.disabled)) {
+          return const BorderSide(color: Color(0x1F000000), width: 2);
+        }
+        return BorderSide(color: colors.theme, width: 2);
+      }),
+      textStyle: WidgetStatePropertyAll(textStyle ?? TalkTypography.bodyMedium),
+      fixedSize: _customFixedSizeProp,
+      minimumSize: _customMinimumSizeProp,
+      maximumSize: _customMaximumSizeProp,
+      padding: _customPadding,
+      shape: _stadiumShape,
+      elevation: _noElevation,
+    );
+    return LayoutBuilder(
+      builder: (_, constraints) => TextButton(
+        onPressed: isLoading ? null : onPressed,
+        style: style,
+        child: isLoading
+            ? TalkLoadingIndicator(size: _customLoadingSize(constraints), color: customColor ?? colors.theme)
+            : Text(label!),
+      ),
+    );
+  }
+
   // ── 描边按钮（strokeSecondary / strokeSecondaryIcon） ──────────────────────
-  Widget _buildStroke(BuildContext context) {
+  Widget _buildStrokeSecondary(BuildContext context) {
     final colors = context.talkColors;
     final hasIcon = _variant == _V.strokeSecondaryIcon;
     return TextButton(
@@ -335,8 +560,48 @@ class TalkButton extends StatelessWidget {
     );
   }
 
+  // ── strokeSecondaryCustom：次要色描边，自定义字体样式 ──────────────────────
+  Widget _buildStrokeSecondaryCustom(BuildContext context) {
+    final colors = context.talkColors;
+    final customColor = textStyle?.color;
+    final style = ButtonStyle(
+      backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
+      foregroundColor: WidgetStateProperty.resolveWith((s) {
+        if (s.contains(WidgetState.disabled)) return const Color(0x61000000);
+        return customColor ?? colors.textPrimary;
+      }),
+      overlayColor: WidgetStateProperty.resolveWith((s) {
+        if (s.contains(WidgetState.pressed)) return colors.textSecondary.withValues(alpha: 0.25);
+        if (s.contains(WidgetState.hovered)) return colors.textSecondary.withValues(alpha: 0.12);
+        return Colors.transparent;
+      }),
+      side: WidgetStateProperty.resolveWith((s) {
+        if (s.contains(WidgetState.disabled)) {
+          return const BorderSide(color: Color(0x1F000000), width: 2);
+        }
+        return BorderSide(color: colors.textSecondary, width: 2);
+      }),
+      textStyle: WidgetStatePropertyAll(textStyle ?? TalkTypography.bodyMedium),
+      fixedSize: _customFixedSizeProp,
+      minimumSize: _customMinimumSizeProp,
+      maximumSize: _customMaximumSizeProp,
+      padding: _customPadding,
+      shape: _stadiumShape,
+      elevation: _noElevation,
+    );
+    return LayoutBuilder(
+      builder: (_, constraints) => TextButton(
+        onPressed: isLoading ? null : onPressed,
+        style: style,
+        child: isLoading
+            ? TalkLoadingIndicator(size: _customLoadingSize(constraints), color: const Color(0x61000000))
+            : Text(label!),
+      ),
+    );
+  }
+
   // ── 纯图标按钮（themeIcon，36×36） ────────────────────────────────────────
-  Widget _buildIconOnly(BuildContext context) {
+  Widget _buildThemeIcon(BuildContext context) {
     final colors = context.talkColors;
     return TextButton(
         onPressed: onPressed,
