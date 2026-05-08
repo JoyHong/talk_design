@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/talk_context_extensions.dart';
 import '../tokens/talk_icons.dart';
 import '../tokens/talk_shadows.dart';
-import '../tokens/talk_spacing.dart';
+import '../tokens/talk_metrics.dart';
 import '../tokens/talk_typography.dart';
 import 'talk_button.dart';
 import 'talk_loading_indicator.dart';
@@ -366,7 +366,7 @@ class _DialogSplitButtonState extends State<_DialogSplitButton> {
     return MenuAnchor(
       onOpen: () => setState(() => _isOpen = true),
       onClose: () => setState(() => _isOpen = false),
-      alignmentOffset: TalkSpacing.menuAnchorOffset,
+      alignmentOffset: TalkMetrics.menuAnchorOffset,
       menuChildren: [
         for (final item in widget.dropdownItems)
           MenuItemButton(

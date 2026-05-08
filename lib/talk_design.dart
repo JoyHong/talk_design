@@ -1,5 +1,5 @@
 export 'src/tokens/talk_colors.dart';
-export 'src/tokens/talk_spacing.dart';
+export 'src/tokens/talk_metrics.dart';
 export 'src/tokens/talk_shadows.dart';
 export 'src/tokens/talk_typography.dart';
 export 'src/tokens/talk_icons.dart';

@@ -5,7 +5,7 @@ import 'package:talk_design/src/components/talk_loading_indicator.dart';
 import '../theme/talk_context_extensions.dart';
 import '../tokens/talk_colors.dart';
 import '../tokens/talk_icons.dart';
-import '../tokens/talk_spacing.dart';
+import '../tokens/talk_metrics.dart';
 import '../tokens/talk_typography.dart';
 
 enum _V {
@@ -752,7 +752,7 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
     return MenuAnchor(
       onOpen: () => setState(() => _isOpen = true),
       onClose: () => setState(() => _isOpen = false),
-      alignmentOffset: TalkSpacing.menuAnchorOffset,
+      alignmentOffset: TalkMetrics.menuAnchorOffset,
       menuChildren: [
         for (final item in widget.items)
           _DropdownMenuItem(

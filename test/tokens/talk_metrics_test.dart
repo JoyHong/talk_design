@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:talk_design/src/tokens/talk_spacing.dart';
+import 'package:talk_design/src/tokens/talk_metrics.dart';
 
 void main() {
-  group('TalkSpacing', () {
+  group('TalkMetrics', () {
     test('menuAnchorOffset has zero horizontal component', () {
-      expect(TalkSpacing.menuAnchorOffset.dx, 0);
+      expect(TalkMetrics.menuAnchorOffset.dx, 0);
     });
 
     test('menuAnchorOffset has positive vertical component', () {
-      expect(TalkSpacing.menuAnchorOffset.dy, greaterThan(0));
+      expect(TalkMetrics.menuAnchorOffset.dy, greaterThan(0));
     });
   });
 }
