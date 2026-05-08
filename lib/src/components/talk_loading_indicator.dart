@@ -3,57 +3,30 @@ import 'package:flutter/material.dart';
 
 import '../theme/talk_context_extensions.dart';
 
-/// Loading 尺寸枚举，对应 Figma 规范。
-enum TalkLoadingSize {
-  /// 12 × 12
-  small,
-
-  /// 16 × 16
-  medium,
-
-  /// 28 × 28
-  large,
-
-  /// 40 × 40
-  xlarge,
-
-  /// 60 × 60
-  xxlarge,
-}
-
-/// 环形不确定进度指示器，支持 5 种尺寸和自定义颜色。
+/// 环形不确定进度指示器，支持任意尺寸和自定义颜色。
 ///
 /// ```dart
-/// TalkLoadingIndicator(size: TalkLoadingSize.large)
-/// TalkLoadingIndicator(size: TalkLoadingSize.medium, color: Colors.grey)
+/// TalkLoadingIndicator(size: 28)
+/// TalkLoadingIndicator(size: 24, color: Colors.grey)
 /// ```
 class TalkLoadingIndicator extends StatelessWidget {
   const TalkLoadingIndicator({
-    this.size = TalkLoadingSize.medium,
+    this.size = 16,
     this.color,
     super.key,
   });
 
-  final TalkLoadingSize size;
+  final double size;
 
   /// 覆盖默认颜色，默认使用 [TalkColors.theme]。
   final Color? color;
 
-  static const _sizeValues = {
-    TalkLoadingSize.small: 12.0,
-    TalkLoadingSize.medium: 16.0,
-    TalkLoadingSize.large: 28.0,
-    TalkLoadingSize.xlarge: 40.0,
-    TalkLoadingSize.xxlarge: 60.0,
-  };
-
   @override
   Widget build(BuildContext context) {
-    final d = _sizeValues[size]!;
     return SizedBox.square(
-      dimension: d,
+      dimension: size,
       child: CircularProgressIndicator(
-        strokeWidth: math.max(1.5, d / 10),
+        strokeWidth: math.max(1.5, size / 10),
         valueColor: AlwaysStoppedAnimation(color ?? context.talkColors.theme),
       ),
     );

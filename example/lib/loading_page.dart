@@ -12,32 +12,23 @@ class LoadingPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _Section(
-            title: '环形不确定进度指示器 — 5 种尺寸',
-            description: 'small(12) / medium(16) / large(28) / xlarge(40) / xxlarge(60)，颜色默认 main',
+            title: '环形不确定进度指示器 — 常用尺寸',
+            description: '12 / 16 / 28 / 40 / 60，颜色默认 main',
             children: const [
-              TalkLoadingIndicator(size: TalkLoadingSize.small),
-              TalkLoadingIndicator(size: TalkLoadingSize.medium),
-              TalkLoadingIndicator(size: TalkLoadingSize.large),
-              TalkLoadingIndicator(size: TalkLoadingSize.xlarge),
-              TalkLoadingIndicator(size: TalkLoadingSize.xxlarge),
+              TalkLoadingIndicator(size: 12),
+              TalkLoadingIndicator(size: 16),
+              TalkLoadingIndicator(size: 28),
+              TalkLoadingIndicator(size: 40),
+              TalkLoadingIndicator(size: 60),
             ],
           ),
           _Section(
             title: '自定义颜色',
             description: '通过 color 参数覆盖，可用于消息发送中等场景',
             children: [
-              TalkLoadingIndicator(
-                size: TalkLoadingSize.medium,
-                color: context.talkColors.textSecondary,
-              ),
-              TalkLoadingIndicator(
-                size: TalkLoadingSize.large,
-                color: context.talkColors.textSecondary,
-              ),
-              TalkLoadingIndicator(
-                size: TalkLoadingSize.xlarge,
-                color: context.talkColors.textSecondary,
-              ),
+              TalkLoadingIndicator(size: 16, color: context.talkColors.textSecondary),
+              TalkLoadingIndicator(size: 28, color: context.talkColors.textSecondary),
+              TalkLoadingIndicator(size: 40, color: context.talkColors.textSecondary),
             ],
           ),
           _Section(
@@ -59,17 +50,14 @@ class LoadingPage extends StatelessWidget {
                     child: const Text('正在发送中...'),
                   ),
                   const SizedBox(width: TalkSpacing.xs),
-                  TalkLoadingIndicator(
-                    size: TalkLoadingSize.medium,
-                    color: context.talkColors.textSecondary,
-                  ),
+                  TalkLoadingIndicator(size: 16, color: context.talkColors.textSecondary),
                 ],
               ),
             ],
           ),
           _Section(
             title: '典型用法 — 全屏加载',
-            description: '使用 xxlarge 尺寸配合说明文字',
+            description: '使用较大尺寸配合说明文字',
             children: [
               Container(
                 width: double.infinity,
@@ -81,7 +69,7 @@ class LoadingPage extends StatelessWidget {
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TalkLoadingIndicator(size: TalkLoadingSize.xxlarge),
+                    TalkLoadingIndicator(size: 60),
                     SizedBox(height: TalkSpacing.m),
                     Text('加载中，请稍候…'),
                   ],
