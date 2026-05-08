@@ -218,7 +218,7 @@ class _ButtonRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        _DialogCancelButton(label: cancelLabel, onPressed: onCancel),
+        TalkButton.strokeSecondaryCustom(label: cancelLabel, onPressed: onCancel, inDialog: true),
         const SizedBox(width: TalkSpacing.m),
         if (confirmDropdownItems != null)
           _DialogSplitButton(
@@ -230,49 +230,6 @@ class _ButtonRow extends StatelessWidget {
         else
           TalkButton.fillThemeCustom(label: confirmLabel, onPressed: onConfirm),
       ],
-    );
-  }
-}
-
-// ── 取消按钮（描边胶囊） ────────────────────────────────────────────────────────
-
-class _DialogCancelButton extends StatelessWidget {
-  const _DialogCancelButton({required this.label, this.onPressed});
-
-  final String label;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.talkColors;
-    return TextButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-        minimumSize: const WidgetStatePropertyAll(Size(107, 36)),
-        padding: const WidgetStatePropertyAll(
-          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        ),
-        shape: const WidgetStatePropertyAll(StadiumBorder()),
-        backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
-        foregroundColor: WidgetStatePropertyAll(colors.textPrimary),
-        side: WidgetStateProperty.resolveWith((s) => BorderSide(
-              color: s.contains(WidgetState.disabled)
-                  ? const Color(0x1F000000)
-                  : colors.textSecondary,
-            )),
-        overlayColor: WidgetStateProperty.resolveWith((s) {
-          if (s.contains(WidgetState.pressed)) {
-            return colors.textSecondary.withValues(alpha: 0.25);
-          }
-          if (s.contains(WidgetState.hovered)) {
-            return colors.textSecondary.withValues(alpha: 0.12);
-          }
-          return Colors.transparent;
-        }),
-        textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
-        elevation: const WidgetStatePropertyAll(0),
-      ),
-      child: Text(label),
     );
   }
 }
