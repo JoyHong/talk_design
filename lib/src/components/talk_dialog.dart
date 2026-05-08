@@ -255,6 +255,14 @@ class _DialogSplitButton extends StatefulWidget {
 
 class _DialogSplitButtonState extends State<_DialogSplitButton> {
   bool _isOpen = false;
+  bool _isLeftHovered = false;
+  bool _isLeftPressed = false;
+
+  Color get _leftOverlay {
+    if (_isLeftPressed) return Colors.white24;
+    if (_isLeftHovered) return Colors.white12;
+    return Colors.transparent;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -271,30 +279,40 @@ class _DialogSplitButtonState extends State<_DialogSplitButton> {
             child: Text(item),
           ),
       ],
-      builder: (context, controller, _) => Container(
-        height: 36,
-        decoration: BoxDecoration(
-          color: themeColor,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // 左侧：主操作区
-            GestureDetector(
-              onTap: widget.onPressed,
-              child: Container(
-                constraints: const BoxConstraints(minWidth: 75),
-                padding: const EdgeInsets.only(left: 16, right: 8),
-                height: 36,
-                alignment: Alignment.center,
-                child: Text(
-                  widget.label,
-                  style:
-                      TalkTypography.bodyMedium.copyWith(color: Colors.white),
-                ),
-              ),
+      builder: (context, controller, _) => Stack(
+        children: [
+          Container(
+            height: 36,
+            decoration: BoxDecoration(
+              color: themeColor,
+              borderRadius: BorderRadius.circular(30),
             ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // 左侧：主操作区
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  onEnter: (_) => setState(() => _isLeftHovered = true),
+                  onExit: (_) => setState(() => _isLeftHovered = false),
+                  child: GestureDetector(
+                    onTap: widget.onPressed,
+                    onTapDown: (_) => setState(() => _isLeftPressed = true),
+                    onTapUp: (_) => setState(() => _isLeftPressed = false),
+                    onTapCancel: () => setState(() => _isLeftPressed = false),
+                    child: Container(
+                      constraints: const BoxConstraints(minWidth: 75),
+                      padding: const EdgeInsets.only(left: 16, right: 8),
+                      height: 36,
+                      alignment: Alignment.center,
+                      child: Text(
+                        widget.label,
+                        style: TalkTypography.bodyMedium
+                            .copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
             // 竖线分隔符
             Container(
               width: 1,
@@ -325,6 +343,20 @@ class _DialogSplitButtonState extends State<_DialogSplitButton> {
             ),
           ],
         ),
+          ),
+          // 整体叠加层：仅由左侧 hover/press 触发，右侧事件穿透
+          if (_leftOverlay != Colors.transparent)
+            Positioned.fill(
+              child: IgnorePointer(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: _leftOverlay,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
