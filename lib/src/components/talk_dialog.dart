@@ -156,7 +156,6 @@ class _TalkDialogContentState extends State<_TalkDialogContent> {
     setState(() => _isConfirmLoading = true);
     try {
       await widget.onConfirmAsync!();
-      if (mounted) Navigator.pop(context);
     } catch (_) {
       if (mounted) setState(() => _isConfirmLoading = false);
     }
@@ -166,7 +165,6 @@ class _TalkDialogContentState extends State<_TalkDialogContent> {
     setState(() => _isConfirmLoading = true);
     try {
       await widget.onConfirmDropdownAsync!(value);
-      if (mounted) Navigator.pop(context);
     } catch (_) {
       if (mounted) setState(() => _isConfirmLoading = false);
     }

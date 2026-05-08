@@ -87,11 +87,13 @@ class _DialogPageState extends State<DialogPage> {
       onConfirmAsync: () async {
         await Future.delayed(const Duration(seconds: 2));
         _log('下拉按钮 loading（成功）→ 结束通话完成');
+        if (mounted) Navigator.pop(context);
       },
       confirmDropdownItems: const ['所有人离开', '仅自己离开'],
       onConfirmDropdownAsync: (value) async {
         await Future.delayed(const Duration(seconds: 2));
         _log('下拉按钮 loading（成功）→ $value 完成');
+        if (mounted) Navigator.pop(context);
       },
     );
   }
@@ -137,6 +139,7 @@ class _DialogPageState extends State<DialogPage> {
       onConfirmAsync: () async {
         await Future.delayed(const Duration(seconds: 2));
         _log('确认 loading（成功）→ 提交完成');
+        if (mounted) Navigator.pop(context);
       },
     );
   }
