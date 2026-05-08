@@ -7,7 +7,7 @@ class BadgePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(TalkSpacing.l),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -139,13 +139,13 @@ class _Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: TalkSpacing.xl),
+      padding: const EdgeInsets.only(bottom: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: Theme.of(context).textTheme.titleSmall),
           if (description != null) ...[
-            const SizedBox(height: TalkSpacing.xs),
+            const SizedBox(height: 4),
             Text(
               description!,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -153,10 +153,10 @@ class _Section extends StatelessWidget {
                   ),
             ),
           ],
-          const SizedBox(height: TalkSpacing.m),
+          const SizedBox(height: 12),
           Wrap(
-            spacing: TalkSpacing.l,
-            runSpacing: TalkSpacing.m,
+            spacing: 16,
+            runSpacing: 12,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: children,
           ),

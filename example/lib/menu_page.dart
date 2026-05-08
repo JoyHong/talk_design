@@ -7,7 +7,7 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(TalkSpacing.l),
+      padding: const EdgeInsets.all(16),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -146,14 +146,14 @@ class _Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: TalkSpacing.xl),
+      padding: const EdgeInsets.only(bottom: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: const TextStyle(fontSize: 12, color: Colors.black45)),
           const SizedBox(height: 2),
           Text(description, style: const TextStyle(fontSize: 11, color: Colors.black26)),
-          const SizedBox(height: TalkSpacing.s),
+          const SizedBox(height: 8),
           child,
         ],
       ),

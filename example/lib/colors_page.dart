@@ -47,7 +47,7 @@ class ColorsPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: color,
                   border: Border.all(color: Colors.black12),
-                  borderRadius: BorderRadius.circular(TalkSpacing.radiusM),
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
               const SizedBox(width: 12),

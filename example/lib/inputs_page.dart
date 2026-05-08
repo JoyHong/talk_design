@@ -14,7 +14,7 @@ class _InputsPageState extends State<InputsPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(TalkSpacing.l),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -23,7 +23,7 @@ class _InputsPageState extends State<InputsPage> {
           _Hint('有焦点且有内容时显示清空图标'),
           TalkTextField(hintText: '请输入内容…'),
 
-          const SizedBox(height: TalkSpacing.s),
+          const SizedBox(height: 8),
           _Hint('isLoading=true：右侧显示加载指示器，清空图标不显示'),
           TalkTextField(hintText: '加载中…', isLoading: true),
 
@@ -56,7 +56,7 @@ class _InputsPageState extends State<InputsPage> {
             onDropdownToggle: (isDropdown) =>
                 setState(() => _dropdownStatus = isDropdown ? '已展开' : '已收起'),
           ),
-          const SizedBox(height: TalkSpacing.s),
+          const SizedBox(height: 8),
           _Hint('回调状态：$_dropdownStatus'),
 
           _Divider(),
@@ -79,7 +79,7 @@ class _SectionLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(bottom: TalkSpacing.s),
+        padding: const EdgeInsets.only(bottom: 8),
         child: Text(text, style: TalkTypography.titleSmall),
       );
 }
@@ -90,7 +90,7 @@ class _Hint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(bottom: TalkSpacing.s),
+        padding: const EdgeInsets.only(bottom: 8),
         child: Text(
           text,
           style: TalkTypography.bodySmall.copyWith(color: context.talkColors.textSecondary),
@@ -102,5 +102,5 @@ class _Divider extends StatelessWidget {
   const _Divider();
 
   @override
-  Widget build(BuildContext context) => const SizedBox(height: TalkSpacing.xxl);
+  Widget build(BuildContext context) => const SizedBox(height: 32);
 }

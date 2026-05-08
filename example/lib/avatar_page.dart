@@ -23,28 +23,28 @@ class _AvatarPageState extends State<AvatarPage> {
     const labelStyle = TextStyle(fontSize: 12, color: Colors.black45);
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(TalkSpacing.l),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text('默认头像 — UID 末尾数字对应 0-9', style: labelStyle),
-          const SizedBox(height: TalkSpacing.l),
+          const SizedBox(height: 16),
           Wrap(
-            spacing: TalkSpacing.l,
-            runSpacing: TalkSpacing.l,
+            spacing: 16,
+            runSpacing: 16,
             children: List.generate(10, (i) {
               return Column(
                 children: [
                   TalkAvatars.of('$i'),
-                  const SizedBox(height: TalkSpacing.xs),
+                  const SizedBox(height: 4),
                   Text('UID …$i', style: labelStyle),
                 ],
               );
             }),
           ),
-          const SizedBox(height: TalkSpacing.xxl),
+          const SizedBox(height: 32),
           const Text('输入 UID 预览', style: labelStyle),
-          const SizedBox(height: TalkSpacing.s),
+          const SizedBox(height: 8),
           Row(
             children: [
               Expanded(
@@ -58,7 +58,7 @@ class _AvatarPageState extends State<AvatarPage> {
                   onChanged: (v) => setState(() => _uid = v.trim()),
                 ),
               ),
-              const SizedBox(width: TalkSpacing.m),
+              const SizedBox(width: 12),
               TalkAvatars.of(
                 _uid?.isEmpty == true ? null : _uid,
                 size: 56,

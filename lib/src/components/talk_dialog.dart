@@ -183,7 +183,7 @@ class _TalkDialogContentState extends State<_TalkDialogContent> {
           borderRadius: BorderRadius.circular(_radius),
           boxShadow: TalkShadows.popup,
         ),
-        padding: const EdgeInsets.all(TalkSpacing.xl),
+        padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -247,14 +247,14 @@ class _TitleRow extends StatelessWidget {
             children: [
               Text(title, style: TalkTypography.bodyLarge),
               if (hasMessage) ...[
-                const SizedBox(height: TalkSpacing.m),
+                const SizedBox(height: 12),
                 Text(message!, style: TalkTypography.bodyMedium),
               ],
             ],
           ),
         ),
         if (onClose != null) ...[
-          const SizedBox(width: TalkSpacing.m),
+          const SizedBox(width: 12),
           IgnorePointer(
             ignoring: !closeEnabled,
             child: Opacity(
@@ -306,7 +306,7 @@ class _ButtonRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         TalkButton.strokeSecondaryCustom(label: cancelLabel, onPressed: onCancel, inDialog: true),
-        const SizedBox(width: TalkSpacing.m),
+        const SizedBox(width: 12),
         if (confirmDropdownItems != null)
           _DialogSplitButton(
             label: confirmLabel,

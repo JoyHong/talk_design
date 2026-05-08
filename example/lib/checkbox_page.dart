@@ -15,26 +15,26 @@ class _CheckboxPageState extends State<CheckboxPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(TalkSpacing.l),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // ── Figma 三态静态展示 ────────────────────────────────────────────
           _SectionLabel('Figma 规范三态'),
           _Hint('normal / checked / disable'),
-          const SizedBox(height: TalkSpacing.s),
+          const SizedBox(height: 8),
           Row(
             children: [
               _StateItem(
                 label: 'normal',
                 child: TalkCheckbox(value: false, onChanged: (_) {}),
               ),
-              const SizedBox(width: TalkSpacing.xl),
+              const SizedBox(width: 24),
               _StateItem(
                 label: 'checked',
                 child: TalkCheckbox(value: true, onChanged: (_) {}),
               ),
-              const SizedBox(width: TalkSpacing.xl),
+              const SizedBox(width: 24),
               _StateItem(
                 label: 'disable',
                 child: const TalkCheckbox(value: true, onChanged: null),
@@ -47,13 +47,13 @@ class _CheckboxPageState extends State<CheckboxPage> {
           // ── 可交互示例 ────────────────────────────────────────────────────
           _SectionLabel('可交互'),
           _Hint('点击切换勾选状态'),
-          const SizedBox(height: TalkSpacing.s),
+          const SizedBox(height: 8),
           _TalkCheckboxTile(
             label: '选项一',
             value: _checked1,
             onChanged: (v) => setState(() => _checked1 = v),
           ),
-          const SizedBox(height: TalkSpacing.m),
+          const SizedBox(height: 12),
           _TalkCheckboxTile(
             label: '选项二（初始已勾选）',
             value: _checked2,
@@ -65,14 +65,14 @@ class _CheckboxPageState extends State<CheckboxPage> {
           // ── 禁用态 ────────────────────────────────────────────────────────
           _SectionLabel('禁用态'),
           _Hint('onChanged 为 null 时进入禁用态'),
-          const SizedBox(height: TalkSpacing.s),
+          const SizedBox(height: 8),
           Row(
             children: [
               _StateItem(
                 label: '禁用未选',
                 child: const TalkCheckbox(value: false, onChanged: null),
               ),
-              const SizedBox(width: TalkSpacing.xl),
+              const SizedBox(width: 24),
               _StateItem(
                 label: '禁用已选',
                 child: const TalkCheckbox(value: true, onChanged: null),
@@ -106,7 +106,7 @@ class _TalkCheckboxTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           TalkCheckbox(value: value, onChanged: onChanged),
-          const SizedBox(width: TalkSpacing.s),
+          const SizedBox(width: 8),
           Text(
             label,
             style: TalkTypography.bodyMedium
@@ -143,7 +143,7 @@ class _SectionLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(bottom: TalkSpacing.s),
+        padding: const EdgeInsets.only(bottom: 8),
         child: Text(text, style: TalkTypography.titleSmall),
       );
 }
@@ -154,7 +154,7 @@ class _Hint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(bottom: TalkSpacing.s),
+        padding: const EdgeInsets.only(bottom: 8),
         child: Text(
           text,
           style: TalkTypography.bodySmall
@@ -168,5 +168,5 @@ class _Divider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      const SizedBox(height: TalkSpacing.xxl);
+      const SizedBox(height: 32);
 }

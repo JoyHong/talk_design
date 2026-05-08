@@ -167,7 +167,7 @@ class _DialogPageState extends State<DialogPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(TalkSpacing.l),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -254,7 +254,7 @@ class _Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: TalkSpacing.xl),
+      padding: const EdgeInsets.only(bottom: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -263,7 +263,7 @@ class _Section extends StatelessWidget {
           const SizedBox(height: 2),
           Text(description,
               style: const TextStyle(fontSize: 11, color: Colors.black26)),
-          const SizedBox(height: TalkSpacing.s),
+          const SizedBox(height: 8),
           child,
         ],
       ),

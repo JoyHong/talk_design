@@ -199,7 +199,7 @@ class _ListPageState extends State<ListPage> {
             onChanged: (v) => setState(() => _switch2 = v),
           ),
 
-          const SizedBox(height: TalkSpacing.l),
+          const SizedBox(height: 16),
         ],
       ),
     );

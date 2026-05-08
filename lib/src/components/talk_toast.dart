@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/talk_context_extensions.dart';
 import '../tokens/talk_icons.dart';
 import '../tokens/talk_shadows.dart';
-import '../tokens/talk_spacing.dart';
 import '../tokens/talk_typography.dart';
 
 /// Toast 展示时间。
@@ -109,7 +108,7 @@ class TalkToast extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: TalkSpacing.l,
+          horizontal: 16,
           vertical: 10,
         ),
         child: Row(
@@ -117,7 +116,7 @@ class TalkToast extends StatelessWidget {
           children: [
             if (icon != null) ...[
               SizedBox(width: 20, height: 20, child: icon),
-              const SizedBox(width: TalkSpacing.s),
+              const SizedBox(width: 8),
             ],
             Text(
               message,

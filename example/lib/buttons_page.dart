@@ -21,7 +21,7 @@ class ButtonsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(TalkSpacing.l),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -361,7 +361,7 @@ class _Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: TalkSpacing.xl),
+      padding: const EdgeInsets.only(bottom: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -369,8 +369,8 @@ class _Section extends StatelessWidget {
             title,
             style: const TextStyle(fontSize: 12, color: Colors.black45),
           ),
-          const SizedBox(height: TalkSpacing.s),
-          Wrap(spacing: TalkSpacing.s, runSpacing: TalkSpacing.s, children: children),
+          const SizedBox(height: 8),
+          Wrap(spacing: 8, runSpacing: 8, children: children),
         ],
       ),
     );

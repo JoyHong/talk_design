@@ -7,7 +7,7 @@ class TypographyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: TalkSpacing.l, vertical: TalkSpacing.m),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       children: const [
         _Category('Display'),
         _Row('displayLarge', '57 / 64 / Bold', Text('设计系统 Design System', style: TalkTypography.displayLarge)),
@@ -33,7 +33,7 @@ class TypographyPage extends StatelessWidget {
         _Row('bodyLarge', '16 / 24 / Medium', Text('设计系统 Design System', style: TalkTypography.bodyLarge)),
         _Row('bodyMedium', '14 / 20 / Medium', Text('设计系统 Design System', style: TalkTypography.bodyMedium)),
         _Row('bodySmall', '12 / 16 / Medium', Text('设计系统 Design System', style: TalkTypography.bodySmall)),
-        SizedBox(height: TalkSpacing.xl),
+        SizedBox(height: 24),
         _CustomColorDemo(),
       ],
     );
@@ -47,14 +47,14 @@ class _Category extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: TalkSpacing.l, bottom: TalkSpacing.s),
+      padding: const EdgeInsets.only(top: 16, bottom: 8),
       child: Row(
         children: [
           Text(
             label,
             style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFFFF2C55)),
           ),
-          const SizedBox(width: TalkSpacing.s),
+          const SizedBox(width: 8),
           const Expanded(child: Divider()),
         ],
       ),
@@ -71,7 +71,7 @@ class _Row extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: TalkSpacing.m),
+      padding: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -100,7 +100,7 @@ class _CustomColorDemo extends StatelessWidget {
         Text('主题色文字', style: TalkTypography.titleLarge.copyWith(color: colors.theme)),
         const SizedBox(height: 4),
         const Text('TalkTypography.titleLarge.copyWith(color: talkColors.main)', style: TextStyle(fontSize: 11, color: Colors.black38)),
-        const SizedBox(height: TalkSpacing.m),
+        const SizedBox(height: 12),
         Text('次要色文字', style: TalkTypography.titleMedium.copyWith(color: colors.textSecondary)),
         const SizedBox(height: 4),
         const Text('TalkTypography.titleMedium.copyWith(color: talkColors.textSecondary)', style: TextStyle(fontSize: 11, color: Colors.black38)),

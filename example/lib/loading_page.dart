@@ -7,7 +7,7 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(TalkSpacing.l),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -40,16 +40,16 @@ class LoadingPage extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: TalkSpacing.m,
-                      vertical: TalkSpacing.s,
+                      horizontal: 12,
+                      vertical: 8,
                     ),
                     decoration: BoxDecoration(
                       color: context.talkColors.receivedMessageBubble,
-                      borderRadius: BorderRadius.circular(TalkSpacing.m),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Text('正在发送中...'),
                   ),
-                  const SizedBox(width: TalkSpacing.xs),
+                  const SizedBox(width: 4),
                   TalkLoadingIndicator(size: 16, color: context.talkColors.textSecondary),
                 ],
               ),
@@ -64,13 +64,13 @@ class LoadingPage extends StatelessWidget {
                 height: 160,
                 decoration: BoxDecoration(
                   color: context.talkColors.backgroundSecondary,
-                  borderRadius: BorderRadius.circular(TalkSpacing.m),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TalkLoadingIndicator(size: 60),
-                    SizedBox(height: TalkSpacing.m),
+                    SizedBox(height: 12),
                     Text('加载中，请稍候…'),
                   ],
                 ),
@@ -97,13 +97,13 @@ class _Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: TalkSpacing.xl),
+      padding: const EdgeInsets.only(bottom: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: Theme.of(context).textTheme.titleSmall),
           if (description != null) ...[
-            const SizedBox(height: TalkSpacing.xs),
+            const SizedBox(height: 4),
             Text(
               description!,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -111,10 +111,10 @@ class _Section extends StatelessWidget {
                   ),
             ),
           ],
-          const SizedBox(height: TalkSpacing.m),
+          const SizedBox(height: 12),
           Wrap(
-            spacing: TalkSpacing.l,
-            runSpacing: TalkSpacing.m,
+            spacing: 16,
+            runSpacing: 12,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: children,
           ),
