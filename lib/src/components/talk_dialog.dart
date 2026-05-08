@@ -6,6 +6,7 @@ import '../tokens/talk_icons.dart';
 import '../tokens/talk_shadows.dart';
 import '../tokens/talk_spacing.dart';
 import '../tokens/talk_typography.dart';
+import 'talk_button.dart';
 
 /// 显示 JusTalk 风格弹框，覆盖 3 种变体：
 ///
@@ -227,7 +228,7 @@ class _ButtonRow extends StatelessWidget {
             onDropdownSelected: onConfirmDropdownSelected,
           )
         else
-          _DialogConfirmButton(label: confirmLabel, onPressed: onConfirm),
+          TalkButton.fillThemeCustom(label: confirmLabel, onPressed: onConfirm),
       ],
     );
   }
@@ -266,40 +267,6 @@ class _DialogCancelButton extends StatelessWidget {
           if (s.contains(WidgetState.hovered)) {
             return colors.textSecondary.withValues(alpha: 0.12);
           }
-          return Colors.transparent;
-        }),
-        textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
-        elevation: const WidgetStatePropertyAll(0),
-      ),
-      child: Text(label),
-    );
-  }
-}
-
-// ── 确认按钮（填充胶囊） ────────────────────────────────────────────────────────
-
-class _DialogConfirmButton extends StatelessWidget {
-  const _DialogConfirmButton({required this.label, this.onPressed});
-
-  final String label;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.talkColors;
-    return TextButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-        minimumSize: const WidgetStatePropertyAll(Size(107, 36)),
-        padding: const WidgetStatePropertyAll(
-          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        ),
-        shape: const WidgetStatePropertyAll(StadiumBorder()),
-        backgroundColor: WidgetStatePropertyAll(colors.theme),
-        foregroundColor: const WidgetStatePropertyAll(Colors.white),
-        overlayColor: WidgetStateProperty.resolveWith((s) {
-          if (s.contains(WidgetState.pressed)) return Colors.white24;
-          if (s.contains(WidgetState.hovered)) return Colors.white12;
           return Colors.transparent;
         }),
         textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
