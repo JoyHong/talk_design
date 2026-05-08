@@ -1,6 +1,6 @@
 name: talk_design
 description: JusTalk design system — colors, typography, spacing, and component styles for Flutter.
-version: 0.1.0
+version: 1.0.0
 publish_to: 'none'
 
 environment:
