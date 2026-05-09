@@ -38,6 +38,13 @@ class TalkTheme {
           maximumSize: const WidgetStatePropertyAll(Size(280, double.infinity)),
         ),
       ),
+      switchTheme: SwitchThemeData(
+        trackOutlineColor: WidgetStateProperty.resolveWith((states) {
+          // 去掉关闭状态下的边框
+          if (states.contains(WidgetState.selected)) return null;
+          return Colors.transparent;
+        }),
+      ),
       menuButtonTheme: MenuButtonThemeData(
         style: ButtonStyle(
           textStyle: const WidgetStatePropertyAll(TalkTypography.bodyMedium),
