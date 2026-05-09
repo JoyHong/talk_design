@@ -46,7 +46,7 @@ class TalkTheme {
           iconSize: const WidgetStatePropertyAll(20),
           backgroundColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.hovered)) {
-              return TalkColors.light.listCardMenuFloating;
+              return TalkColors.light.listCardMenuHovered;
             }
             if (states.contains(WidgetState.pressed)) {
               return TalkColors.light.listCardMenuPressed;

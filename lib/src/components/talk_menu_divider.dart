@@ -9,7 +9,7 @@ class TalkMenuDivider extends StatelessWidget {
     return Divider(
       height: 17,
       thickness: 1,
-      color: context.talkColors.listCardMenuFloating,
+      color: context.talkColors.listCardMenuHovered,
     );
   }
 }

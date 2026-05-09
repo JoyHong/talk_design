@@ -153,7 +153,7 @@ void main() {
       expect(c.listPopUpWindow, const Color(0xFFFFFFFF));
       expect(c.sidePopUp, const Color(0xFFF5F5F5));
       expect(c.buttonBlock, const Color(0xFFFFFFFF));
-      expect(c.listCardMenuFloating, const Color(0x1A999999));
+      expect(c.listCardMenuHovered, const Color(0x1A999999));
       expect(c.listCardMenuPressed, const Color(0x33999999));
       expect(c.success, const Color(0xFF39DB0C));
       expect(c.redDotError, const Color(0xFFFF3A2E));
@@ -205,7 +205,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
     required this.listPopUpWindow,
     required this.sidePopUp,
     required this.buttonBlock,
-    required this.listCardMenuFloating,
+    required this.listCardMenuHovered,
     required this.listCardMenuPressed,
     required this.success,
     required this.redDotError,
@@ -224,7 +224,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
   final Color listPopUpWindow;
   final Color sidePopUp;
   final Color buttonBlock;
-  final Color listCardMenuFloating;  // #999999 @ 10%
+  final Color listCardMenuHovered;  // #999999 @ 10%
   final Color listCardMenuPressed;   // #999999 @ 20%
   final Color success;
   final Color redDotError;
@@ -243,7 +243,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
     listPopUpWindow: Color(0xFFFFFFFF),
     sidePopUp: Color(0xFFF5F5F5),
     buttonBlock: Color(0xFFFFFFFF),
-    listCardMenuFloating: Color(0x1A999999),
+    listCardMenuHovered: Color(0x1A999999),
     listCardMenuPressed: Color(0x33999999),
     success: Color(0xFF39DB0C),
     redDotError: Color(0xFFFF3A2E),
@@ -264,7 +264,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
     Color? listPopUpWindow,
     Color? sidePopUp,
     Color? buttonBlock,
-    Color? listCardMenuFloating,
+    Color? listCardMenuHovered,
     Color? listCardMenuPressed,
     Color? success,
     Color? redDotError,
@@ -283,7 +283,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
         listPopUpWindow: listPopUpWindow ?? this.listPopUpWindow,
         sidePopUp: sidePopUp ?? this.sidePopUp,
         buttonBlock: buttonBlock ?? this.buttonBlock,
-        listCardMenuFloating: listCardMenuFloating ?? this.listCardMenuFloating,
+        listCardMenuHovered: listCardMenuHovered ?? this.listCardMenuHovered,
         listCardMenuPressed: listCardMenuPressed ?? this.listCardMenuPressed,
         success: success ?? this.success,
         redDotError: redDotError ?? this.redDotError,
@@ -306,7 +306,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
       listPopUpWindow: Color.lerp(listPopUpWindow, other.listPopUpWindow, t)!,
       sidePopUp: Color.lerp(sidePopUp, other.sidePopUp, t)!,
       buttonBlock: Color.lerp(buttonBlock, other.buttonBlock, t)!,
-      listCardMenuFloating: Color.lerp(listCardMenuFloating, other.listCardMenuFloating, t)!,
+      listCardMenuHovered: Color.lerp(listCardMenuHovered, other.listCardMenuHovered, t)!,
       listCardMenuPressed: Color.lerp(listCardMenuPressed, other.listCardMenuPressed, t)!,
       success: Color.lerp(success, other.success, t)!,
       redDotError: Color.lerp(redDotError, other.redDotError, t)!,

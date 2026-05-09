@@ -125,7 +125,7 @@ class _MoreButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: colors.listCardMenuFloating,
+          color: colors.listCardMenuHovered,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Icon(Icons.more_horiz, size: 20, color: colors.textPrimary),

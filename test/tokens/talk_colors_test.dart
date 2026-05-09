@@ -28,7 +28,7 @@ void main() {
       expect(c.listDialogBox, const Color(0xFFFFFFFF));
       expect(c.sidePopUp, const Color(0xFFF5F5F5));
       expect(c.buttonBlock, const Color(0xFFFFFFFF));
-      expect(c.listCardMenuFloating, const Color(0x1A999999));
+      expect(c.listCardMenuHovered, const Color(0x1A999999));
       expect(c.listCardMenuPressed, const Color(0x33999999));
       expect(c.success, const Color(0xFF39DB0C));
       expect(c.redDotError, const Color(0xFFFF3A2E));

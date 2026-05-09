@@ -26,7 +26,7 @@ class ColorsPage extends StatelessWidget {
       ('listDialogBox', colors.listDialogBox),
       ('sidePopUp', colors.sidePopUp),
       ('buttonBlock', colors.buttonBlock),
-      ('listCardMenuFloating', colors.listCardMenuFloating),
+      ('listCardMenuHovered', colors.listCardMenuHovered),
       ('listCardMenuPressed', colors.listCardMenuPressed),
       ('success', colors.success),
       ('redDotError', colors.redDotError),
