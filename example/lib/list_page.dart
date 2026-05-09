@@ -70,6 +70,15 @@ class _ListPageState extends State<ListPage> {
               onButtonPressed: () => _snack('按钮：关注'),
               onTap: () => _snack('Charlie'),
             ),
+            TalkAvatarButtonItem(
+              avatar: _colorAvatar(Colors.blue),
+              title: 'Diana',
+              subtitle: 'With button icon',
+              buttonIcon: const Icon(Icons.add),
+              buttonLabel: 'Add',
+              onButtonPressed: () => _snack('按钮：Add'),
+              onTap: () => _snack('Diana'),
+            ),
           ]),
 
           // ── List_base ──────────────────────────────────────────────────
@@ -135,6 +144,13 @@ class _ListPageState extends State<ListPage> {
               subtitle: 'Subtitle text that is also very long and will overflow',
               buttonLabel: '操作',
               onTap: () => _snack('Long title'),
+            ),
+            TalkListButtonItem(
+              title: 'Settings with Icon',
+              buttonIcon: const Icon(Icons.settings_outlined),
+              buttonLabel: '配置',
+              onButtonPressed: () => _snack('按钮：配置'),
+              onTap: () => _snack('Settings with Icon'),
             ),
           ]),
 

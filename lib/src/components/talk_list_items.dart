@@ -171,6 +171,7 @@ class TalkAvatarButtonItem extends StatefulWidget {
     required this.avatar,
     required this.title,
     this.subtitle,
+    this.buttonIcon,
     required this.buttonLabel,
     this.onButtonPressed,
     this.onTap,
@@ -185,6 +186,9 @@ class TalkAvatarButtonItem extends StatefulWidget {
 
   /// 可选副标题，次要文本色，单行省略。
   final String? subtitle;
+
+  /// 右侧按钮的图标（18×18）。
+  final Widget? buttonIcon;
 
   /// 右侧按钮文字。
   final String buttonLabel;
@@ -251,6 +255,7 @@ class _TalkAvatarButtonItemState extends State<TalkAvatarButtonItem> {
               onEnter: (_) => setState(() => _buttonHovered = true),
               onExit: (_) => setState(() => _buttonHovered = false),
               child: TalkButton.strokeThemeCustom(
+                icon: widget.buttonIcon,
                 label: widget.buttonLabel,
                 onPressed: widget.onButtonPressed,
                 size: TalkButtonSize.adaptive,
@@ -348,6 +353,7 @@ class TalkListButtonItem extends StatefulWidget {
   const TalkListButtonItem({
     required this.title,
     this.subtitle,
+    this.buttonIcon,
     required this.buttonLabel,
     this.onButtonPressed,
     this.onTap,
@@ -359,6 +365,9 @@ class TalkListButtonItem extends StatefulWidget {
 
   /// 可选副标题，次要文本色，单行省略。
   final String? subtitle;
+
+  /// 右侧按钮的图标（18×18）。
+  final Widget? buttonIcon;
 
   /// 右侧按钮文字。
   final String buttonLabel;
@@ -417,6 +426,7 @@ class _TalkListButtonItemState extends State<TalkListButtonItem> {
               onEnter: (_) => setState(() => _buttonHovered = true),
               onExit: (_) => setState(() => _buttonHovered = false),
               child: TalkButton.strokeSecondaryCustom(
+                icon: widget.buttonIcon,
                 label: widget.buttonLabel,
                 onPressed: widget.onButtonPressed,
                 size: TalkButtonSize.adaptive,
