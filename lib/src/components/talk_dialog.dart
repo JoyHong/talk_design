@@ -305,7 +305,7 @@ class _ButtonRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        TalkButton.strokeSecondaryCustom(label: cancelLabel, onPressed: onCancel, inDialog: true),
+        TalkButton.strokeSecondaryCustom(label: cancelLabel, onPressed: onCancel),
         const SizedBox(width: 12),
         if (confirmDropdownItems != null)
           _DialogSplitButton(
