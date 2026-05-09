@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.1
+
+### 新增
+
+- **TalkListItem** — `TalkListButtonItem` 和 `TalkAvatarButtonItem` 新增可选参数 `buttonIcon`（Widget）；提供时图标以 18 × 18 px 尺寸渲染，与按钮文字之间保持 8 px 间距。
+
+### 破坏性变更
+
+- **`TalkButton`** — 移除 `inDialog` 属性；需要对话框内 1px 边框效果的调用方请直接使用 `strokeThemeCustom` / `strokeSecondaryCustom` 变体。
+- **`TalkColors`** — `listCardMenuFloating` 已重命名为 `listCardMenuHovered`，请更新直接引用该 token 的代码。
+
+---
+
 ## 1.0.0
 
 首个正式版本，完整的 JusTalk Flutter 设计系统。
