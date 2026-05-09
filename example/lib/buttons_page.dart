@@ -30,13 +30,13 @@ class ButtonsPage extends StatelessWidget {
             const TalkButton.fillTheme(label: 'Disabled'),
             const TalkButton.fillTheme(label: 'Progress', isLoading: true),
           ]),
-          _Section(title: 'fillThemeIcon（填充主色 + 图标）', children: [
-            TalkButton.fillThemeIcon(
+          _Section(title: 'fillTheme + 图标', children: [
+            TalkButton.fillTheme(
               label: 'With Icon',
               icon: const Icon(Icons.add),
               onPressed: () {},
             ),
-            const TalkButton.fillThemeIcon(
+            const TalkButton.fillTheme(
               label: 'Progress',
               icon: Icon(Icons.add),
               isLoading: true,
@@ -55,18 +55,30 @@ class ButtonsPage extends StatelessWidget {
             const TalkButton.strokeTheme(label: 'Disabled'),
             const TalkButton.strokeTheme(label: 'Progress', isLoading: true),
           ]),
+          _Section(title: 'strokeTheme + 图标', children: [
+            TalkButton.strokeTheme(
+              label: 'With Icon',
+              icon: const Icon(Icons.edit),
+              onPressed: () {},
+            ),
+            const TalkButton.strokeTheme(
+              label: 'Progress',
+              icon: Icon(Icons.edit),
+              isLoading: true,
+            ),
+          ]),
           _Section(title: 'strokeSecondary（描边）', children: [
             TalkButton.strokeSecondary(label: 'Normal', onPressed: () {}),
             const TalkButton.strokeSecondary(label: 'Disabled'),
             const TalkButton.strokeSecondary(label: 'Progress', isLoading: true),
           ]),
-          _Section(title: 'strokeSecondaryIcon（描边 + 图标）', children: [
-            TalkButton.strokeSecondaryIcon(
+          _Section(title: 'strokeSecondary + 图标', children: [
+            TalkButton.strokeSecondary(
               label: 'With Icon',
               icon: const Icon(Icons.search),
               onPressed: () {},
             ),
-            const TalkButton.strokeSecondaryIcon(
+            const TalkButton.strokeSecondary(
               label: 'Progress',
               icon: Icon(Icons.search),
               isLoading: true,
@@ -137,7 +149,7 @@ class _LoadingSectionState extends State<_LoadingSection> {
           isLoading: _fillLoading,
           onPressed: () => _trigger(() => _fillLoading, (v) => _fillLoading = v),
         ),
-        TalkButton.fillThemeIcon(
+        TalkButton.fillTheme(
           label: _fillIconLoading ? 'Loading…' : '上传',
           icon: const Icon(Icons.upload),
           isLoading: _fillIconLoading,
@@ -148,7 +160,7 @@ class _LoadingSectionState extends State<_LoadingSection> {
           isLoading: _strokeLoading,
           onPressed: () => _trigger(() => _strokeLoading, (v) => _strokeLoading = v),
         ),
-        TalkButton.strokeSecondaryIcon(
+        TalkButton.strokeSecondary(
           label: _strokeIconLoading ? 'Loading…' : '搜索',
           icon: const Icon(Icons.search),
           isLoading: _strokeIconLoading,
@@ -221,6 +233,18 @@ class _CustomVariantsSectionState extends State<_CustomVariantsSection> {
             child: TalkButton.fillThemeCustom(label: '超宽（限 400）', onPressed: () {}),
           ),
         ]),
+        _Section(title: 'fillThemeCustom — 图标', children: [
+          TalkButton.fillThemeCustom(
+            label: '上传',
+            icon: const Icon(Icons.upload),
+            onPressed: () {},
+          ),
+          const TalkButton.fillThemeCustom(
+            label: 'Loading',
+            icon: Icon(Icons.upload),
+            isLoading: true,
+          ),
+        ]),
         _Section(title: 'fillThemeCustom — Loading 交互（点击触发 2 秒）', children: [
           TalkButton.fillThemeCustom(
             label: _fillLoading ? 'Loading…' : '提交',
@@ -252,6 +276,18 @@ class _CustomVariantsSectionState extends State<_CustomVariantsSection> {
               fontWeight: FontWeight.w600,
               color: Color(0xFF2E7D32),
             ),
+          ),
+        ]),
+        _Section(title: 'strokeThemeCustom — 图标', children: [
+          TalkButton.strokeThemeCustom(
+            label: '编辑',
+            icon: const Icon(Icons.edit),
+            onPressed: () {},
+          ),
+          const TalkButton.strokeThemeCustom(
+            label: 'Loading',
+            icon: Icon(Icons.edit),
+            isLoading: true,
           ),
         ]),
         _Section(title: 'strokeThemeCustom — Loading 交互（点击触发 2 秒）', children: [
@@ -294,6 +330,18 @@ class _CustomVariantsSectionState extends State<_CustomVariantsSection> {
           _SizedBox(
             width: 420,
             child: TalkButton.strokeSecondaryCustom(label: '超宽（限 400）', onPressed: () {}),
+          ),
+        ]),
+        _Section(title: 'strokeSecondaryCustom — 图标', children: [
+          TalkButton.strokeSecondaryCustom(
+            label: '搜索',
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+          const TalkButton.strokeSecondaryCustom(
+            label: 'Loading',
+            icon: Icon(Icons.search),
+            isLoading: true,
           ),
         ]),
         _Section(title: 'strokeSecondaryCustom — Loading 交互（点击触发 2 秒）', children: [

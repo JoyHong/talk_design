@@ -303,11 +303,11 @@ void main() {
     });
   });
 
-  // ── fillThemeIcon ──────────────────────────────────────────────────────────
-  group('TalkButton.fillThemeIcon', () {
+  // ── fillTheme with icon ────────────────────────────────────────────────────
+  group('TalkButton.fillTheme (with icon)', () {
     testWidgets('renders icon and label in row', (t) async {
       await t.pumpWidget(_wrap(
-        TalkButton.fillThemeIcon(
+        TalkButton.fillTheme(
           label: 'With Icon',
           icon: const Icon(Icons.add),
           onPressed: () {},
@@ -319,7 +319,7 @@ void main() {
 
     testWidgets('normal bg is #FF2C55', (t) async {
       await t.pumpWidget(_wrap(
-        TalkButton.fillThemeIcon(
+        TalkButton.fillTheme(
           label: 'Test',
           icon: const Icon(Icons.add),
           onPressed: () {},
