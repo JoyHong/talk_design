@@ -12,6 +12,7 @@ import 'dialog_page.dart';
 import 'menu_page.dart';
 import 'toast_page.dart';
 import 'tokens_page.dart';
+import 'list_page.dart';
 import 'typography_page.dart';
 
 void main() {
@@ -50,6 +51,7 @@ const _navItems = <_NavItem>[
   _NavItem('Toast', Icons.announcement_outlined, ToastPage()),
   _NavItem('弹框', Icons.web_asset_outlined, DialogPage()),
   _NavItem('菜单', Icons.menu_outlined, MenuPage()),
+  _NavItem('列表', Icons.list_outlined, ListPage()),
   _NavItem('字体', Icons.font_download_outlined, TypographyPage()),
   _NavItem('Token', Icons.token_outlined, TokensPage()),
 ];
