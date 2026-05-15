@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.2
+
+### 新增
+
+- **TalkButton** — `TalkButton.themeIcon` 新增 `buttonSize` 参数，强制约束图标尺寸。
+
+### 修复
+
+- **TalkLoadingIndicator** — 加载指示器描边改为向内对齐，修正描边溢出边界的问题。
+
+---
+
 ## 1.0.1
 
 ### 新增
