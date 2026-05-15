@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../theme/talk_context_extensions.dart';
@@ -27,6 +28,7 @@ class TalkLoadingIndicator extends StatelessWidget {
       dimension: size,
       child: CircularProgressIndicator(
         strokeWidth: math.max(1.5, size / 10),
+        strokeAlign: BorderSide.strokeAlignInside,
         valueColor: AlwaysStoppedAnimation(color ?? context.talkColors.theme),
       ),
     );
