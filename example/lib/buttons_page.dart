@@ -89,6 +89,16 @@ class ButtonsPage extends StatelessWidget {
               icon: const Icon(Icons.favorite),
               onPressed: () {},
             ),
+            TalkButton.themeIcon(
+              icon: const Icon(Icons.favorite),
+              buttonSize: 48,
+              onPressed: () {},
+            ),
+            TalkButton.themeIcon(
+              icon: const Icon(Icons.favorite),
+              buttonSize: 56,
+              onPressed: () {},
+            ),
             const TalkButton.themeIcon(icon: Icon(Icons.favorite)),
           ]),
           _Section(title: 'textSecondaryRipple（次要文字 + 水波纹）', children: [

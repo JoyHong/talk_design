@@ -56,6 +56,7 @@ class TalkButton extends StatelessWidget {
   })  : _variant = _V.textTheme,
         icon = null,
         isLoading = false,
+        buttonSize = null,
         textStyle = null;
 
   // ── 文字按钮（次要色） ──────────────────────────────────────────────────────
@@ -67,6 +68,7 @@ class TalkButton extends StatelessWidget {
   })  : _variant = _V.textSecondary,
         icon = null,
         isLoading = false,
+        buttonSize = null,
         textStyle = null;
 
   // ── 填充按钮（主题色，可选图标） ──────────────────────────────────────────
@@ -78,6 +80,7 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.fillTheme,
+        buttonSize = null,
         textStyle = null;
 
   // ── 填充按钮（主题色，自定义字体样式，可选图标） ──────────────────────────
@@ -89,7 +92,8 @@ class TalkButton extends StatelessWidget {
     this.textStyle,
     this.size = TalkButtonSize.fixed,
     super.key,
-  })  : _variant = _V.fillThemeCustom;
+  })  : _variant = _V.fillThemeCustom,
+        buttonSize = null;
 
   // ── 主题色描边按钮（文字 + 描边均为 Color_main，可选图标） ────────────────
   const TalkButton.strokeTheme({
@@ -100,6 +104,7 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.strokeTheme,
+        buttonSize = null,
         textStyle = null;
 
   // ── 主题色描边按钮（自定义字体样式，可选图标） ────────────────────────────
@@ -111,7 +116,8 @@ class TalkButton extends StatelessWidget {
     this.textStyle,
     this.size = TalkButtonSize.fixed,
     super.key,
-  })  : _variant = _V.strokeThemeCustom;
+  })  : _variant = _V.strokeThemeCustom,
+        buttonSize = null;
 
   // ── 描边按钮（可选图标） ───────────────────────────────────────────────────
   const TalkButton.strokeSecondary({
@@ -122,6 +128,7 @@ class TalkButton extends StatelessWidget {
     this.size = TalkButtonSize.fixed,
     super.key,
   })  : _variant = _V.strokeSecondary,
+        buttonSize = null,
         textStyle = null;
 
   // ── 次要描边按钮（自定义字体样式，可选图标） ──────────────────────────────
@@ -133,12 +140,14 @@ class TalkButton extends StatelessWidget {
     this.textStyle,
     this.size = TalkButtonSize.fixed,
     super.key,
-  })  : _variant = _V.strokeSecondaryCustom;
+  })  : _variant = _V.strokeSecondaryCustom,
+        buttonSize = null;
 
-  // ── 纯图标按钮（36×36） ────────────────────────────────────────────────────
+  // ── 纯图标按钮（按钮尺寸由外部传入，padding 固定 8px，icon = buttonSize - 16）
   const TalkButton.themeIcon({
     required this.icon,
     this.onPressed,
+    this.buttonSize = 36,
     super.key,
   })  : _variant = _V.themeIcon,
         label = null,
@@ -155,6 +164,7 @@ class TalkButton extends StatelessWidget {
   })  : _variant = _V.textSecondaryRipple,
         icon = null,
         isLoading = false,
+        buttonSize = null,
         textStyle = null;
 
   // ── 块状按钮（图标居上、文字居下的垂直布局，常用于工具栏/面板） ────────────
@@ -166,12 +176,16 @@ class TalkButton extends StatelessWidget {
     super.key,
   })  : _variant = _V.block,
         isLoading = false,
+        buttonSize = null,
         textStyle = null;
 
   final _V _variant;
   final String? label;
   final Widget? icon;
   final VoidCallback? onPressed;
+
+  /// 按钮整体尺寸（仅 themeIcon 使用），padding 固定 8px，icon 大小 = buttonSize - 16。
+  final double? buttonSize;
 
   /// 是否显示加载中状态（仅适用于 fillTheme / strokeSecondary /
   /// fillThemeCustom / strokeThemeCustom / strokeSecondaryCustom）。
@@ -618,10 +632,15 @@ class TalkButton extends StatelessWidget {
     );
   }
 
-  // ── 纯图标按钮（themeIcon，36×36） ────────────────────────────────────────
+  // ── 纯图标按钮（themeIcon） ───────────────────────────────────────────────
   Widget _buildThemeIcon(BuildContext context) {
     final colors = context.talkColors;
-    return TextButton(
+    final btnSize = buttonSize ?? 36;
+    final iconSize = btnSize - 16;
+    return SizedBox(
+      width: btnSize,
+      height: btnSize,
+      child: TextButton(
         onPressed: onPressed,
         style: ButtonStyle(
           backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
@@ -632,11 +651,18 @@ class TalkButton extends StatelessWidget {
             return Colors.transparent;
           }),
           padding: const WidgetStatePropertyAll(EdgeInsets.all(8)),
+          minimumSize: const WidgetStatePropertyAll(Size(0, 0)),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           shape: const WidgetStatePropertyAll(CircleBorder()),
           elevation: _noElevation,
         ),
-        child: icon!,
-      );
+        child: SizedBox(
+          width: iconSize,
+          height: iconSize,
+          child: FittedBox(fit: BoxFit.contain, child: icon!),
+        ),
+      ),
+    );
   }
 
   // ── 块状按钮（图标居上、文字居下） ───────────────────────────────────────
