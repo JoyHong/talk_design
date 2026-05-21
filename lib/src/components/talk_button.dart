@@ -811,7 +811,7 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
                 turns: _isOpen ? 0.5 : 0,
                 duration: const Duration(milliseconds: 150),
                 child: SvgPicture.asset(
-                  TalkIcons.arrowDown,
+                  context.talkIcons.arrowDown,
                   width: 14,
                   height: 14,
                   colorFilter: ColorFilter.mode(
@@ -846,7 +846,7 @@ class _DropdownMenuItem extends StatelessWidget {
     return MenuItemButton(
       onPressed: onPressed,
       trailingIcon: SvgPicture.asset(
-        TalkIcons.check,
+        context.talkIcons.check,
         width: 14,
         height: 14,
         colorFilter: ColorFilter.mode(

@@ -14,6 +14,7 @@ import 'toast_page.dart';
 import 'tokens_page.dart';
 import 'list_page.dart';
 import 'typography_page.dart';
+import 'icons_page.dart';
 
 void main() {
   runApp(const ExampleApp());
@@ -69,6 +70,7 @@ final _navItems = <_NavItem>[
   _NavItem('列表', Icons.list_outlined, const ListPage()),
   _NavItem('字体', Icons.font_download_outlined, const TypographyPage()),
   _NavItem('Token', Icons.token_outlined, const TokensPage()),
+  _NavItem('图标', Icons.image_outlined, const IconsPage()),
 ];
 
 class HomePage extends StatefulWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../tokens/talk_colors.dart';
+import '../tokens/talk_icons.dart';
 import '../tokens/talk_typography.dart';
 
 class TalkTheme {
@@ -12,6 +13,7 @@ class TalkTheme {
       colorScheme: ColorScheme.fromSeed(seedColor: TalkColors.light.theme),
       extensions: const [
         TalkColors.light,
+        TalkIcons.light,
       ],
     );
     return base.copyWith(

@@ -66,7 +66,7 @@ class TalkToast extends StatelessWidget {
     overlay.insert(entry);
   }
 
-  /// 弹出「成功」toast，使用 [TalkIcons.correct] 图标。
+  /// 弹出「成功」toast，使用 [TalkIcons.correctFillingBig] 图标。
   static void showSuccess(
     BuildContext context,
     String message, {
@@ -76,13 +76,13 @@ class TalkToast extends StatelessWidget {
     show(
       context,
       message,
-      icon: SvgPicture.asset(TalkIcons.correct),
+      icon: SvgPicture.asset(context.talkIcons.correctFillingBig),
       duration: duration,
       topOffset: topOffset,
     );
   }
 
-  /// 弹出「失败」toast，使用 [TalkIcons.error] 图标。
+  /// 弹出「失败」toast，使用 [TalkIcons.errorBig] 图标。
   static void showError(
     BuildContext context,
     String message, {
@@ -92,7 +92,7 @@ class TalkToast extends StatelessWidget {
     show(
       context,
       message,
-      icon: SvgPicture.asset(TalkIcons.error),
+      icon: SvgPicture.asset(context.talkIcons.errorBig),
       duration: duration,
       topOffset: topOffset,
     );

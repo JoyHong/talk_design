@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../tokens/talk_icons.dart';
+import '../theme/talk_context_extensions.dart';
 
 /// Figma 规范的 Checkbox 控件，三种视觉状态与设计稿完全对应：
 /// - normal（未勾选）、checked（已勾选）、disable（禁用）
@@ -23,14 +23,13 @@ class TalkCheckbox extends StatelessWidget {
 
   bool get _disabled => onChanged == null;
 
-  String get _iconAsset {
-    if (_disabled) return TalkIcons.checkboxDisabled;
-    return value ? TalkIcons.checkboxChecked : TalkIcons.checkboxUnchecked;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final icon = SvgPicture.asset(_iconAsset, width: 16, height: 16);
+    final icons = context.talkIcons;
+    final iconAsset = _disabled
+        ? icons.correctFillingSmallDisable
+        : value ? icons.correctFillingSmall : icons.circle;
+    final icon = SvgPicture.asset(iconAsset, width: 16, height: 16);
     if (_disabled) return icon;
     return GestureDetector(
       onTap: () => onChanged!(!value),

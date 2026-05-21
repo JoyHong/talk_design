@@ -234,6 +234,7 @@ class _TitleRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.talkColors;
+    final icons = context.talkIcons;
     final hasMessage = message != null;
 
     return Row(
@@ -262,7 +263,7 @@ class _TitleRow extends StatelessWidget {
               child: GestureDetector(
                 onTap: onClose,
                 child: SvgPicture.asset(
-                  TalkIcons.close,
+                  icons.close,
                   width: 16,
                   height: 16,
                   colorFilter: ColorFilter.mode(
@@ -361,6 +362,7 @@ class _DialogSplitButtonState extends State<_DialogSplitButton> {
   @override
   Widget build(BuildContext context) {
     final themeColor = context.talkColors.theme;
+    final icons = context.talkIcons;
     final isLoading = widget.isLoading;
 
     return MenuAnchor(
@@ -426,7 +428,7 @@ class _DialogSplitButtonState extends State<_DialogSplitButton> {
                         turns: _isOpen ? 0.5 : 0,
                         duration: const Duration(milliseconds: 150),
                         child: SvgPicture.asset(
-                          TalkIcons.arrowDown,
+                          icons.arrowDown,
                           width: 16,
                           height: 16,
                           colorFilter: const ColorFilter.mode(

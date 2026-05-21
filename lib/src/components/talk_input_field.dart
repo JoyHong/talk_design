@@ -93,6 +93,7 @@ class _TalkTextFieldState extends State<TalkTextField> {
   @override
   Widget build(BuildContext context) {
     final colors = context.talkColors;
+    final icons = context.talkIcons;
     return TextField(
       controller: _controller,
       focusNode: _focusNode,
@@ -124,7 +125,7 @@ class _TalkTextFieldState extends State<TalkTextField> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(right: 16),
-                        child: SvgPicture.asset(TalkIcons.clear, width: 16, height: 16,
+                        child: SvgPicture.asset(icons.clear, width: 16, height: 16,
                             colorFilter: ColorFilter.mode(colors.textSecondary, BlendMode.srcIn)),
                       ),
                     ),
@@ -207,6 +208,7 @@ class _TalkPasswordFieldState extends State<TalkPasswordField> {
   @override
   Widget build(BuildContext context) {
     final colors = context.talkColors;
+    final icons = context.talkIcons;
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -235,7 +237,7 @@ class _TalkPasswordFieldState extends State<TalkPasswordField> {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16),
                       child: SvgPicture.asset(
-                        _obscure ? TalkIcons.passwordShow : TalkIcons.passwordHide,
+                        _obscure ? icons.passwordShow : icons.passwordHide,
                         width: 20,
                         height: 20,
                         colorFilter: ColorFilter.mode(colors.textPrimary, BlendMode.srcIn),
@@ -367,6 +369,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
   @override
   Widget build(BuildContext context) {
     final colors = context.talkColors;
+    final icons = context.talkIcons;
     return TextField(
       controller: widget.controller,
       focusNode: widget.focusNode,
@@ -393,7 +396,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
                 turns: _isDropdown ? 0.5 : 0,
                 duration: const Duration(milliseconds: 150),
                 child: SvgPicture.asset(
-                  TalkIcons.arrowDown,
+                  icons.arrowDown,
                   width: 16,
                   height: 16,
                   colorFilter: ColorFilter.mode(colors.textPrimary, BlendMode.srcIn),
@@ -482,6 +485,7 @@ class _TalkSearchFieldState extends State<TalkSearchField> {
   @override
   Widget build(BuildContext context) {
     final colors = context.talkColors;
+    final icons = context.talkIcons;
     return TextField(
       controller: _controller,
       focusNode: _focusNode,
@@ -500,7 +504,7 @@ class _TalkSearchFieldState extends State<TalkSearchField> {
         isDense: true,
         prefixIcon: Padding(
           padding: const EdgeInsets.fromLTRB(16, 10, 4, 10),
-          child: SvgPicture.asset(TalkIcons.search, width: 20, height: 20,
+          child: SvgPicture.asset(icons.search, width: 20, height: 20,
               colorFilter: ColorFilter.mode(colors.textSecondary, BlendMode.srcIn)),
         ),
         prefixIconConstraints: _kIconConstraints,
@@ -514,7 +518,7 @@ class _TalkSearchFieldState extends State<TalkSearchField> {
                     },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 12),
-                    child: SvgPicture.asset(TalkIcons.clear, width: 16, height: 16,
+                    child: SvgPicture.asset(icons.clear, width: 16, height: 16,
                         colorFilter: ColorFilter.mode(colors.textSecondary, BlendMode.srcIn)),
                   ),
                 ),
