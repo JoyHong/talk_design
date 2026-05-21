@@ -5,7 +5,7 @@ import 'avatar_page.dart';
 import 'badge_page.dart';
 import 'checkbox_page.dart';
 import 'colors_page.dart';
-import 'buttons_page.dart';
+import 'buttons_page.dart' show ButtonsPage, ButtonSpecPage;
 import 'inputs_page.dart';
 import 'loading_page.dart';
 import 'dialog_page.dart';
@@ -37,23 +37,38 @@ class _NavItem {
   final String title;
   final IconData icon;
   final Widget page;
-  const _NavItem(this.title, this.icon, this.page);
+  final List<Widget> Function(BuildContext)? actionsBuilder;
+  const _NavItem(this.title, this.icon, this.page, {this.actionsBuilder});
 }
 
-const _navItems = <_NavItem>[
-  _NavItem('头像', Icons.account_circle_outlined, AvatarPage()),
-  _NavItem('Badge', Icons.notifications_outlined, BadgePage()),
-  _NavItem('Checkbox', Icons.check_box_outlined, CheckboxPage()),
-  _NavItem('颜色', Icons.palette_outlined, ColorsPage()),
-  _NavItem('按钮', Icons.smart_button_outlined, ButtonsPage()),
-  _NavItem('输入框', Icons.text_fields_outlined, InputsPage()),
-  _NavItem('Loading', Icons.hourglass_empty_outlined, LoadingPage()),
-  _NavItem('Toast', Icons.announcement_outlined, ToastPage()),
-  _NavItem('弹框', Icons.web_asset_outlined, DialogPage()),
-  _NavItem('菜单', Icons.menu_outlined, MenuPage()),
-  _NavItem('列表', Icons.list_outlined, ListPage()),
-  _NavItem('字体', Icons.font_download_outlined, TypographyPage()),
-  _NavItem('Token', Icons.token_outlined, TokensPage()),
+final _navItems = <_NavItem>[
+  _NavItem('头像', Icons.account_circle_outlined, const AvatarPage()),
+  _NavItem('Badge', Icons.notifications_outlined, const BadgePage()),
+  _NavItem('Checkbox', Icons.check_box_outlined, const CheckboxPage()),
+  _NavItem('颜色', Icons.palette_outlined, const ColorsPage()),
+  _NavItem(
+    '按钮',
+    Icons.smart_button_outlined,
+    const ButtonsPage(),
+    actionsBuilder: (ctx) => [
+      IconButton(
+        icon: const Icon(Icons.info_outline),
+        tooltip: '按钮规范',
+        onPressed: () => Navigator.push(
+          ctx,
+          MaterialPageRoute(builder: (_) => const ButtonSpecPage()),
+        ),
+      ),
+    ],
+  ),
+  _NavItem('输入框', Icons.text_fields_outlined, const InputsPage()),
+  _NavItem('Loading', Icons.hourglass_empty_outlined, const LoadingPage()),
+  _NavItem('Toast', Icons.announcement_outlined, const ToastPage()),
+  _NavItem('弹框', Icons.web_asset_outlined, const DialogPage()),
+  _NavItem('菜单', Icons.menu_outlined, const MenuPage()),
+  _NavItem('列表', Icons.list_outlined, const ListPage()),
+  _NavItem('字体', Icons.font_download_outlined, const TypographyPage()),
+  _NavItem('Token', Icons.token_outlined, const TokensPage()),
 ];
 
 class HomePage extends StatefulWidget {
@@ -71,6 +86,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_navItems[_selectedIndex].title),
+        actions: _navItems[_selectedIndex].actionsBuilder?.call(context),
       ),
       drawer: Drawer(
         child: ListView(

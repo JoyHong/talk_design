@@ -410,6 +410,111 @@ class _DropdownSectionState extends State<_DropdownSection> {
   }
 }
 
+// ── 按钮规范二级页面 ──────────────────────────────────────────────────────────
+
+class ButtonSpecPage extends StatelessWidget {
+  const ButtonSpecPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('按钮规范')),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: const [
+          _SpecItem(
+            variant: 'fillTheme',
+            usage: '主要操作，如提交、确认',
+            color: Color(0xFF1A73E8),
+          ),
+          _SpecItem(
+            variant: 'strokeTheme',
+            usage: '次要主色操作，如编辑、查看',
+            color: Color(0xFF1A73E8),
+          ),
+          _SpecItem(
+            variant: 'strokeSecondary',
+            usage: '中性操作，如取消、重置',
+            color: Color(0xFF757575),
+          ),
+          _SpecItem(
+            variant: 'textTheme',
+            usage: '内联主色文字按钮',
+            color: Color(0xFF1A73E8),
+          ),
+          _SpecItem(
+            variant: 'textSecondary',
+            usage: '内联次要文字按钮',
+            color: Color(0xFF757575),
+          ),
+          _SpecItem(
+            variant: 'themeIcon',
+            usage: '纯图标操作，尺寸 40 / 48 / 56',
+            color: Color(0xFF1A73E8),
+          ),
+          _SpecItem(
+            variant: 'block',
+            usage: '固定宽高块状按钮，常用于底部操作栏',
+            color: Color(0xFF43A047),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SpecItem extends StatelessWidget {
+  const _SpecItem({
+    required this.variant,
+    required this.usage,
+    required this.color,
+  });
+
+  final String variant;
+  final String usage;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 4,
+            height: 48,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  variant,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  usage,
+                  style: const TextStyle(fontSize: 13, color: Colors.black54),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _Section extends StatelessWidget {
   const _Section({required this.title, required this.children});
 
