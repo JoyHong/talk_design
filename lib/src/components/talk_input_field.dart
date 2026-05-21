@@ -118,7 +118,10 @@ class _TalkTextFieldState extends State<TalkTextField> {
                 ? MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(
-                      onTap: () => _controller.clear(),
+                      onTap: () {
+                        _controller.clear();
+                        widget.onChanged?.call('');
+                      },
                       child: Padding(
                         padding: const EdgeInsets.only(right: 16),
                         child: SvgPicture.asset(TalkIcons.clear, width: 16, height: 16,
@@ -505,7 +508,10 @@ class _TalkSearchFieldState extends State<TalkSearchField> {
             ? MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
-                  onTap: () => _controller.clear(),
+                  onTap: () {
+                      _controller.clear();
+                      widget.onChanged?.call('');
+                    },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 12),
                     child: SvgPicture.asset(TalkIcons.clear, width: 16, height: 16,
