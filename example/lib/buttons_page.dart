@@ -418,7 +418,10 @@ class ButtonSpecPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('按钮规范')),
+      appBar: AppBar(
+        title: const Text('按钮规范'),
+        leading: const TalkButton.back(),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: const [

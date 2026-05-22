@@ -4,7 +4,6 @@ import 'package:talk_design/src/components/talk_loading_indicator.dart';
 
 import '../theme/talk_context_extensions.dart';
 import '../tokens/talk_colors.dart';
-import '../tokens/talk_icons.dart';
 import '../tokens/talk_metrics.dart';
 import '../tokens/talk_typography.dart';
 
@@ -20,6 +19,7 @@ enum _V {
   themeIcon,
   textSecondaryRipple,
   block,
+  back,
 }
 
 /// Controls the size behavior of [TalkButton].
@@ -179,6 +179,18 @@ class TalkButton extends StatelessWidget {
         buttonSize = null,
         textStyle = null;
 
+  // ── 返回按钮（arrowDown 图标，默认 pop 当前路由） ─────────────────────────
+  const TalkButton.back({
+    this.onPressed,
+    super.key,
+  })  : _variant = _V.back,
+        label = null,
+        icon = null,
+        isLoading = false,
+        buttonSize = null,
+        textStyle = null,
+        size = TalkButtonSize.adaptive;
+
   final _V _variant;
   final String? label;
   final Widget? icon;
@@ -300,6 +312,7 @@ class TalkButton extends StatelessWidget {
       _V.strokeSecondaryCustom => _buildStrokeSecondaryCustom(context),
       _V.themeIcon => _buildThemeIcon(context),
       _V.block => _buildBlock(context),
+      _V.back => _buildBack(context),
       _ => _buildText(context),
     });
   }
@@ -704,6 +717,16 @@ class TalkButton extends StatelessWidget {
           ],
         ),
       );
+  }
+
+  Widget _buildBack(BuildContext context) {
+    return IconButton(
+      icon: SvgPicture.asset(
+        context.talkIcons.back,
+        colorFilter: ColorFilter.mode(context.talkColors.theme, BlendMode.srcIn),
+      ),
+      onPressed: onPressed ?? () => Navigator.of(context).pop(),
+    );
   }
 }
 
