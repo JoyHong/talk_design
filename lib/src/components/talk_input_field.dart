@@ -363,7 +363,10 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
     super.initState();
     _controller = widget.controller ?? TextEditingController();
     _focusNode = widget.focusNode ?? FocusNode();
-    _filtered = widget.items;
+    final q = _controller.text.toLowerCase();
+    _filtered = q.isEmpty
+        ? widget.items
+        : widget.items.where((item) => item.toLowerCase().contains(q)).toList();
     _focusNode.addListener(_onFocusChange);
     _controller.addListener(_rebuild);
   }
