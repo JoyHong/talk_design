@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.3
+
+### 新增
+
+- **TalkButton** — 新增 `TalkButton.back()` 变体，点击后自动调用 `Navigator.pop(context)` 完成返回导航。
+- **TalkIcons** — 新增 47 个 SVG 图标 token，并在 example 中提供图标预览页面。
+- **TalkFilterDropdownField** — 新增支持关键字过滤的下拉选择框组件，替代原 `TalkDropdownTextField`。
+
+### 修复
+
+- **TalkTextField / TalkSearchField** — 点击清除按钮时正确触发 `onChanged` 回调。
+
+---
+
 ## 1.0.2
 
 ### 新增
