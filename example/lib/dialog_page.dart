@@ -13,6 +13,18 @@ class _DialogPageState extends State<DialogPage> {
 
   void _log(String action) => setState(() => _lastAction = action);
 
+  void _showTimePicker() async {
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null) {
+      _log('时间选择器 → ${picked.format(context)}');
+    } else {
+      _log('时间选择器 → 取消');
+    }
+  }
+
   void _showSingleLine() {
     showTalkDialog(
       context: context,
@@ -171,6 +183,14 @@ class _DialogPageState extends State<DialogPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          _Section(
+            title: '时间选择器',
+            description: '默认 showTimePicker，验收主题样式',
+            child: ElevatedButton(
+              onPressed: _showTimePicker,
+              child: const Text('选择时间'),
+            ),
+          ),
           _Section(
             title: '单行文本',
             description: '标题单行，右上角关闭，取消 + 确认按钮',

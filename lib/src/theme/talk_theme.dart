@@ -40,6 +40,19 @@ class TalkTheme {
           maximumSize: const WidgetStatePropertyAll(Size(280, double.infinity)),
         ),
       ),
+      timePickerTheme: TimePickerThemeData(
+        backgroundColor: TalkColors.light.listDialogBox,
+        hourMinuteColor: WidgetStateColor.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return TalkColors.light.theme;
+          return TalkColors.light.inputBoxPrimary;
+        }),
+        hourMinuteTextColor: WidgetStateColor.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return Colors.white;
+          return TalkColors.light.textPrimary;
+        }),
+        dialHandColor: TalkColors.light.theme,
+        dialBackgroundColor: TalkColors.light.inputBoxPrimary,
+      ),
       switchTheme: SwitchThemeData(
         trackOutlineColor: WidgetStateProperty.resolveWith((states) {
           // 去掉关闭状态下的边框
