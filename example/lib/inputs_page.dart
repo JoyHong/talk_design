@@ -9,7 +9,14 @@ class InputsPage extends StatefulWidget {
 }
 
 class _InputsPageState extends State<InputsPage> {
-  String _dropdownStatus = '未展开';
+  String? _filterSelected;
+  final _dropdownController = TextEditingController(text: '+93');
+
+  @override
+  void dispose() {
+    _dropdownController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +57,15 @@ class _InputsPageState extends State<InputsPage> {
 
           // ── 下拉输入框 ──────────────────────────────────────────────────────
           _SectionLabel('下拉输入框'),
-          _Hint('点击箭头切换下拉状态，两种状态均可输入'),
+          _Hint('输入时自动过滤，匹配子串主题色高亮'),
           TalkDropdownTextField(
-            hintText: '请选择或输入…',
-            onDropdownToggle: (isDropdown) =>
-                setState(() => _dropdownStatus = isDropdown ? '已展开' : '已收起'),
+            items: const ['Afghanistan (+93)', 'Aland Islands (+358)', 'Albania (+355)'],
+            controller: _dropdownController,
+            hintText: '请输入或选择城市…',
+            onSelected: (v) => setState(() => _filterSelected = v),
           ),
           const SizedBox(height: 8),
-          _Hint('回调状态：$_dropdownStatus'),
+          _Hint('已选：${_filterSelected ?? '未选择'}'),
 
           _Divider(),
 

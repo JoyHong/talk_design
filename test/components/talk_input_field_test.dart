@@ -167,43 +167,6 @@ void main() {
     });
   });
 
-  // ── TalkDropdownTextField ──────────────────────────────────────────────────
-
-  group('TalkDropdownTextField', () {
-    testWidgets('starts with up arrow (not dropdown) by default', (tester) async {
-      await tester.pumpWidget(_wrap(const TalkDropdownTextField()));
-      expect(find.byIcon(Icons.keyboard_arrow_up), findsOneWidget);
-      expect(find.byIcon(Icons.keyboard_arrow_down), findsNothing);
-    });
-
-    testWidgets('initialIsDropdown=true shows down arrow', (tester) async {
-      await tester.pumpWidget(_wrap(const TalkDropdownTextField(initialIsDropdown: true)));
-      expect(find.byIcon(Icons.keyboard_arrow_down), findsOneWidget);
-    });
-
-    testWidgets('tapping arrow toggles icon', (tester) async {
-      await tester.pumpWidget(_wrap(const TalkDropdownTextField()));
-      await tester.tap(find.byIcon(Icons.keyboard_arrow_up));
-      await tester.pump();
-      expect(find.byIcon(Icons.keyboard_arrow_down), findsOneWidget);
-      await tester.tap(find.byIcon(Icons.keyboard_arrow_down));
-      await tester.pump();
-      expect(find.byIcon(Icons.keyboard_arrow_up), findsOneWidget);
-    });
-
-    testWidgets('onDropdownToggle fires with new state', (tester) async {
-      final states = <bool>[];
-      await tester.pumpWidget(_wrap(
-        TalkDropdownTextField(onDropdownToggle: states.add),
-      ));
-      await tester.tap(find.byIcon(Icons.keyboard_arrow_up));
-      await tester.pump();
-      await tester.tap(find.byIcon(Icons.keyboard_arrow_down));
-      await tester.pump();
-      expect(states, [true, false]);
-    });
-  });
-
   // ── TalkSearchField ────────────────────────────────────────────────────────
 
   group('TalkSearchField', () {
