@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -353,10 +355,12 @@ class TalkDropdownTextField extends StatefulWidget {
 
 class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
   final _menuController = MenuController();
+  final _anchorKey = GlobalKey();
   late TextEditingController _controller;
   late FocusNode _focusNode;
   bool _isOpen = false;
   List<String> _filtered = const [];
+  double _maxMenuHeight = 240;
 
   @override
   void initState() {
@@ -399,10 +403,36 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
     });
   }
 
+  /// 测量输入框在屏幕中的位置，计算上方/下方可用空间，
+  /// 取较大值作为菜单最大高度，防止菜单遮住输入框。
+  void _updateMaxMenuHeight() {
+    final ctx = _anchorKey.currentContext;
+    if (ctx == null) return;
+    final box = ctx.findRenderObject() as RenderBox?;
+    if (box == null) return;
+    final pos = box.localToGlobal(Offset.zero);
+    final mq = MediaQuery.of(ctx);
+    final screenHeight = mq.size.height - mq.viewInsets.bottom;
+    const gap = 8.0; // menuAnchorOffset.dy
+    final spaceBelow = screenHeight - pos.dy - box.size.height - gap;
+    final spaceAbove = pos.dy - gap;
+    final newMax = max(spaceBelow, spaceAbove).clamp(80.0, double.infinity);
+    if ((newMax - _maxMenuHeight).abs() > 1) {
+      setState(() => _maxMenuHeight = newMax);
+    }
+  }
+
+  void _openMenu() {
+    _updateMaxMenuHeight();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && !_menuController.isOpen) _menuController.open();
+    });
+  }
+
   void _onTextChanged(String value) {
     _applyFilter(value);
     if (_filtered.isNotEmpty && !_menuController.isOpen) {
-      _menuController.open();
+      _openMenu();
     } else if (_filtered.isEmpty && _menuController.isOpen) {
       _menuController.close();
     }
@@ -433,6 +463,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
     final query = _controller.text;
 
     return LayoutBuilder(
+      key: _anchorKey,
       builder: (context, constraints) => MenuAnchor(
         controller: _menuController,
         crossAxisUnconstrained: false,
@@ -443,8 +474,10 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
           // Avoid forcing a minWidth that can exceed the menu panel's incoming
           // overlay constraints (e.g. on narrow windows), which would result in
           // "NOT NORMALIZED" BoxConstraints.
+          // Height is computed dynamically in _updateMaxMenuHeight() so the menu
+          // never extends beyond the available space in its opening direction.
           maximumSize: WidgetStatePropertyAll(
-            Size(constraints.maxWidth.isFinite ? constraints.maxWidth : 200, double.infinity),
+            Size(constraints.maxWidth.isFinite ? constraints.maxWidth : 200, _maxMenuHeight),
           ),
         ),
         menuChildren: [
@@ -476,7 +509,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
             suffixIcon: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
-                onTap: () => _menuController.isOpen ? _menuController.close() : _menuController.open(),
+                onTap: () => _menuController.isOpen ? _menuController.close() : _openMenu(),
                 child: Padding(
                   padding: const EdgeInsets.only(right: 16),
                   child: AnimatedRotation(
@@ -497,9 +530,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
           onChanged: _onTextChanged,
           onTap: () {
             _applyFilter(_controller.text);
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (mounted && !_menuController.isOpen) _menuController.open();
-            });
+            _openMenu();
           },
         ),
       ),
