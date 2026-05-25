@@ -367,7 +367,6 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
     _filtered = q.isEmpty
         ? widget.items
         : widget.items.where((item) => item.toLowerCase().contains(q)).toList();
-    _focusNode.addListener(_onFocusChange);
     _controller.addListener(_rebuild);
   }
 
@@ -381,10 +380,8 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
       _controller.addListener(_rebuild);
     }
     if (old.focusNode != widget.focusNode) {
-      _focusNode.removeListener(_onFocusChange);
       if (old.focusNode == null) _focusNode.dispose();
       _focusNode = widget.focusNode ?? FocusNode();
-      _focusNode.addListener(_onFocusChange);
     }
     if (!identical(old.items, widget.items)) {
       _applyFilter(_controller.text);
@@ -392,15 +389,6 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
   }
 
   void _rebuild() => setState(() {});
-
-  void _onFocusChange() {
-    if (_focusNode.hasFocus) {
-      _applyFilter(_controller.text);
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted && !_menuController.isOpen) _menuController.open();
-      });
-    }
-  }
 
   void _applyFilter(String query) {
     final q = query.toLowerCase();
@@ -432,7 +420,6 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
 
   @override
   void dispose() {
-    _focusNode.removeListener(_onFocusChange);
     _controller.removeListener(_rebuild);
     if (widget.controller == null) _controller.dispose();
     if (widget.focusNode == null) _focusNode.dispose();
@@ -508,6 +495,12 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
             suffixIconConstraints: _kIconConstraints,
           ),
           onChanged: _onTextChanged,
+          onTap: () {
+            _applyFilter(_controller.text);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (mounted && !_menuController.isOpen) _menuController.open();
+            });
+          },
         ),
       ),
     );
