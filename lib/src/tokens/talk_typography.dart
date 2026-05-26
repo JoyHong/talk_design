@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 // 所有样式均不设置 color，颜色由 Text widget 继承 DefaultTextStyle（即 TalkTheme 中的 bodyMedium）获得
 // 即默认颜色就是主文本色（textPrimary）
 abstract final class TalkTypography {
+  /// 用于固定高度容器（Container/SizedBox 带 height + 居中对齐）内的 Text。
+  /// 禁用 TextStyle.height 在首行顶部和末行底部添加的额外 leading，
+  /// 让文字框贴近字形，避免 Windows DirectWrite 字体度量差异导致的视觉偏移。
+  static const TextHeightBehavior fixedHeightBehavior = TextHeightBehavior(
+    applyHeightToFirstAscent: false,
+    applyHeightToLastDescent: false,
+  );
+
   // ── Display ─────────────────────────────────────────────────────────────────
   static const TextStyle displayLarge = TextStyle(
     fontFamily: 'Roboto',

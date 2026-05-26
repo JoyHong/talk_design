@@ -407,6 +407,7 @@ class _DialogSplitButtonState extends State<_DialogSplitButton> {
                         child: Text(
                           widget.label,
                           style: TalkTypography.bodyMedium.copyWith(color: Colors.white),
+                          textHeightBehavior: TalkTypography.fixedHeightBehavior,
                         ),
                       ),
                     ),

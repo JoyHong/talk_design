@@ -827,6 +827,7 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
                   style: TalkTypography.bodyMedium,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
+                  textHeightBehavior: TalkTypography.fixedHeightBehavior,
                 ),
               ),
               const SizedBox(width: 12),

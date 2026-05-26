@@ -74,7 +74,7 @@ class TalkBadge extends StatelessWidget {
         height: diameter,
         decoration: BoxDecoration(color: bg, shape: BoxShape.circle),
         alignment: Alignment.center,
-        child: Text(label, style: textStyle),
+        child: Text(label, style: textStyle, textHeightBehavior: TalkTypography.fixedHeightBehavior),
       );
     }
 
@@ -88,7 +88,7 @@ class TalkBadge extends StatelessWidget {
           horizontal: 4,
           vertical: isSmall ? 0 : 1,
         ),
-        child: Text(label, style: textStyle),
+        child: Text(label, style: textStyle, textHeightBehavior: TalkTypography.fixedHeightBehavior),
       ),
     );
   }
