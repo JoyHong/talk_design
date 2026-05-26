@@ -673,7 +673,7 @@ class _TalkSearchFieldState extends State<TalkSearchField> {
         border: _border(_kSearchRadius),
         enabledBorder: _border(_kSearchRadius),
         focusedBorder: _border(_kSearchRadius),
-        contentPadding: EdgeInsets.zero,
+        contentPadding: const EdgeInsets.symmetric(vertical: 10),
         isDense: true,
         prefixIcon: Padding(
           padding: const EdgeInsets.fromLTRB(16, 10, 4, 10),
