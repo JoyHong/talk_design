@@ -103,6 +103,7 @@ class _TalkTextFieldState extends State<TalkTextField> {
       focusNode: _focusNode,
       cursorColor: colors.theme,
       style: TalkTypography.bodyMedium.copyWith(color: colors.textPrimary),
+      textAlignVertical: TextAlignVertical.center,
       textInputAction: widget.textInputAction,
       decoration: InputDecoration(
         hintText: widget.hintText,
@@ -222,6 +223,7 @@ class _TalkPasswordFieldState extends State<TalkPasswordField> {
         obscureText: _obscure,
         cursorColor: colors.theme,
         style: TalkTypography.bodyMedium.copyWith(color: colors.textPrimary),
+        textAlignVertical: TextAlignVertical.center,
         textInputAction: widget.textInputAction,
         decoration: InputDecoration(
           hintText: widget.hintText,
@@ -293,6 +295,7 @@ class TalkIconTextField extends StatelessWidget {
       focusNode: focusNode,
       cursorColor: colors.theme,
       style: TalkTypography.bodyMedium.copyWith(color: colors.textPrimary),
+      textAlignVertical: TextAlignVertical.center,
       textInputAction: textInputAction,
       decoration: InputDecoration(
         hintText: hintText,
@@ -496,6 +499,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
           focusNode: _focusNode,
           cursorColor: colors.theme,
           style: TalkTypography.bodyMedium.copyWith(color: colors.textPrimary),
+          textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: TalkTypography.bodyMedium.copyWith(color: colors.textSecondary),
@@ -659,6 +663,7 @@ class _TalkSearchFieldState extends State<TalkSearchField> {
       focusNode: _focusNode,
       cursorColor: colors.theme,
       style: TalkTypography.bodyMedium.copyWith(color: colors.textPrimary),
+      textAlignVertical: TextAlignVertical.center,
       textInputAction: widget.textInputAction,
       decoration: InputDecoration(
         hintText: widget.hintText,
