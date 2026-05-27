@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/talk_context_extensions.dart';
 import '../tokens/talk_colors.dart';
 import '../tokens/talk_metrics.dart';
-import '../tokens/talk_icons.dart';
 import '../tokens/talk_typography.dart';
 import 'talk_loading_indicator.dart';
 
@@ -32,6 +31,7 @@ class TalkTextField extends StatefulWidget {
     this.onSubmitted,
     this.textInputAction,
     this.isLoading = false,
+    this.maxLength,
     super.key,
   });
 
@@ -44,6 +44,9 @@ class TalkTextField extends StatefulWidget {
 
   /// 为 true 时在右侧显示加载指示器，清空图标不显示。
   final bool isLoading;
+
+  /// 最大输入字符数，为 null 时不限制。
+  final int? maxLength;
 
   @override
   State<TalkTextField> createState() => _TalkTextFieldState();
@@ -105,6 +108,7 @@ class _TalkTextFieldState extends State<TalkTextField> {
       style: TalkTypography.bodyMedium.copyWith(color: colors.textPrimary),
       textAlignVertical: TextAlignVertical.center,
       textInputAction: widget.textInputAction,
+      maxLength: widget.maxLength,
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: TalkTypography.bodyMedium.copyWith(color: colors.textSecondary),
@@ -115,6 +119,7 @@ class _TalkTextFieldState extends State<TalkTextField> {
         focusedBorder: _border(_kRadius),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         isDense: true, // 开启紧凑模式，消除默认的最小高度和多余间距
+        counterText: '',
         suffixIcon: widget.isLoading
             ? Padding(
                 padding: const EdgeInsets.only(right: 16),
@@ -154,6 +159,7 @@ class TalkPasswordField extends StatefulWidget {
     this.onChanged,
     this.onSubmitted,
     this.textInputAction,
+    this.maxLength,
     super.key,
   });
 
@@ -163,6 +169,9 @@ class TalkPasswordField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
   final TextInputAction? textInputAction;
+
+  /// 最大输入字符数，为 null 时不限制。
+  final int? maxLength;
 
   @override
   State<TalkPasswordField> createState() => _TalkPasswordFieldState();
@@ -225,6 +234,7 @@ class _TalkPasswordFieldState extends State<TalkPasswordField> {
         style: TalkTypography.bodyMedium.copyWith(color: colors.textPrimary),
         textAlignVertical: TextAlignVertical.center,
         textInputAction: widget.textInputAction,
+        maxLength: widget.maxLength,
         decoration: InputDecoration(
           hintText: widget.hintText,
           hintStyle: TalkTypography.bodyMedium.copyWith(color: colors.textSecondary),
@@ -235,6 +245,7 @@ class _TalkPasswordFieldState extends State<TalkPasswordField> {
           focusedBorder: _border(_kRadius),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           isDense: true,
+          counterText: '',
           suffixIcon: _showToggle
               ? MouseRegion(
                   cursor: SystemMouseCursors.click,
@@ -273,6 +284,7 @@ class TalkIconTextField extends StatelessWidget {
     this.onSubmitted,
     this.onIconTap,
     this.textInputAction,
+    this.maxLength,
     super.key,
   });
 
@@ -287,6 +299,9 @@ class TalkIconTextField extends StatelessWidget {
   final VoidCallback? onIconTap;
   final TextInputAction? textInputAction;
 
+  /// 最大输入字符数，为 null 时不限制。
+  final int? maxLength;
+
   @override
   Widget build(BuildContext context) {
     final colors = context.talkColors;
@@ -297,6 +312,7 @@ class TalkIconTextField extends StatelessWidget {
       style: TalkTypography.bodyMedium.copyWith(color: colors.textPrimary),
       textAlignVertical: TextAlignVertical.center,
       textInputAction: textInputAction,
+      maxLength: maxLength,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TalkTypography.bodyMedium.copyWith(color: colors.textSecondary),
@@ -307,6 +323,7 @@ class TalkIconTextField extends StatelessWidget {
         focusedBorder: _border(_kRadius),
         contentPadding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
         isDense: true,
+        counterText: '',
         suffixIcon: MouseRegion(
           cursor: onIconTap != null
               ? SystemMouseCursors.click
