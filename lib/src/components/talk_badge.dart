@@ -66,7 +66,8 @@ class TalkBadge extends StatelessWidget {
     final isSingleChar = label.length == 1;
 
     final baseStyle = isSmall ? TalkTypography.labelSmall : TalkTypography.labelMedium;
-    final textStyle = baseStyle.copyWith(color: Colors.white);
+    // height: 1.0 消除段落行距，避免 Windows DirectWrite 字体度量差异导致文字在圆形容器内偏上
+    final textStyle = baseStyle.copyWith(color: Colors.white, height: 1.0);
 
     if (isSingleChar) {
       return Container(
