@@ -10,6 +10,7 @@ class TalkTheme {
     final base = ThemeData(
       useMaterial3: true,
       fontFamily: 'Roboto',
+      visualDensity: VisualDensity.standard,
       colorScheme: ColorScheme.fromSeed(seedColor: TalkColors.light.theme),
       extensions: const [
         TalkColors.light,
