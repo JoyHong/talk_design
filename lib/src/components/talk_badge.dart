@@ -66,8 +66,12 @@ class TalkBadge extends StatelessWidget {
     final isSingleChar = label.length == 1;
 
     final baseStyle = isSmall ? TalkTypography.labelSmall : TalkTypography.labelMedium;
-    // height: 1.0 消除段落行距，避免 Windows DirectWrite 字体度量差异导致文字在圆形容器内偏上
-    final textStyle = baseStyle.copyWith(color: Colors.white, height: 1.0);
+    final textStyle = baseStyle.copyWith(color: Colors.white);
+    // 数字字形无 descender，视觉重心偏上，上移 1px 补偿 even 行距留下的底部空白
+    Widget buildText(String text) => Transform.translate(
+          offset: const Offset(0, -1),
+          child: Text(text, style: textStyle),
+        );
 
     if (isSingleChar) {
       return Container(
@@ -75,7 +79,7 @@ class TalkBadge extends StatelessWidget {
         height: diameter,
         decoration: BoxDecoration(color: bg, shape: BoxShape.circle),
         alignment: Alignment.center,
-        child: Text(label, style: textStyle, textHeightBehavior: TalkTypography.fixedHeightBehavior),
+        child: buildText(label),
       );
     }
 
@@ -89,7 +93,7 @@ class TalkBadge extends StatelessWidget {
           horizontal: 4,
           vertical: isSmall ? 0 : 1,
         ),
-        child: Text(label, style: textStyle, textHeightBehavior: TalkTypography.fixedHeightBehavior),
+        child: buildText(label),
       ),
     );
   }
