@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talk_design/src/components/talk_loading_indicator.dart';
@@ -777,10 +779,37 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
   // left padding(12) + min gap(12) + arrow icon(14) + right padding(8)
   static const _fixedExtras = 12.0 + 12.0 + 14.0 + 8.0;
 
+  final _menuController = MenuController();
+  final _anchorKey = GlobalKey();
   bool _isOpen = false;
+  double _maxMenuHeight = 240;
 
   String get _selectedLabel =>
       widget.items.firstWhere((i) => i.value == widget.value).label;
+
+  void _updateMaxMenuHeight() {
+    final ctx = _anchorKey.currentContext;
+    if (ctx == null) return;
+    final box = ctx.findRenderObject() as RenderBox?;
+    if (box == null) return;
+    final pos = box.localToGlobal(Offset.zero);
+    final mq = MediaQuery.of(ctx);
+    final screenHeight = mq.size.height - mq.viewInsets.bottom;
+    const gap = 8.0; // menuAnchorOffset.dy
+    final spaceBelow = screenHeight - pos.dy - box.size.height - gap;
+    final spaceAbove = pos.dy - gap;
+    final newMax = max(spaceBelow, spaceAbove).clamp(80.0, double.infinity);
+    if ((newMax - _maxMenuHeight).abs() > 1) {
+      setState(() => _maxMenuHeight = newMax);
+    }
+  }
+
+  void _openMenu() {
+    _updateMaxMenuHeight();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && !_menuController.isOpen) _menuController.open();
+    });
+  }
 
   double _computeButtonWidth() {
     final tp = TextPainter(
@@ -797,9 +826,16 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
     final buttonWidth = _computeButtonWidth();
 
     return MenuAnchor(
+      key: _anchorKey,
+      controller: _menuController,
       onOpen: () => setState(() => _isOpen = true),
       onClose: () => setState(() => _isOpen = false),
       alignmentOffset: TalkMetrics.menuAnchorOffset,
+      style: MenuStyle(
+        maximumSize: WidgetStatePropertyAll(
+          Size(double.infinity, _maxMenuHeight),
+        ),
+      ),
       menuChildren: [
         for (final item in widget.items)
           _DropdownMenuItem(
@@ -810,7 +846,7 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
           ),
       ],
       builder: (context, controller, _) => GestureDetector(
-        onTap: controller.isOpen ? controller.close : controller.open,
+        onTap: controller.isOpen ? controller.close : _openMenu,
         child: Container(
           width: buttonWidth,
           height: 32,
