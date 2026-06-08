@@ -57,8 +57,8 @@ class TalkAvatarStatusItem extends StatelessWidget {
   /// 头像 Widget，由外部传入并控制尺寸和裁剪。
   final Widget avatar;
 
-  /// 联系人名称，主文本色，单行省略。
-  final String name;
+  /// 联系人名称 Widget。
+  final Widget name;
 
   /// 右上角时间戳文字，次要文本色。
   final String? timestamp;
@@ -96,14 +96,7 @@ class TalkAvatarStatusItem extends StatelessWidget {
                   // 名称行：名字（左）+ 时间戳（右） + 可能的未读角标（当无预览时）
                   Row(
                     children: [
-                      Expanded(
-                        child: Text(
-                          name,
-                          style: TalkTypography.bodyMedium,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+                      Expanded(child: name),
                       if (timestamp != null)
                         Padding(
                           padding: const EdgeInsets.only(left: 4),
@@ -181,8 +174,8 @@ class TalkAvatarButtonItem extends StatefulWidget {
   /// 头像 Widget，由外部控制尺寸与裁剪。
   final Widget avatar;
 
-  /// 主标题，主文本色，单行省略。
-  final String title;
+  /// 主标题 Widget。
+  final Widget title;
 
   /// 可选副标题，次要文本色，单行省略。
   final String? subtitle;
@@ -228,12 +221,7 @@ class _TalkAvatarButtonItemState extends State<TalkAvatarButtonItem> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.title,
-                          style: TalkTypography.bodyMedium,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        widget.title,
                         if (widget.subtitle != null) ...[
                           const SizedBox(height: 4),
                           Text(

@@ -9,8 +9,6 @@ Widget _wrap(Widget child) => MaterialApp(
       home: Scaffold(body: child),
     );
 
-const _themeColor = Color(0xFFFF2C55);
-const _textPrimary = Color(0xFF262626);
 const _textSecondary = Color(0xFFAAAAAA);
 
 void main() {
@@ -21,7 +19,7 @@ group('TalkAvatarStatusItem', () {
     await t.pumpWidget(_wrap(
       TalkAvatarStatusItem(
         avatar: const SizedBox.square(dimension: 32, child: ColoredBox(color: Colors.grey)),
-        name: 'Martha Walsh',
+        name: const Text('Martha Walsh'),
         preview: 'I sent a message.',
       ),
     ));
@@ -33,7 +31,7 @@ group('TalkAvatarStatusItem', () {
     await t.pumpWidget(_wrap(
       TalkAvatarStatusItem(
         avatar: const SizedBox.square(dimension: 32, child: ColoredBox(color: Colors.grey)),
-        name: 'Alice',
+        name: const Text('Alice'),
         timestamp: '09:30 AM',
       ),
     ));
@@ -44,33 +42,29 @@ testWidgets('badge shown when provided', (t) async {
     await t.pumpWidget(_wrap(
       TalkAvatarStatusItem(
         avatar: const SizedBox.square(dimension: 32, child: ColoredBox(color: Colors.grey)),
-        name: 'Carol',
+        name: const Text('Carol'),
         badge: const SizedBox.square(dimension: 16, child: ColoredBox(color: Colors.red, key: Key('badge'))),
       ),
     ));
     expect(find.byKey(const Key('badge')), findsOneWidget);
   });
 
-  testWidgets('name text is bodyMedium single-line ellipsis', (t) async {
+  testWidgets('name widget is rendered', (t) async {
     await t.pumpWidget(_wrap(
       TalkAvatarStatusItem(
         avatar: const SizedBox.square(dimension: 32, child: ColoredBox(color: Colors.grey)),
-        name: 'Dave',
+        name: const Text('Dave', key: Key('name')),
         preview: 'hello',
       ),
     ));
-    final nameWidget = t.widget<Text>(find.text('Dave'));
-    expect(nameWidget.style!.fontSize, 14);
-    expect(nameWidget.style!.fontWeight, FontWeight.w500);
-    expect(nameWidget.maxLines, 1);
-    expect(nameWidget.overflow, TextOverflow.ellipsis);
+    expect(find.byKey(const Key('name')), findsOneWidget);
   });
 
   testWidgets('preview text style is bodySmall with textSecondary color', (t) async {
     await t.pumpWidget(_wrap(
       TalkAvatarStatusItem(
         avatar: const SizedBox.square(dimension: 32, child: ColoredBox(color: Colors.grey)),
-        name: 'Eve',
+        name: const Text('Eve'),
         preview: 'some preview',
       ),
     ));
@@ -88,7 +82,7 @@ group('TalkAvatarButtonItem', () {
     await t.pumpWidget(_wrap(
       TalkAvatarButtonItem(
         avatar: const SizedBox.square(dimension: 32, child: ColoredBox(color: Colors.grey)),
-        title: 'Frank',
+        title: const Text('Frank'),
         buttonLabel: 'Follow',
         onButtonPressed: () {},
       ),
@@ -101,7 +95,7 @@ group('TalkAvatarButtonItem', () {
     await t.pumpWidget(_wrap(
       TalkAvatarButtonItem(
         avatar: const SizedBox.square(dimension: 32, child: ColoredBox(color: Colors.grey)),
-        title: 'Grace',
+        title: const Text('Grace'),
         subtitle: 'Last seen 5 min ago',
         buttonLabel: 'Add',
         onButtonPressed: () {},
@@ -114,7 +108,7 @@ group('TalkAvatarButtonItem', () {
     await t.pumpWidget(_wrap(
       TalkAvatarButtonItem(
         avatar: const SizedBox.square(dimension: 32, child: ColoredBox(color: Colors.grey)),
-        title: 'Hank',
+        title: const Text('Hank'),
         buttonLabel: 'OK',
         onButtonPressed: () {},
       ),
@@ -124,20 +118,16 @@ group('TalkAvatarButtonItem', () {
     expect(btn.label, 'OK');
   });
 
-  testWidgets('title is bodyMedium single-line ellipsis', (t) async {
+  testWidgets('title widget is rendered', (t) async {
     await t.pumpWidget(_wrap(
       TalkAvatarButtonItem(
         avatar: const SizedBox.square(dimension: 32, child: ColoredBox(color: Colors.grey)),
-        title: 'Iris',
+        title: const Text('Iris', key: Key('title')),
         buttonLabel: 'Act',
         onButtonPressed: () {},
       ),
     ));
-    final titleWidget = t.widget<Text>(find.text('Iris'));
-    expect(titleWidget.style!.fontSize, 14);
-    expect(titleWidget.style!.fontWeight, FontWeight.w500);
-    expect(titleWidget.maxLines, 1);
-    expect(titleWidget.overflow, TextOverflow.ellipsis);
+    expect(find.byKey(const Key('title')), findsOneWidget);
   });
 });
 

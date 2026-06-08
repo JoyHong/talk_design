@@ -24,7 +24,7 @@ class _ListPageState extends State<ListPage> {
           _Section(title: 'avatarListItem_status', children: [
             TalkAvatarStatusItem(
               avatar: _colorAvatar(Colors.blue),
-              name: 'Martha Walsh',
+              name: const Text('Martha Walsh'),
               timestamp: '09:30 AM',
               statusIcon: const Icon(Icons.videocam, size: 14, color: Color(0xFFAAAAAA)),
               preview: 'I sent a message.',
@@ -33,7 +33,7 @@ class _ListPageState extends State<ListPage> {
             ),
             TalkAvatarStatusItem(
               avatar: _colorAvatar(Colors.purple),
-              name: 'Very Long Name That Should Be Truncated By Ellipsis When Overflows',
+              name: const Text('Very Long Name That Should Be Truncated By Ellipsis When Overflows'),
               timestamp: '12:00 PM',
               preview: 'This is a very long preview message that exceeds the available width and should be truncated.',
               badge: _badge('99+'),
@@ -41,7 +41,7 @@ class _ListPageState extends State<ListPage> {
             ),
             TalkAvatarStatusItem(
               avatar: _colorAvatar(Colors.green),
-              name: 'Alice',
+              name: const Text('Alice'),
               onTap: () => _snack('Alice'),
             ),
           ]),
@@ -50,7 +50,7 @@ class _ListPageState extends State<ListPage> {
           _Section(title: 'avatarListItem_button', children: [
             TalkAvatarButtonItem(
               avatar: _colorAvatar(Colors.orange),
-              title: 'Bob Johnson',
+              title: const Text('Bob Johnson'),
               subtitle: 'I sent a message.',
               buttonLabel: '添加',
               onButtonPressed: () => _snack('按钮：添加'),
@@ -58,21 +58,21 @@ class _ListPageState extends State<ListPage> {
             ),
             TalkAvatarButtonItem(
               avatar: _colorAvatar(Colors.teal),
-              title: 'Long Name That Overflows The Available Space In Avatar Button Item',
+              title: const Text('Long Name That Overflows The Available Space In Avatar Button Item'),
               subtitle: 'Subtitle text that is also very long and will be truncated with ellipsis',
               buttonLabel: '已添加',
               onTap: () => _snack('Long Name'),
             ),
             TalkAvatarButtonItem(
               avatar: _colorAvatar(Colors.red),
-              title: 'Charlie',
+              title: const Text('Charlie'),
               buttonLabel: '关注',
               onButtonPressed: () => _snack('按钮：关注'),
               onTap: () => _snack('Charlie'),
             ),
             TalkAvatarButtonItem(
               avatar: _colorAvatar(Colors.blue),
-              title: 'Diana',
+              title: const Text('Diana'),
               subtitle: 'With button icon',
               buttonIcon: const Icon(Icons.add),
               buttonLabel: 'Add',
