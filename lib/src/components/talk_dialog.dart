@@ -70,7 +70,7 @@ Future<T?> showTalkDialog<T>({
   required String title,
   String? message,
   VoidCallback? onClose,
-  required String cancelLabel,
+  String? cancelLabel,
   VoidCallback? onCancel,
   required String confirmLabel,
   VoidCallback? onConfirm,
@@ -119,7 +119,7 @@ class _TalkDialogContent extends StatefulWidget {
     required this.title,
     this.message,
     this.onClose,
-    required this.cancelLabel,
+    this.cancelLabel,
     this.onCancel,
     required this.confirmLabel,
     this.onConfirm,
@@ -132,7 +132,7 @@ class _TalkDialogContent extends StatefulWidget {
   final String title;
   final String? message;
   final VoidCallback? onClose;
-  final String cancelLabel;
+  final String? cancelLabel;
   final VoidCallback? onCancel;
   final String confirmLabel;
   final VoidCallback? onConfirm;
@@ -284,7 +284,7 @@ class _TitleRow extends StatelessWidget {
 
 class _ButtonRow extends StatelessWidget {
   const _ButtonRow({
-    required this.cancelLabel,
+    this.cancelLabel,
     this.onCancel,
     required this.confirmLabel,
     this.onConfirm,
@@ -293,7 +293,7 @@ class _ButtonRow extends StatelessWidget {
     this.onConfirmDropdownSelected,
   });
 
-  final String cancelLabel;
+  final String? cancelLabel;
   final VoidCallback? onCancel;
   final String confirmLabel;
   final VoidCallback? onConfirm;
@@ -303,11 +303,15 @@ class _ButtonRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final showCancel = cancelLabel != null;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        TalkButton.strokeSecondaryCustom(label: cancelLabel, onPressed: onCancel),
-        const SizedBox(width: 12),
+        if (showCancel)
+          TalkButton.strokeSecondaryCustom(label: cancelLabel!, onPressed: onCancel),
+        if (showCancel)
+          const SizedBox(width: 12),
         if (confirmDropdownItems != null)
           _DialogSplitButton(
             label: confirmLabel,
