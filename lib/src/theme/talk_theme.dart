@@ -28,6 +28,7 @@ class TalkTheme {
       dialogTheme: DialogThemeData(
         barrierColor: TalkColors.light.dialogBarrier,
         elevation: 0,
+        insetPadding: const EdgeInsets.fromLTRB(40, 8, 40, 44),
       ),
       menuTheme: MenuThemeData(
         style: MenuStyle(
