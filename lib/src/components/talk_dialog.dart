@@ -90,11 +90,9 @@ Future<T?> showTalkDialog<T>({
   );
   return showDialog<T>(
     context: context,
-    barrierColor: Colors.black54,
     barrierDismissible: barrierDismissible,
     builder: (_) => Dialog(
       backgroundColor: Colors.transparent,
-      elevation: 0,
       child: _TalkDialogContent(
         title: title,
         message: message,

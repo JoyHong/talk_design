@@ -23,6 +23,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
     required this.buttonBlock,
     required this.listCardMenuHovered,
     required this.listCardMenuPressed,
+    required this.dialogBarrier,
     required this.success,
     required this.redDotError,
   });
@@ -47,6 +48,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
   final Color buttonBlock;
   final Color listCardMenuHovered;  // #999999 @ 10%
   final Color listCardMenuPressed;   // #999999 @ 20%
+  final Color dialogBarrier;
   final Color success;
   final Color redDotError;
 
@@ -72,6 +74,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
     buttonBlock: Color(0xFFFFFFFF),
     listCardMenuHovered: Color(0x1A999999),
     listCardMenuPressed: Color(0x33999999),
+    dialogBarrier: Color(0x80000000),
     success: Color(0xFF39DB0C),
     redDotError: Color(0xFFFF3A2E),
   );
@@ -98,6 +101,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
     Color? buttonBlock,
     Color? listCardMenuHovered,
     Color? listCardMenuPressed,
+    Color? dialogBarrier,
     Color? success,
     Color? redDotError,
   }) =>
@@ -122,6 +126,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
         buttonBlock: buttonBlock ?? this.buttonBlock,
         listCardMenuHovered: listCardMenuHovered ?? this.listCardMenuHovered,
         listCardMenuPressed: listCardMenuPressed ?? this.listCardMenuPressed,
+        dialogBarrier: dialogBarrier ?? this.dialogBarrier,
         success: success ?? this.success,
         redDotError: redDotError ?? this.redDotError,
       );
@@ -150,6 +155,7 @@ class TalkColors extends ThemeExtension<TalkColors> {
       buttonBlock: Color.lerp(buttonBlock, other.buttonBlock, t)!,
       listCardMenuHovered: Color.lerp(listCardMenuHovered, other.listCardMenuHovered, t)!,
       listCardMenuPressed: Color.lerp(listCardMenuPressed, other.listCardMenuPressed, t)!,
+      dialogBarrier: Color.lerp(dialogBarrier, other.dialogBarrier, t)!,
       success: Color.lerp(success, other.success, t)!,
       redDotError: Color.lerp(redDotError, other.redDotError, t)!,
     );

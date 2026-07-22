@@ -25,6 +25,10 @@ class TalkTheme {
         // Material 将 bodyMedium 设为 DefaultTextStyle，覆盖此颜色使无显式 color 的 Text 默认呈现 textPrimary
         bodyMedium: base.textTheme.bodyMedium!.copyWith(color: TalkColors.light.textPrimary),
       ),
+      dialogTheme: DialogThemeData(
+        barrierColor: TalkColors.light.dialogBarrier,
+        elevation: 0,
+      ),
       menuTheme: MenuThemeData(
         style: MenuStyle(
           backgroundColor: WidgetStatePropertyAll(TalkColors.light.listDialogBox),
