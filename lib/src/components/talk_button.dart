@@ -383,7 +383,7 @@ class TalkButton extends StatelessWidget {
           return Colors.white;
         }),
         overlayColor: WidgetStateProperty.resolveWith((s) {
-          if (s.contains(WidgetState.pressed)) return Colors.white24;
+          if (s.contains(WidgetState.pressed)) return const Color(0x1A000000);
           if (s.contains(WidgetState.hovered)) return Colors.white12;
           return Colors.transparent;
         }),
@@ -424,7 +424,7 @@ class TalkButton extends StatelessWidget {
         return customColor ?? Colors.white;
       }),
       overlayColor: WidgetStateProperty.resolveWith((s) {
-        if (s.contains(WidgetState.pressed)) return Colors.white24;
+        if (s.contains(WidgetState.pressed)) return const Color(0x1A000000);
         if (s.contains(WidgetState.hovered)) return Colors.white12;
         return Colors.transparent;
       }),
