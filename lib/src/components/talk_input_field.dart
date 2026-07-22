@@ -380,6 +380,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
   late FocusNode _focusNode;
   bool _isOpen = false;
   List<String> _filtered = const [];
+  String _filterQuery = '';
   double _maxMenuHeight = 240;
 
   @override
@@ -388,6 +389,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
     _controller = widget.controller ?? TextEditingController();
     _focusNode = widget.focusNode ?? FocusNode();
     final q = _controller.text.toLowerCase();
+    _filterQuery = _controller.text;
     _filtered = q.isEmpty
         ? widget.items
         : widget.items.where((item) => item.toLowerCase().contains(q)).toList();
@@ -417,6 +419,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
   void _applyFilter(String query) {
     final q = query.toLowerCase();
     setState(() {
+      _filterQuery = query;
       _filtered = q.isEmpty
           ? widget.items
           : widget.items.where((item) => item.toLowerCase().contains(q)).toList();
@@ -442,7 +445,8 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
     }
   }
 
-  void _openMenu() {
+  void _openMenu({bool showAllItems = false}) {
+    if (showAllItems) _applyFilter('');
     _updateMaxMenuHeight();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted && !_menuController.isOpen) _menuController.open();
@@ -480,7 +484,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
   Widget build(BuildContext context) {
     final colors = context.talkColors;
     final icons = context.talkIcons;
-    final query = _controller.text;
+    final query = _filterQuery;
 
     return LayoutBuilder(
       key: _anchorKey,
@@ -530,7 +534,9 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
             suffixIcon: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
-                onTap: () => _menuController.isOpen ? _menuController.close() : _openMenu(),
+                onTap: () => _menuController.isOpen
+                    ? _menuController.close()
+                    : _openMenu(showAllItems: true),
                 child: Padding(
                   padding: const EdgeInsets.only(right: 16),
                   child: AnimatedRotation(
@@ -550,8 +556,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
           ),
           onChanged: _onTextChanged,
           onTap: () {
-            _applyFilter(_controller.text);
-            _openMenu();
+            _openMenu(showAllItems: true);
           },
         ),
       ),
