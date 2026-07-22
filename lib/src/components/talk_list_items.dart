@@ -49,6 +49,7 @@ class TalkAvatarStatusItem extends StatelessWidget {
     this.timestamp,
     this.statusIcon,
     this.preview,
+    this.previewColor,
     this.badge,
     this.onTap,
     super.key,
@@ -68,6 +69,9 @@ class TalkAvatarStatusItem extends StatelessWidget {
 
   /// 消息预览文字，次要文本色，单行省略。
   final String? preview;
+
+  /// 消息预览文字颜色；未传时使用次要文本色。
+  final Color? previewColor;
 
   /// 未读角标 Widget，由外部控制尺寸。
   final Widget? badge;
@@ -128,7 +132,7 @@ class TalkAvatarStatusItem extends StatelessWidget {
                           child: Text(
                             preview ?? '',
                             style: TalkTypography.bodySmall
-                                .copyWith(color: colors.textSecondary),
+                                .copyWith(color: previewColor ?? colors.textSecondary),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
