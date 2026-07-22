@@ -377,6 +377,7 @@ class TalkDropdownTextField extends StatefulWidget {
 class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
   final _menuController = MenuController();
   final _anchorKey = GlobalKey();
+  final _selectedItemKey = GlobalKey();
   late TextEditingController _controller;
   late FocusNode _focusNode;
   bool _isOpen = false;
@@ -453,7 +454,16 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
     if (showAllItems) _applyFilter('');
     _updateMaxMenuHeight();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted && !_menuController.isOpen) _menuController.open();
+      if (!mounted || _menuController.isOpen) return;
+      _menuController.open();
+      if (showAllItems) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final context = _selectedItemKey.currentContext;
+          if (context != null) {
+            Scrollable.ensureVisible(context, alignment: 1);
+          }
+        });
+      }
     });
   }
 
@@ -513,6 +523,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
             SizedBox(
               width: constraints.maxWidth.isFinite ? constraints.maxWidth : null,
               child: _FilterMenuItem(
+                key: _filtered[i] == _controller.text ? _selectedItemKey : null,
                 label: _filtered[i],
                 query: query,
                 isSelected: _filtered[i] == _controller.text,
@@ -571,6 +582,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
 
 class _FilterMenuItem extends StatelessWidget {
   const _FilterMenuItem({
+    super.key,
     required this.label,
     required this.query,
     required this.isSelected,
