@@ -13,6 +13,7 @@ import 'talk_loading_indicator.dart';
 
 const double _kRadius = 10.0;
 const double _kSearchRadius = 28.0;
+const double _kDropdownMenuMaxHeight = 368.0;
 const BoxConstraints _kIconConstraints = BoxConstraints(minWidth: 0, minHeight: 0);
 
 OutlineInputBorder _border(double radius) => OutlineInputBorder(
@@ -439,7 +440,10 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
     const gap = 8.0; // menuAnchorOffset.dy
     final spaceBelow = screenHeight - pos.dy - box.size.height - gap;
     final spaceAbove = pos.dy - gap;
-    final newMax = max(spaceBelow, spaceAbove).clamp(80.0, double.infinity);
+    final newMax = min(
+      max(spaceBelow, spaceAbove),
+      _kDropdownMenuMaxHeight,
+    ).clamp(80.0, _kDropdownMenuMaxHeight).toDouble();
     if ((newMax - _maxMenuHeight).abs() > 1) {
       setState(() => _maxMenuHeight = newMax);
     }
