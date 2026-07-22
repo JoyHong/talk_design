@@ -351,9 +351,12 @@ class _DialogSplitButton extends StatefulWidget {
 }
 
 class _DialogSplitButtonState extends State<_DialogSplitButton> {
+  final _menuController = MenuController();
+  final _anchorKey = GlobalKey();
   bool _isOpen = false;
   bool _isLeftHovered = false;
   bool _isLeftPressed = false;
+  double? _measuredButtonWidth;
 
   Color get _leftOverlay {
     if (_isLeftPressed) return Colors.white24;
@@ -361,24 +364,82 @@ class _DialogSplitButtonState extends State<_DialogSplitButton> {
     return Colors.transparent;
   }
 
+  double _textWidth(BuildContext context, String text) {
+    final painter = TextPainter(
+      text: TextSpan(text: text, style: TalkTypography.bodyMedium),
+      textDirection: Directionality.of(context),
+      maxLines: 1,
+    )..layout();
+    return painter.width;
+  }
+
+  double _buttonWidth(BuildContext context) {
+    final actionWidth = (_textWidth(context, widget.label) + 24).clamp(
+      75.0,
+      double.infinity,
+    );
+    return actionWidth + 1 + 32;
+  }
+
+  double _menuWidth(BuildContext context) {
+    final widestLabel = widget.dropdownItems
+        .map((item) => _textWidth(context, item))
+        .fold<double>(0, (widest, width) => width > widest ? width : widest);
+    return (widestLabel + 28).clamp(112.0, 280.0);
+  }
+
+  void _toggleMenu() {
+    if (_menuController.isOpen) {
+      _menuController.close();
+      return;
+    }
+    final box = _anchorKey.currentContext?.findRenderObject() as RenderBox?;
+    setState(() => _measuredButtonWidth = box?.size.width);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && !_menuController.isOpen) _menuController.open();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeColor = context.talkColors.theme;
     final icons = context.talkIcons;
     final isLoading = widget.isLoading;
+    final menuWidth = _menuWidth(context);
+    final menuOffsetX =
+        (_measuredButtonWidth ?? _buttonWidth(context)) - menuWidth;
 
     return MenuAnchor(
+      controller: _menuController,
       onOpen: () => setState(() => _isOpen = true),
       onClose: () => setState(() => _isOpen = false),
-      alignmentOffset: TalkMetrics.menuAnchorOffset,
+      alignmentOffset: Offset(menuOffsetX, TalkMetrics.menuAnchorOffset.dy),
+      style: MenuStyle(
+        alignment: AlignmentDirectional.bottomStart,
+        padding: const WidgetStatePropertyAll(
+          EdgeInsets.symmetric(vertical: 4),
+        ),
+        minimumSize: WidgetStatePropertyAll(Size(menuWidth, 0)),
+        fixedSize: WidgetStatePropertyAll(Size.fromWidth(menuWidth)),
+        maximumSize:
+            WidgetStatePropertyAll(Size(menuWidth, double.infinity)),
+      ),
       menuChildren: [
         for (final item in widget.dropdownItems)
           MenuItemButton(
             onPressed: () => widget.onDropdownSelected?.call(item),
+            style: MenuItemButton.styleFrom(
+              padding: const EdgeInsets.only(left: 12, right: 16),
+              fixedSize: Size(menuWidth, 36),
+              textStyle: TalkTypography.bodyMedium,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              alignment: Alignment.centerLeft,
+            ),
             child: Text(item),
           ),
       ],
-      builder: (context, controller, _) => Stack(
+      builder: (context, _, _) => Stack(
+        key: _anchorKey,
         children: [
           Container(
             height: 36,
@@ -422,7 +483,7 @@ class _DialogSplitButtonState extends State<_DialogSplitButton> {
                   ),
                   // 右侧：下拉箭头区
                   GestureDetector(
-                    onTap: controller.isOpen ? controller.close : controller.open,
+                    onTap: _toggleMenu,
                     child: Container(
                       height: 36,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
