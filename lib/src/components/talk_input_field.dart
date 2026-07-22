@@ -511,6 +511,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
               child: _FilterMenuItem(
                 label: _filtered[i],
                 query: query,
+                isSelected: _filtered[i] == _controller.text,
                 onPressed: () => _onSelect(_filtered[i]),
               ),
             ),
@@ -568,11 +569,13 @@ class _FilterMenuItem extends StatelessWidget {
   const _FilterMenuItem({
     required this.label,
     required this.query,
+    required this.isSelected,
     required this.onPressed,
   });
 
   final String label;
   final String query;
+  final bool isSelected;
   final VoidCallback onPressed;
 
   @override
@@ -580,7 +583,18 @@ class _FilterMenuItem extends StatelessWidget {
     final colors = context.talkColors;
     return MenuItemButton(
       onPressed: onPressed,
-      child: _buildText(label, query, colors),
+      child: Row(
+        children: [
+          Expanded(child: _buildText(label, query, colors)),
+          if (isSelected)
+            SvgPicture.asset(
+              context.talkIcons.check,
+              width: 16,
+              height: 16,
+              colorFilter: ColorFilter.mode(colors.theme, BlendMode.srcIn),
+            ),
+        ],
+      ),
     );
   }
 
