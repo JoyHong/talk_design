@@ -13,6 +13,7 @@ import 'talk_loading_indicator.dart';
 
 const double _kRadius = 10.0;
 const double _kSearchRadius = 28.0;
+const double _kDropdownMenuMaxHeight = 368.0;
 const BoxConstraints _kIconConstraints = BoxConstraints(minWidth: 0, minHeight: 0);
 
 OutlineInputBorder _border(double radius) => OutlineInputBorder(
@@ -376,10 +377,12 @@ class TalkDropdownTextField extends StatefulWidget {
 class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
   final _menuController = MenuController();
   final _anchorKey = GlobalKey();
+  final _selectedItemKey = GlobalKey();
   late TextEditingController _controller;
   late FocusNode _focusNode;
   bool _isOpen = false;
   List<String> _filtered = const [];
+  String _filterQuery = '';
   double _maxMenuHeight = 240;
 
   @override
@@ -388,6 +391,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
     _controller = widget.controller ?? TextEditingController();
     _focusNode = widget.focusNode ?? FocusNode();
     final q = _controller.text.toLowerCase();
+    _filterQuery = _controller.text;
     _filtered = q.isEmpty
         ? widget.items
         : widget.items.where((item) => item.toLowerCase().contains(q)).toList();
@@ -417,6 +421,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
   void _applyFilter(String query) {
     final q = query.toLowerCase();
     setState(() {
+      _filterQuery = query;
       _filtered = q.isEmpty
           ? widget.items
           : widget.items.where((item) => item.toLowerCase().contains(q)).toList();
@@ -436,16 +441,29 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
     const gap = 8.0; // menuAnchorOffset.dy
     final spaceBelow = screenHeight - pos.dy - box.size.height - gap;
     final spaceAbove = pos.dy - gap;
-    final newMax = max(spaceBelow, spaceAbove).clamp(80.0, double.infinity);
+    final newMax = min(
+      max(spaceBelow, spaceAbove),
+      _kDropdownMenuMaxHeight,
+    ).clamp(80.0, _kDropdownMenuMaxHeight).toDouble();
     if ((newMax - _maxMenuHeight).abs() > 1) {
       setState(() => _maxMenuHeight = newMax);
     }
   }
 
-  void _openMenu() {
+  void _openMenu({bool showAllItems = false}) {
+    if (showAllItems) _applyFilter('');
     _updateMaxMenuHeight();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted && !_menuController.isOpen) _menuController.open();
+      if (!mounted || _menuController.isOpen) return;
+      _menuController.open();
+      if (showAllItems) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final context = _selectedItemKey.currentContext;
+          if (context != null) {
+            Scrollable.ensureVisible(context, alignment: 1);
+          }
+        });
+      }
     });
   }
 
@@ -480,7 +498,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
   Widget build(BuildContext context) {
     final colors = context.talkColors;
     final icons = context.talkIcons;
-    final query = _controller.text;
+    final query = _filterQuery;
 
     return LayoutBuilder(
       key: _anchorKey,
@@ -505,8 +523,10 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
             SizedBox(
               width: constraints.maxWidth.isFinite ? constraints.maxWidth : null,
               child: _FilterMenuItem(
+                key: _filtered[i] == _controller.text ? _selectedItemKey : null,
                 label: _filtered[i],
                 query: query,
+                isSelected: _filtered[i] == _controller.text,
                 onPressed: () => _onSelect(_filtered[i]),
               ),
             ),
@@ -530,7 +550,9 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
             suffixIcon: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
-                onTap: () => _menuController.isOpen ? _menuController.close() : _openMenu(),
+                onTap: () => _menuController.isOpen
+                    ? _menuController.close()
+                    : _openMenu(showAllItems: true),
                 child: Padding(
                   padding: const EdgeInsets.only(right: 16),
                   child: AnimatedRotation(
@@ -550,8 +572,7 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
           ),
           onChanged: _onTextChanged,
           onTap: () {
-            _applyFilter(_controller.text);
-            _openMenu();
+            _openMenu(showAllItems: true);
           },
         ),
       ),
@@ -561,13 +582,16 @@ class _TalkDropdownTextFieldState extends State<TalkDropdownTextField> {
 
 class _FilterMenuItem extends StatelessWidget {
   const _FilterMenuItem({
+    super.key,
     required this.label,
     required this.query,
+    required this.isSelected,
     required this.onPressed,
   });
 
   final String label;
   final String query;
+  final bool isSelected;
   final VoidCallback onPressed;
 
   @override
@@ -575,7 +599,18 @@ class _FilterMenuItem extends StatelessWidget {
     final colors = context.talkColors;
     return MenuItemButton(
       onPressed: onPressed,
-      child: _buildText(label, query, colors),
+      child: Row(
+        children: [
+          Expanded(child: _buildText(label, query, colors)),
+          if (isSelected)
+            SvgPicture.asset(
+              context.talkIcons.check,
+              width: 16,
+              height: 16,
+              colorFilter: ColorFilter.mode(colors.theme, BlendMode.srcIn),
+            ),
+        ],
+      ),
     );
   }
 

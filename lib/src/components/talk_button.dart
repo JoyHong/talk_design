@@ -383,7 +383,7 @@ class TalkButton extends StatelessWidget {
           return Colors.white;
         }),
         overlayColor: WidgetStateProperty.resolveWith((s) {
-          if (s.contains(WidgetState.pressed)) return Colors.white24;
+          if (s.contains(WidgetState.pressed)) return const Color(0x1A000000);
           if (s.contains(WidgetState.hovered)) return Colors.white12;
           return Colors.transparent;
         }),
@@ -424,7 +424,7 @@ class TalkButton extends StatelessWidget {
         return customColor ?? Colors.white;
       }),
       overlayColor: WidgetStateProperty.resolveWith((s) {
-        if (s.contains(WidgetState.pressed)) return Colors.white24;
+        if (s.contains(WidgetState.pressed)) return const Color(0x1A000000);
         if (s.contains(WidgetState.hovered)) return Colors.white12;
         return Colors.transparent;
       }),
@@ -845,42 +845,53 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
             onPressed: () => widget.onChanged(item.value),
           ),
       ],
-      builder: (context, controller, _) => GestureDetector(
-        onTap: controller.isOpen ? controller.close : _openMenu,
-        child: Container(
-          width: buttonWidth,
-          height: 32,
-          decoration: BoxDecoration(
-            color: _buttonBg,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          padding: const EdgeInsets.only(left: 12, right: 8, top: 6, bottom: 6),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  _selectedLabel,
-                  style: TalkTypography.bodyMedium,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  textHeightBehavior: TalkTypography.fixedHeightBehavior,
-                ),
+      builder: (context, controller, _) => Material(
+        color: _buttonBg,
+        borderRadius: BorderRadius.circular(8),
+        child: InkWell(
+          onTap: controller.isOpen ? controller.close : _openMenu,
+          borderRadius: BorderRadius.circular(8),
+          hoverColor: const Color(0x1A999999),
+          highlightColor: const Color(0x33999999),
+          splashColor: Colors.transparent,
+          child: SizedBox(
+            width: buttonWidth,
+            height: 32,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 12,
+                right: 8,
+                top: 6,
+                bottom: 6,
               ),
-              const SizedBox(width: 12),
-              AnimatedRotation(
-                turns: _isOpen ? 0.5 : 0,
-                duration: const Duration(milliseconds: 150),
-                child: SvgPicture.asset(
-                  context.talkIcons.arrowDown,
-                  width: 14,
-                  height: 14,
-                  colorFilter: ColorFilter.mode(
-                    context.talkColors.textSecondary,
-                    BlendMode.srcIn,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      _selectedLabel,
+                      style: TalkTypography.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      textHeightBehavior: TalkTypography.fixedHeightBehavior,
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 12),
+                  AnimatedRotation(
+                    turns: _isOpen ? 0.5 : 0,
+                    duration: const Duration(milliseconds: 150),
+                    child: SvgPicture.asset(
+                      context.talkIcons.arrowDown,
+                      width: 14,
+                      height: 14,
+                      colorFilter: ColorFilter.mode(
+                        context.talkColors.textSecondary,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
