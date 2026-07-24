@@ -776,6 +776,7 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
   static const _buttonBg = Color(0x1449454F);
   static const _minWidth = 130.0;
   static const _maxWidth = 200.0;
+  static const _maxMenuHeightLimit = 280.0;
   // left padding(12) + min gap(12) + arrow icon(14) + right padding(8)
   static const _fixedExtras = 12.0 + 12.0 + 14.0 + 8.0;
 
@@ -798,7 +799,11 @@ class _TalkDropdownButtonState<T> extends State<TalkDropdownButton<T>> {
     const gap = 8.0; // menuAnchorOffset.dy
     final spaceBelow = screenHeight - pos.dy - box.size.height - gap;
     final spaceAbove = pos.dy - gap;
-    final newMax = max(spaceBelow, spaceAbove).clamp(80.0, double.infinity);
+    final availableSpace = spaceBelow >= 80.0 ? spaceBelow : spaceAbove;
+    final newMax = min(
+      availableSpace,
+      _maxMenuHeightLimit,
+    ).clamp(80.0, _maxMenuHeightLimit).toDouble();
     if ((newMax - _maxMenuHeight).abs() > 1) {
       setState(() => _maxMenuHeight = newMax);
     }
